@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   title: "Web UI",
   description:
-    "Well abstracted components using latest HTML & CSS capabilities.",
+    "Well-abstracted components that leverage the latest capabilities of the web platform.",
   vite: {
     plugins: [tailwindcss()],
   },
