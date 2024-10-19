@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "vue";
-import { oneOf } from "../utils";
+import { computed } from 'vue';
+import { oneOf } from '../utils';
 
 const {
   variant,
@@ -9,37 +9,37 @@ const {
 } = defineProps({
   href: {
     type: String,
-    default: "",
+    default: '',
   },
 
   class: {
     type: String,
-    default: "",
+    default: '',
   },
 
   variant: {
     type: String,
-    default: "inverse",
-    validator: oneOf(["inverse", "adaptive", "light", "plain"]),
+    default: 'inverse',
+    validator: oneOf(['inverse', 'adaptive', 'light', 'plain']),
   },
 });
 
 const containerClass =
-  "inline-flex items-center justify-center gap-x-2 text-base/6 sm:text-sm/6";
+  'inline-flex items-center justify-center gap-x-2 text-base/6 sm:text-sm/6';
 
 const styles = {
   base: [
     // Base
-    "relative group isolate rounded-full border font-semibold",
+    'relative group isolate rounded-full border font-semibold',
     // Sizing
-    "px-5 py-1.5 sm:px-7 sm:py-1.5",
+    'px-5 py-1.5 sm:px-7 sm:py-1.5',
     // Focus
-    "focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 dark:focus-visible:outline-yellow-700",
+    'focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 dark:focus-visible:outline-yellow-700',
     // TODO: Hover
-    "hover:after:absolute hover:after:inset-px hover:after:rounded-full hover:after:opacity-100 after:opacity-0 after:duration-200 hover:after:transition-opacity",
+    'hover:after:absolute hover:after:inset-px hover:after:rounded-full hover:after:opacity-100 after:opacity-0 after:duration-200 hover:after:transition-opacity',
     // TODO: Visited
     // Disabled
-    "disabled:opacity-50 disabled:pointer-events-none",
+    'disabled:opacity-50 disabled:pointer-events-none',
     // Icon
     // '[&>span>[data-slot=icon]]:-mx-0.5 [&>span>[data-slot=icon]]:my-0.5 [&>span>[data-slot=icon]]:size-5 [&>span>[data-slot=icon]]:shrink-0 [&>span>[data-slot=icon]]:sm:my-1 [&>span>[data-slot=icon]]:sm:size-4',
   ],
@@ -69,60 +69,60 @@ const styles = {
   // ],
   plain: [
     // Base
-    "border-transparent",
+    'border-transparent',
 
     // Dark mode
-    "dark:text-zinc-100 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)] dark:active:top-px",
+    'dark:text-zinc-100 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)] dark:active:top-px',
 
     // Hover
-    "hover:after:bg-white/40 dark:hover:after:bg-white/5",
+    'hover:after:bg-white/40 dark:hover:after:bg-white/5',
 
     // Active
-    "active:top-px active:shadow-inner",
+    'active:top-px active:shadow-inner',
   ],
 
   outline: [
     // Dark mode
-    "dark:text-zinc-100 dark:border-zinc-700 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)]",
+    'dark:text-zinc-100 dark:border-zinc-700 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)]',
 
     // Active
-    "active:shadow-inner",
+    'active:shadow-inner',
 
     // Hover
-    "hover:after:bg-white/30 dark:hover:after:bg-white/5",
+    'hover:after:bg-white/30 dark:hover:after:bg-white/5',
   ],
 
   inverse: [
     // Base
-    "border-zinc-600 text-zinc-100 bg-zinc-800 shadow-[shadow:inset_0_1px_theme(colors.white/20%),inset_0_-2px_theme(colors.black)]",
+    'border-zinc-600 text-zinc-100 bg-zinc-800 shadow-[shadow:inset_0_1px_theme(colors.white/20%),inset_0_-2px_theme(colors.black)]',
     // Dark mode
-    "dark:text-zinc-950 dark:bg-zinc-100 dark:border-zinc-900 dark:shadow-[shadow:inset_0_2px_theme(colors.white),inset_0_-1px_theme(colors.black/30%)]",
+    'dark:text-zinc-950 dark:bg-zinc-100 dark:border-zinc-900 dark:shadow-[shadow:inset_0_2px_theme(colors.white),inset_0_-1px_theme(colors.black/30%)]',
     // Hover
-    "hover:after:bg-white/10 dark:hover:after:bg-white/40",
+    'hover:after:bg-white/10 dark:hover:after:bg-white/40',
     // Active
-    "active:shadow-[shadow:inset_0_2px_theme(colors.black),inset_0_-1px_theme(colors.white/20%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/30%),inset_0_-2px_theme(colors.white)]",
+    'active:shadow-[shadow:inset_0_2px_theme(colors.black),inset_0_-1px_theme(colors.white/20%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/30%),inset_0_-2px_theme(colors.white)]',
   ],
 
   adaptive: [
     // Base
-    "text-zinc-900 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white),inset_0_-1px_theme(colors.black/20%)]",
+    'text-zinc-900 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white),inset_0_-1px_theme(colors.black/20%)]',
     // Dark mode
-    "dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/90%)] dark:bg-zinc-900",
+    'dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/90%)] dark:bg-zinc-900',
     // Hover
-    "hover:after:bg-white/30 dark:hover:after:bg-white/5",
+    'hover:after:bg-white/30 dark:hover:after:bg-white/5',
     // Active
-    "active:top-px active:shadow-[shadow:inset_0_1px_theme(colors.black/10%),inset_0_-1px_theme(colors.white)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/5%)]",
+    'active:top-px active:shadow-[shadow:inset_0_1px_theme(colors.black/10%),inset_0_-1px_theme(colors.white)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/5%)]',
   ],
 
   light: [
     // Base
-    "text-zinc-800 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white/30%),inset_0_-1px_theme(colors.black/40%)]",
+    'text-zinc-800 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white/30%),inset_0_-1px_theme(colors.black/40%)]',
     // Dark mode
-    "dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/40%)] dark:bg-zinc-600",
+    'dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/40%)] dark:bg-zinc-600',
     // Active
-    "active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/30%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/7%)]",
+    'active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/30%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/7%)]',
     // Hover
-    "hover:after:bg-white/30 dark:hover:after:bg-white/10",
+    'hover:after:bg-white/30 dark:hover:after:bg-white/10',
   ],
 };
 

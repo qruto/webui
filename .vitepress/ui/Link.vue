@@ -12,7 +12,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { isExternal } from '../utils'
+import { isExternal } from '../utils';
 
 const props = defineProps({
   tag: {
@@ -34,7 +34,4 @@ const props = defineProps({
 });
 
 const tag = computed(() => props.tag || (props.href ? 'a' : 'span'));
-const isExternal = computed(
-  () => (props.href && isExternal(props.href)) || props.target === '_blank',
-);
 </script>

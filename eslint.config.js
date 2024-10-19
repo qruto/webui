@@ -16,4 +16,15 @@ export default [
   js.configs.recommended,
   ...pluginVue.configs['flat/strongly-recommended'],
   skipFormatting,
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['Details', 'Button', 'Link', 'Layout'],
+        },
+      ],
+    },
+  },
 ];

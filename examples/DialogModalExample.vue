@@ -1,22 +1,22 @@
 <script setup>
-import { ref, useTemplateRef } from "vue";
+import { ref, useTemplateRef } from 'vue';
 
-import { DialogModal, CloseButton } from "../.vitepress/ui/DialogModal";
+import { DialogModal, CloseButton } from '../.vitepress/ui/DialogModal';
 
 const open = ref(false);
-const dialog = useTemplateRef("dialog");
+const dialog = useTemplateRef('dialog');
 
-function close(e) {
+function close() {
   open.value = false;
 }
 
 const classes = [
-  "mx-2 mb-0 translate-y-full",
-  "rounded-t-2xl opacity-100 open:translate-y-0 open:opacity-100 backdrop:open:bg-black/40",
-  "sm:mx-auto sm:mb-auto sm:rounded-2xl",
-  "sm:opacity-0 sm:[@starting-style]:open:opacity-0 sm:open:translate-x-0 sm:-translate-x-full sm:translate-y-full sm:translate-x-0 sm:[@starting-style]:open:-translate-x-full sm:[@starting-style]:open:translate-y-0",
-  "[@starting-style]:open:translate-y-full [@starting-style]:backdrop:open:bg-black/0",
-  "",
+  'mx-2 mb-0 translate-y-full',
+  'rounded-t-2xl opacity-100 open:translate-y-0 open:opacity-100 backdrop:open:bg-black/40',
+  'sm:mx-auto sm:mb-auto sm:rounded-2xl',
+  'sm:opacity-0 sm:[@starting-style]:open:opacity-0 sm:open:translate-x-0 sm:-translate-x-full sm:translate-y-full sm:translate-x-0 sm:[@starting-style]:open:-translate-x-full sm:[@starting-style]:open:translate-y-0',
+  '[@starting-style]:open:translate-y-full [@starting-style]:backdrop:open:bg-black/0',
+  '',
 ];
 </script>
 

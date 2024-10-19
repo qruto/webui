@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "",
   "license": "MIT",
+  "type": "module",
 
   "scripts": {
     "dev": "vitepress dev",

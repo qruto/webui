@@ -12,16 +12,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue';
 
 defineProps({
   summaryClass: {
     type: String,
-    default: "",
+    default: '',
   },
 });
 
-const emit = defineEmits(["toggle"]);
+const emit = defineEmits(['toggle']);
 
 const details = ref();
 const summary = ref();
@@ -31,7 +31,7 @@ const open = ref(false);
 onMounted(() => (open.value = details.value.open));
 
 function toggle(e) {
-  emit("toggle", e);
+  emit('toggle', e);
 
   open.value = e.target.open;
 }

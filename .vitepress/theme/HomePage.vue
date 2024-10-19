@@ -1,7 +1,5 @@
 <script setup>
-import { useData } from "vitepress";
-import ComponentExample from "./ComponentExample.vue";
-const { site } = useData();
+import ComponentExample from './ComponentExample.vue';
 </script>
 <template>
   <header>Web UI</header>

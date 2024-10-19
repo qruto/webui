@@ -1,6 +1,6 @@
 <script setup>
-import { oneOf } from "../../utils";
-import Button from "../Button.vue";
+import { oneOf } from '../../utils';
+import Button from '../Button.vue';
 
 const {
   variant,
@@ -11,8 +11,8 @@ const {
 } = defineProps({
   variant: {
     type: String,
-    default: "inverse",
-    validator: oneOf(["inverse", "adaptive", "light", "plain"]),
+    default: 'inverse',
+    validator: oneOf(['inverse', 'adaptive', 'light', 'plain']),
   },
 
   autofocus: {
@@ -22,7 +22,7 @@ const {
 
   value: {
     type: String,
-    default: "",
+    default: '',
   },
 
   disabled: {
@@ -32,7 +32,7 @@ const {
 
   class: {
     type: String,
-    default: "",
+    default: '',
   },
 });
 </script>

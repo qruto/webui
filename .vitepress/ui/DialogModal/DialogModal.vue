@@ -1,5 +1,12 @@
 <script setup>
-import { computed, nextTick, ref, watch, watchEffect, watchPostEffect } from 'vue';
+import {
+  computed,
+  nextTick,
+  ref,
+  watch,
+  watchEffect,
+  watchPostEffect,
+} from 'vue';
 
 const { open, blocking, outsideClose } = defineProps({
   open: {
@@ -52,7 +59,7 @@ watchPostEffect(() => {
 const firstFocusable = ref();
 const navigating = ref(false);
 
-watch(navigating, (value) => {
+watch(navigating, value => {
   if (!value) {
     return;
   }

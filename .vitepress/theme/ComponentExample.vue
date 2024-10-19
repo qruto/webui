@@ -7,8 +7,6 @@
 </template>
 
 <script setup>
-import { oneOf, query } from "../utils";
-
 defineProps({
   component: {
     type: String,
