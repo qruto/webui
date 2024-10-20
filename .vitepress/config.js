@@ -8,6 +8,6 @@ export default defineConfig({
   description:
     'Well-abstracted components that leverage the latest capabilities of the web platform.',
   vite: {
-    plugins: [tailwindcss(), vueDevTools()],
+    plugins: [tailwindcss() /* , vueDevTools() */],
   },
 });

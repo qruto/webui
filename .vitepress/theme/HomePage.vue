@@ -2,8 +2,10 @@
 import ComponentExample from './ComponentExample.vue';
 </script>
 <template>
-  <header>Web UI</header>
-  <main class="">
+  <header class="text-center py-8">
+    <h1 class="dark:text-zinc-100 text-5xl">Web UI</h1>
+  </header>
+  <main class="flex flex-col items-center">
     <!-- <div class="max-w-96">
       <div class="relative inline-block">
         <div class="absolute inset-x-0 h-24 bg-red-500"></div>
@@ -13,7 +15,7 @@ import ComponentExample from './ComponentExample.vue';
       </div>
     </div> -->
     <section>
-      <header>Dialog Modal</header>
+      <header><h2 class="text-lg dark:text-zinc-400">Dialog Modal</h2></header>
       <ComponentExample component="dialog" />
     </section>
   </main>

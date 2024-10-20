@@ -97,7 +97,6 @@ function navigate(e) {
 }
 
 const classes = computed(() => [
-  'max-w-none max-h-none',
   blocking ? 'blocking' : '',
   navigating.value ? '' : 'focus-visible:[&_*]:outline-none',
 ]);

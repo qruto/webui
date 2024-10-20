@@ -1,6 +1,6 @@
 <template>
   <iframe
-    class="max-w-[--device-width] border rounded-full [--device-width:var(--width-sm)] md:[--device-width:var(--breakpoint-md)]"
+    class="w-[var(--device-width)] min-h-[70dvh] border rounded-2xl [--device-width:var(--width-sm)] md:[--device-width:var(--breakpoint-md)]"
     :src="`/examples/${component}`"
     frameborder="0"
   ></iframe>

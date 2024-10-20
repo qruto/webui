@@ -5,3 +5,9 @@
 :root {
   @apply bg-zinc-100 dark:bg-zinc-800;
 }
+
+@layer utilities {
+  .transition-allow-discrete {
+      transition-behavior: allow-discrete;
+  }
+}
