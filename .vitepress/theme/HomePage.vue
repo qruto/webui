@@ -2,8 +2,8 @@
 import ComponentExample from './ComponentExample.vue';
 </script>
 <template>
-  <header class="text-center py-8">
-    <h1 class="dark:text-zinc-100 text-5xl">Web UI</h1>
+  <header class="py-8 text-center">
+    <h1 class="text-5xl dark:text-zinc-100">Web UI</h1>
   </header>
   <main class="flex flex-col items-center">
     <!-- <div class="max-w-96">

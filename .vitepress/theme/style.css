@@ -8,6 +8,6 @@
 
 @layer utilities {
   .transition-allow-discrete {
-      transition-behavior: allow-discrete;
+    transition-behavior: allow-discrete;
   }
 }

@@ -12,7 +12,10 @@ const exampleComponents = {
 
 <template>
   <HomePage v-if="frontmatter.home" />
-  <div v-else-if="typeof frontmatter.example !== 'undefined'">
+  <div
+    class="h-screen w-screen"
+    v-else-if="typeof frontmatter.example !== 'undefined'"
+  >
     <component :is="exampleComponents[frontmatter.example]" />
   </div>
   <div v-else>
