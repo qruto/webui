@@ -1,9 +1,17 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/nunito' layer(base);
+@import '@fontsource-variable/jura' layer(base);
+
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
 :root {
   @apply bg-zinc-100 dark:bg-zinc-800;
+}
+
+@theme {
+  --default-font-family: 'Nunito Variable', var(--font-family-sans);
+  --font-family-display: 'Jura Variable', var(--font-family-sans);
 }
 
 @layer utilities {

@@ -1,9 +1,9 @@
 <script setup>
-import ComponentExample from './ComponentExample.vue';
+import ComponentDemo from './ComponentDemo.vue';
 </script>
 <template>
   <header class="py-8 text-center">
-    <h1 class="text-5xl dark:text-zinc-100">Web UI</h1>
+    <h1 class="text-5xl font-display font-bold dark:text-zinc-100">Web UI</h1>
   </header>
   <main class="flex flex-col items-center">
     <!-- <div class="max-w-96">
@@ -16,7 +16,7 @@ import ComponentExample from './ComponentExample.vue';
     </div> -->
     <section>
       <header><h2 class="text-lg dark:text-zinc-400">Dialog Modal</h2></header>
-      <ComponentExample component="dialog" />
+      <ComponentDemo component="dialog" />
     </section>
   </main>
 </template>
