@@ -17,6 +17,7 @@
     <input id="wide" value="wide" v-model="screen" class="peer/wide hidden" type="radio"  />
     <label
       for="wide"
+      :class="screen === 'mobile' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
       class="text-zinc-500 md:text-yellow-500 peer-checked/wide:text-yellow-500 dark:text-zinc-600"
       ><ComputerDesktopIcon class="size-6"
     /></label>
