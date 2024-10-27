@@ -1,9 +1,12 @@
 /* @import 'tailwindcss'; */
-@import '@fontsource-variable/nunito' layer(base);
-@import '@fontsource-variable/jura' layer(base);
+/* @import '@fontsource-variable/nunito' layer(base);
+@import '@fontsource-variable/jura' layer(base); */
 
 /* @plugin "@tailwindcss/typography"; */
 /* @plugin "@tailwindcss/forms"; */
+
+@import '@fontsource-variable/nunito';
+@import '@fontsource-variable/jura';
 
 @tailwind base;
 .transition-allow-discrete {
@@ -14,6 +17,9 @@
 
 :root {
   @apply bg-zinc-100 dark:bg-zinc-800;
+  --width-sm: theme(width.80);
+  --spacing-6: theme(spacing.6);
+  --breakpoint-md: theme(screens.md);
 }
 
 /* @theme {

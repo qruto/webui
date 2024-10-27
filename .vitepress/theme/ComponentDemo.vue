@@ -1,16 +1,16 @@
 <template>
   <fieldset
-    class="grid grid-cols-[auto_var(--spacing-6)] justify-items-end gap-y-2"
+    class="grid grid-cols-[auto_var(--spacing-6)_var(--spacing-6)_0.8rem] gap-y-2 gap-x-1"
   >
-    <header class="col-span-2 text-right text-sm dark:text-zinc-600">
-      preview
+    <header class="w-full text-lg pl-4 dark:text-zinc-600">
+      {{ title }}
     </header>
 
     <input id="mobile" value="mobile" v-model="screen" class="peer/mobile hidden" type="radio" />
     <label
       for="mobile"
       :class="screen === 'wide' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
-      class="text-yellow-500 peer-checked/mobile:text-yellow-500 peer-checked/wide:text-red-500 md:text-zinc-500 dark:text-zinc-600"
+      class="text-yellow-500 dark:text-yellow-400 dark:md:text-zinc-600 peer-checked/mobile:text-yellow-500 peer-checked/wide:text-red-500 md:text-zinc-500"
       ><DevicePhoneMobileIcon class="size-6"
     /></label>
 
@@ -18,21 +18,21 @@
     <label
       for="wide"
       :class="screen === 'mobile' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
-      class="text-zinc-500 md:text-yellow-500 peer-checked/wide:text-yellow-500 dark:text-zinc-600"
+      class="text-zinc-500 md:text-yellow-500 dark:md:text-yellow-400 peer-checked/wide:text-yellow-500 dark:text-zinc-600"
       ><ComputerDesktopIcon class="size-6"
     /></label>
 
     <div
       :class="[
-        'col-span-2',
-        'rounded-2xl border',
+        'col-span-4',
+        'rounded-2xl bg-zinc-200 shadow-concave p-1',
         'relative overflow-hidden [--device-width:var(--width-sm)] peer-checked/mobile:[--device-width:var(--width-sm)] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
         // ✓ checked wide
-        'peer-checked/wide:h-[35dvh] peer-checked/wide:w-sm md:peer-checked/wide:h-auto md:peer-checked/wide:w-auto peer-checked/wide:[&>iframe]:origin-top-left peer-checked/wide:[&>iframe]:scale-50 md:peer-checked/wide:[&>iframe]:scale-100',
+        'peer-checked/wide:h-[35dvh] peer-checked/wide:w-80 md:peer-checked/wide:h-auto md:peer-checked/wide:w-auto peer-checked/wide:[&>iframe]:origin-top-left peer-checked/wide:[&>iframe]:scale-50 md:peer-checked/wide:[&>iframe]:scale-100',
       ]"
     >
       <iframe
-        class="h-[70dvh] w-[var(--device-width)] transition-[width,scale]"
+        class="h-[70dvh] rounded-2xl w-[var(--device-width)] transition-[width,scale]"
         :src="`/examples/${component}`"
         frameborder="0"
       ></iframe>
@@ -42,11 +42,15 @@
 
 <script setup>
 import {
-  DevicePhoneMobileIcon,
   ComputerDesktopIcon,
-} from '@heroicons/vue/24/outline';
-import { ref, useTemplateRef } from 'vue';
+} from '@heroicons/vue/24/solid';
+import {DevicePhoneMobileIcon} from '@heroicons/vue/24/outline';
+import { ref } from 'vue';
 defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
   component: {
     type: String,
     required: true,

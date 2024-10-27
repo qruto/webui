@@ -15,8 +15,7 @@ import ComponentDemo from './ComponentDemo.vue';
       </div>
     </div> -->
     <section>
-      <header><h2 class="text-lg dark:text-zinc-400">Dialog Modal</h2></header>
-      <ComponentDemo component="dialog" />
+      <ComponentDemo component="dialog" title="Dialog Modal" />
     </section>
   </main>
 </template>

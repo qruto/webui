@@ -13,7 +13,7 @@ function close() {
 </script>
 
 <template>
-  <div class="flex items-center h-full justify-center">
+  <div class="flex items-center bg-zinc-200 h-full justify-center">
     <Button class="mx-auto" @click="open = true">open</Button>
     <DialogModal
       ref="dialog"
