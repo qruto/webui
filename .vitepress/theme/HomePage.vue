@@ -1,11 +1,17 @@
 <script setup>
 import ComponentDemo from './ComponentDemo.vue';
+import DetailsExample from '../../examples/DetailsExample.vue';
+import Button from '../ui/Button.vue';
 </script>
 <template>
   <header class="py-8 text-center">
-    <h1 class="text-5xl font-display font-bold dark:text-zinc-100">Web UI</h1>
+    <h1 class="font-display text-5xl font-bold dark:text-zinc-100">Web UI</h1>
+    <p class="mt-4 px-4 text-zinc-500">
+      Well-abstracted components that leverage the latest capabilities of the
+      web platform.
+    </p>
   </header>
-  <main class="flex flex-col items-center">
+  <main class="mx-auto flex max-w-screen-md flex-col items-center px-4">
     <!-- <div class="max-w-96">
       <div class="relative inline-block">
         <div class="absolute inset-x-0 h-24 bg-red-500"></div>
@@ -14,7 +20,46 @@ import ComponentDemo from './ComponentDemo.vue';
         ></div>
       </div>
     </div> -->
-    <section>
+    <section class="w-full">
+      <header class="pl-4 text-lg">
+        Button / Link
+        <span class="text-sm"
+          >based on the
+          <a
+            target="_blank"
+            class="text-sm underline hover:text-zinc-600"
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"
+          >
+            &lt;button&gt;</a
+          >
+          or
+          <a
+            target="_blank"
+            class="text-sm underline hover:text-zinc-600"
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"
+          >
+            &lt;a&gt;</a
+          >
+          element, depending on <code>href</code> attribute.
+        </span>
+      </header>
+      <div class="mt-4 text-center">
+        <Button class="mx-auto">press me</Button>
+      </div>
+    </section>
+    <section class="mt-10 w-full">
+      <header class="pl-4 text-lg">
+        Details
+        <a
+          target="_blank"
+          class="text-sm underline hover:text-zinc-600"
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"
+          >based on the &lt;details&gt; element</a
+        >
+      </header>
+      <DetailsExample class="mt-2" />
+    </section>
+    <section class="mt-10">
       <ComponentDemo component="dialog" title="Dialog Modal" />
     </section>
   </main>
