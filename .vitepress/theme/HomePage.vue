@@ -21,7 +21,7 @@ import Button from '../ui/Button.vue';
       </div>
     </div> -->
     <section class="w-full">
-      <header class="pl-4 text-lg">
+      <header class="pl-4 text-lg text-zinc-800 dark:text-zinc-200">
         Button / Link
         <span class="text-sm"
           >based on the
@@ -48,7 +48,7 @@ import Button from '../ui/Button.vue';
       </div>
     </section>
     <section class="mt-10 w-full">
-      <header class="pl-4 text-lg">
+      <header class="pl-4 text-lg text-zinc-800 dark:text-zinc-200">
         Details
         <a
           target="_blank"
@@ -63,6 +63,12 @@ import Button from '../ui/Button.vue';
       <ComponentDemo component="dialog" title="Dialog Modal" />
     </section>
   </main>
+  <footer class="py-6 text-center text-zinc-500">
+    by
+    <a class="underline" target="_blank" href="https://github.com/qruto"
+      >qruto</a
+    >
+  </footer>
 </template>
 
 <style>

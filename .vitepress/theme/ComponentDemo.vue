@@ -2,7 +2,7 @@
   <fieldset
     class="grid grid-cols-[auto_var(--spacing-6)_var(--spacing-6)_0.8rem] gap-x-1 gap-y-2"
   >
-    <header class="w-full pl-4 text-lg dark:text-zinc-600">
+    <header class="w-full pl-4 text-lg text-zinc-800 dark:text-zinc-200">
       {{ title }}
       <a
         target="_blank"
@@ -43,10 +43,11 @@
     <div
       :class="[
         'col-span-4',
-        'rounded-2xl bg-zinc-200 p-1 shadow-concave',
+        'dark:shadow-concave-dark rounded-2xl bg-zinc-200 p-1 shadow-concave dark:bg-zinc-900',
         'relative overflow-hidden [--device-width:100%] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] peer-checked/mobile:[--device-width:var(--width-sm)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
         // ✓ checked wide
         'peer-checked/wide:h-[35dvh] peer-checked/wide:w-80 md:peer-checked/wide:h-auto md:peer-checked/wide:w-auto peer-checked/wide:[&>iframe]:origin-top-left peer-checked/wide:[&>iframe]:scale-50 md:peer-checked/wide:[&>iframe]:scale-100',
+        'md:[&>iframe]:-ml-3',
       ]"
     >
       <iframe

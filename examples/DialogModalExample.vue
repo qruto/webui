@@ -13,30 +13,32 @@ function close() {
 </script>
 
 <template>
-  <div class="flex items-center bg-zinc-200 h-full justify-center">
+  <div
+    class="flex h-full items-center justify-center bg-zinc-200 dark:bg-zinc-900"
+  >
     <Button class="mx-auto" @click="open = true">open</Button>
     <DialogModal
       ref="dialog"
       :class="[
         // styles
-        'px-10 pb-6 pt-10 bg-zinc-100 rounded-t-2xl shadow-[shadow:inset_0_2px_theme(colors.white),theme(boxShadow.lg)] dark:bg-zinc-700 dark:shadow-[shadow:inset_0_2px_theme(colors.white/5%),inset_0_-2px_theme(colors.black/7%),theme(boxShadow.lg)] sm:rounded-2xl',
+        'rounded-t-2xl bg-zinc-100 px-10 pb-6 pt-10 shadow-[shadow:inset_0_2px_theme(colors.white),theme(boxShadow.lg)] sm:rounded-2xl dark:bg-zinc-700 dark:shadow-[shadow:inset_0_2px_theme(colors.white/5%),inset_0_-2px_theme(colors.black/7%),theme(boxShadow.lg)]',
         // reset browser defaults
-        'max-w-none max-h-none',
+        'max-h-none max-w-none',
         // place at the bottom center of the viewport
         'mx-2 mb-0 mt-auto md:m-auto',
         // center the dialog on the screen
         'md:mx-auto md:mb-auto',
         // enable complete transition
-        'transition-[opacity,translate,transform,overlay,display] transition-allow-discrete duration-500',
+        'transition-allow-discrete transition-[opacity,translate,transform,overlay,display] duration-500',
         // mobile screen in / out transition
-        'translate-y-full open:[@starting-style]:translate-y-full open:translate-y-0',
+        'translate-y-full open:translate-y-0 open:[@starting-style]:translate-y-full',
         // wide screen in / out transition
-        'md:opacity-0 md:open:[@starting-style]:opacity-0 md:open:opacity-100',
-        'md:open:[@starting-style]:-translate-x-full md:translate-x-0 md:open:translate-x-0',
+        'md:opacity-0 md:open:opacity-100 md:open:[@starting-style]:opacity-0',
+        'md:translate-x-0 md:open:translate-x-0 md:open:[@starting-style]:-translate-x-full',
         'md:-translate-y-full md:open:[@starting-style]:translate-y-0',
         // backdrop transition
-        'backdrop:transition-[display,overlay,background-color] backdrop:transition-allow-discrete backdrop:duration-500',
-        'open:backdrop:bg-black/40 open:backdrop:[@starting-style]:bg-black/0 backdrop:bg-black/0',
+        'backdrop:transition-allow-discrete backdrop:transition-[display,overlay,background-color] backdrop:duration-500',
+        'backdrop:bg-black/0 open:backdrop:bg-black/40 open:backdrop:[@starting-style]:bg-black/0',
       ]"
       :open="open"
       @close="close"

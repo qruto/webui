@@ -13,7 +13,7 @@ function onToggle(e) {
 <template>
   <Details
     ref="details"
-    class="rounded-3xl bg-zinc-200 px-8 py-4 shadow-concave dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500"
+    class="dark:shadow-concave-dark rounded-3xl bg-zinc-200 px-8 py-4 shadow-concave dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500"
     summary-class="flex gap-4 dark:text-zinc-200 rounded-t-3xl items-center justify-between"
     :class="[
       // 'mx-2 mb-0 translate-y-full',

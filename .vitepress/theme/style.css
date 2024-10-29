@@ -17,7 +17,7 @@
 
 :root {
   @apply bg-zinc-100 dark:bg-zinc-800;
-  --width-sm: theme(width.80);
+  --width-sm: 375px;
   --spacing-6: theme(spacing.6);
   --breakpoint-md: theme(screens.md);
 }

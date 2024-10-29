@@ -6,6 +6,8 @@ export default {
       boxShadow: {
         concave:
           'inset 0 1px 0 0 rgb(0 0 0 / 0.07), inset 0 -1px 0 0 rgb(255 255 255 / 0.8)',
+        'concave-dark':
+          'inset 0 1px 0 0 rgb(0 0 0 / 0.2), inset 0 -1px 0 0 rgb(255 255 255 / 0.1)',
       },
       fontFamily: {
         sans: ['"Nunito Variable"'],
