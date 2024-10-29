@@ -24,8 +24,7 @@ const {
   },
 });
 
-const containerClass =
-  'inline-flex items-center justify-center gap-x-2 text-base/6 sm:text-sm/6';
+const containerClass = 'text-base/6 sm:text-sm/6';
 
 const styles = {
   base: [
