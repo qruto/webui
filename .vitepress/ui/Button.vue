@@ -24,7 +24,7 @@ const {
   },
 });
 
-const containerClass = 'text-base/6 sm:text-sm/6';
+const containerClass = 'inline-block text-base/6 sm:text-sm/6';
 
 const styles = {
   base: [
@@ -132,11 +132,7 @@ const classes = computed(() => [...styles.base, ...styles[variant]]);
   <a v-if="href !== ''" :class="[elementClass, containerClass, classes]" :href>
     <slot />
   </a>
-  <button
-    v-else
-    class="inline-flex cursor-default items-center justify-center"
-    :class="[classes, elementClass]"
-  >
+  <button v-else class="cursor-default" :class="[classes, elementClass]">
     <span
       :class="[
         containerClass,
@@ -144,7 +140,7 @@ const classes = computed(() => [...styles.base, ...styles[variant]]);
       ]"
     >
       <span
-        className="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
+        class="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
         aria-hidden="true"
       />
       <slot />

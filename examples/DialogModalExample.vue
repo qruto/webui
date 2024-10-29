@@ -48,9 +48,7 @@ function close() {
         Greetings!
       </header>
 
-      <p
-        className="mt-2 text-sm/6 sm:text-base/7 dark:text-zinc-400 text-zinc-500"
-      >
+      <p class="mt-2 text-sm/6 text-zinc-500 sm:text-base/7 dark:text-zinc-400">
         Welcome to our platform! We're glad to have you here.
       </p>
       <div class="mt-6 text-center">
