@@ -65,9 +65,7 @@ import Button from '../ui/Button.vue';
   </main>
   <footer class="py-6 text-center text-zinc-500">
     by
-    <a class="underline" target="_blank" href="https://github.com/qruto"
-      >qruto</a
-    >
+    <a class="underline" target="_blank" href="https://qruto.to">qruto</a>
   </footer>
 </template>
 
