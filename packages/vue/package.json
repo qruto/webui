@@ -1,0 +1,74 @@
+{
+  "name": "@webui/vue",
+  "version": "0.1.0",
+  "description": "Well-abstracted components that leverage the latest capabilities of the web platform.",
+  "type": "module",
+  "main": "dist/webui.cjs",
+  "module": "dist/webui.js",
+  "types": "dist/webui.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/webui.js",
+      "require": "./dist/webui.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --fix",
+    "test": "vitest --run",
+    "test:coverage": "vitest --coverage --run",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/node": "^20.14.2",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vue/eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-vue": "^9.29.0",
+    "globals": "^15.6.0",
+    "husky": "^9.0.11",
+    "prettier": "3.3.2",
+    "semantic-release": "^24.0.0",
+    "typescript": "^5.2.2",
+    "typescript-eslint": "^7.13.0",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.9.1",
+    "vite-plugin-vue-devtools": "^7.5.2",
+    "vitest": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qruto/webui.git"
+  },
+  "keywords": [
+    "web",
+    "ui",
+    "dialog",
+    "details",
+    "popover",
+    "select"
+  ],
+  "author": {
+    "name": "Slava Razum",
+    "email": "razum@qruto.to",
+    "url": "https://github.com/qruto"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qruto/webui/issues"
+  },
+  "homepage": "https://github.com/qruto/webui#readme",
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": true,
+    "singleQuote": true
+  }
+}
