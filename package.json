@@ -10,11 +10,11 @@
     "packages/vue"
   ],
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview",
     "lint": "eslint . --fix",
-    "format": "prettier --write .vitepress/"
+    "format": "prettier --write docs/.vitepress/",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "@fontsource-variable/jura": "^5.1.0",

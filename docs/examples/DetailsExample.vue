@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid';
-import Details from '../.vitepress/ui/Details.vue';
+import Details from '../../ui/Details.vue';
 
 const open = ref(false);
 

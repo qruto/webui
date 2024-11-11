@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useData } from 'vitepress';
 import HomePage from './HomePage.vue';
 import DialogModalExample from '../../examples/DialogModalExample.vue';

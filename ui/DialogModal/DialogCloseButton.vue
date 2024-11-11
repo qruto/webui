@@ -1,5 +1,5 @@
-<script setup>
-import { oneOf } from '../../utils';
+<script setup lang="ts">
+import { oneOf } from '../../shared/utils.ts';
 import Button from '../Button.vue';
 
 const {

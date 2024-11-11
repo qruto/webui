@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig } from 'vitepress'
 // import tailwindcss from '@tailwindcss/vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
@@ -13,4 +13,4 @@ export default defineConfig({
       vueDevTools(),
     ],
   },
-});
+})

@@ -59,7 +59,7 @@
   </fieldset>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 import { DevicePhoneMobileIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';

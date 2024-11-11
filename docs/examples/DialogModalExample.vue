@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref, useTemplateRef } from 'vue';
 
-import { DialogModal, CloseButton } from '../.vitepress/ui/DialogModal';
-import Button from '../.vitepress/ui/Button.vue';
+import { DialogModal, CloseButton } from '../../ui/DialogModal';
+import Button from '../../ui/Button.vue';
 
 const open = ref(false);
 const dialog = useTemplateRef('dialog');
