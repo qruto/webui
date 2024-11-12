@@ -2,16 +2,38 @@
   "name": "@webui/vue",
   "version": "0.1.0",
   "description": "Well-abstracted components that leverage the latest capabilities of the web platform.",
+  "keywords": [
+    "web",
+    "ui",
+    "dialog",
+    "details",
+    "popover",
+    "select"
+  ],
+  "homepage": "https://github.com/qruto/webui#readme",
+  "bugs": {
+    "url": "https://github.com/qruto/webui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qruto/webui.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Slava Razum",
+    "email": "razum@qruto.to",
+    "url": "https://github.com/qruto"
+  },
   "type": "module",
-  "main": "dist/webui.cjs",
-  "module": "dist/webui.js",
-  "types": "dist/webui.d.ts",
   "exports": {
     ".": {
       "import": "./dist/webui.js",
       "require": "./dist/webui.cjs"
     }
   },
+  "main": "dist/webui.cjs",
+  "module": "dist/webui.js",
+  "types": "dist/webui.d.ts",
   "files": [
     "dist",
     "package.json",
@@ -21,54 +43,45 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --fix",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint . --fix",
+    "format": "prettier --write src/"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.12"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@types/node": "^20.14.2",
-    "@vitest/coverage-v8": "^1.6.0",
-    "@vue/eslint-config-prettier": "^10.0.0",
-    "eslint-plugin-vue": "^9.29.0",
-    "globals": "^15.6.0",
-    "husky": "^9.0.11",
-    "prettier": "3.3.2",
-    "semantic-release": "^24.0.0",
-    "typescript": "^5.2.2",
-    "typescript-eslint": "^7.13.0",
-    "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-vue-devtools": "^7.5.2",
-    "vitest": "^1.6.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qruto/webui.git"
-  },
-  "keywords": [
-    "web",
-    "ui",
-    "dialog",
-    "details",
-    "popover",
-    "select"
-  ],
-  "author": {
-    "name": "Slava Razum",
-    "email": "razum@qruto.to",
-    "url": "https://github.com/qruto"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/qruto/webui/issues"
-  },
-  "homepage": "https://github.com/qruto/webui#readme",
-  "prettier": {
-    "trailingComma": "es5",
-    "semi": true,
-    "singleQuote": true
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.9.0",
+    "@vitejs/plugin-vue": "^5.1.5",
+    "@vitest/eslint-plugin": "1.1.8",
+    "@vue/eslint-config-prettier": "^10.1.0",
+    "@vue/eslint-config-typescript": "^14.1.3",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.6.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-cypress": "^4.1.0",
+    "eslint-plugin-vue": "^9.31.0",
+    "husky": "^9.1.6",
+    "jsdom": "^25.0.1",
+    "npm-run-all2": "^7.0.1",
+    "prettier": "^3.3.3",
+    "start-server-and-test": "^2.0.8",
+    "typescript": "~5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-vue-devtools": "^7.6.4",
+    "vitest": "^2.1.4",
+    "vue-tsc": "^2.1.10"
   }
 }
