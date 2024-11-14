@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESnext",
+    "module": "ESnext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "noEmit": true,
+    "paths": {
+      "@theme/*": ["docs/.vitepress/theme/*"]
+    }
+  },
+  "include": ["env.d.ts", "docs/.vitepress/**/*"]
+}
