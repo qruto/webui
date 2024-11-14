@@ -1,4 +1,5 @@
 /// <reference types="vitepress/client" />
+/// <reference types="@histoire/plugin-vue/components" />
 
 declare module '@vue/theme/config' {
   import { UserConfig } from 'vitepress'
