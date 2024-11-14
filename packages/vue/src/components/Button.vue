@@ -1,30 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { oneOf } from '../shared/utils.ts';
+import { computed } from 'vue'
 
 const {
   variant,
   href,
   class: elementClass,
-} = defineProps({
-  href: {
-    type: String,
-    default: '',
-  },
+} = defineProps<{
+  href?: string
+  class?: string
+  variant: 'inverse' | 'adaptive' | 'light' | 'plain'
+}>()
 
-  class: {
-    type: String,
-    default: '',
-  },
-
-  variant: {
-    type: String,
-    default: 'inverse',
-    validator: oneOf(['inverse', 'adaptive', 'light', 'plain']),
-  },
-});
-
-const containerClass = 'inline-block text-base/6 sm:text-sm/6';
+const containerClass = 'inline-block text-base/6 sm:text-sm/6'
 
 const styles = {
   base: [
@@ -123,9 +110,9 @@ const styles = {
     // Hover
     'hover:after:bg-white/30 dark:hover:after:bg-white/10',
   ],
-};
+}
 
-const classes = computed(() => [...styles.base, ...styles[variant]]);
+const classes = computed(() => [...styles.base, ...styles[variant]])
 </script>
 
 <template>

@@ -12,28 +12,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue'
 
-defineProps({
-  summaryClass: {
-    type: String,
-    default: '',
-  },
-});
+defineProps<{
+  summaryClass?: string
+}>()
 
-const emit = defineEmits(['toggle']);
+const emit = defineEmits(['toggle'])
 
-const details = ref();
-const summary = ref();
+const details = ref()
+const summary = ref()
 
-const open = ref(false);
+const open = ref(false)
 
-onMounted(() => (open.value = details.value.open));
+onMounted(() => (open.value = details.value.open))
 
-function toggle(e) {
-  emit('toggle', e);
+function toggle(e: Event) {
+  emit('toggle', e)
 
-  open.value = e.target.open;
+  open.value = (e.target as HTMLDetailsElement).open
 }
 
 // onMounted(() => {

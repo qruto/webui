@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@vueuse/core';
 
-export function isExternal(url) {
+export function isExternal(url: string) {
   const currentUrl = new URL(window.location.href);
 
   try {
@@ -12,13 +12,7 @@ export function isExternal(url) {
   }
 }
 
-export function oneOf(values) {
-  return function (value) {
-    return values.includes(value);
-  };
-}
-
-export function query(variant) {
+export function query(variant: string) {
   let mediaQuery = `(min-width: var(--breakpoint-${variant}))`;
 
   if (variant.startsWith('max-')) {

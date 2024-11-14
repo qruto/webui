@@ -42,17 +42,14 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vue-tsc --noEmit && vite build",
+    "build-types": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.app.json",
+    "check-types": "vue-tsc  --noEmit -p tsconfig.app.json",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
     "prepare": "husky",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
-  },
-  "prettier": {
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
   },
   "peerDependencies": {
     "vue": "^3.5.12"
