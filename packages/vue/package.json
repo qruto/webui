@@ -36,6 +36,7 @@
   "types": "dist/webui.d.ts",
   "files": [
     "dist",
+    "src",
     "package.json",
     "README.md",
     "LICENSE.md"
@@ -43,7 +44,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "build-types": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.app.json",
+    "build-types": "vue-tsc -p tsconfig.app.json --declaration --emitDeclarationOnly --outDir dist --noEmit false",
     "check-types": "vue-tsc  --noEmit -p tsconfig.app.json",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
