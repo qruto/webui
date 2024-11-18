@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import ComponentDemo from './ComponentDemo.vue';
 import DetailsExample from '../../examples/DetailsExample.vue';
-import Button from '../../../ui/Button.vue';
+
+import { DialogModal, Button } from '@webui/vue';
+
+import { Accordion } from '@ark-ui/vue';
 </script>
 <template>
   <header class="py-8 text-center">
