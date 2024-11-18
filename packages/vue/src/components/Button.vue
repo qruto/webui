@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const {
-  variant,
-  href,
-  class: elementClass,
-} = defineProps<{
+export type ButtonProps = {
   href?: string
-  class?: string
-  variant: 'inverse' | 'adaptive' | 'light' | 'plain'
-}>()
+  variant?: 'inverse' | 'adaptive' | 'light' | 'plain'
+}
+
+const { variant = 'plain', href } = defineProps<ButtonProps>()
 
 const containerClass = 'inline-block text-base/6 sm:text-sm/6'
 
@@ -113,13 +110,22 @@ const styles = {
 }
 
 const classes = computed(() => [...styles.base, ...styles[variant]])
+
+const attributes = {
+  'data-component': 'button',
+}
 </script>
 
 <template>
-  <a v-if="href !== ''" :class="[elementClass, containerClass, classes]" :href>
+  <a
+    v-if="typeof href !== 'undefined'"
+    :class="[containerClass, classes]"
+    :href
+    v-bind="attributes"
+  >
     <slot />
   </a>
-  <button v-else class="cursor-default" :class="[classes, elementClass]">
+  <button v-else class="cursor-default" :class="[classes, elementClass]" v-bind="attributes">
     <span
       :class="[
         containerClass,
