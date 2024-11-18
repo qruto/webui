@@ -21,5 +21,16 @@ export default [
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['Details', 'Button', 'Link', 'Layout'],
+        },
+      ],
+    },
+  },
   skipFormatting,
 ]

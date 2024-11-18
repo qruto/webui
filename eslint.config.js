@@ -1,6 +1,7 @@
-import js from '@eslint/js';
-import pluginVue from 'eslint-plugin-vue';
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import pluginVue from 'eslint-plugin-vue'
+import vueTsEslintConfig from '@vue/eslint-config-typescript'
+import pluginVitest from '@vitest/eslint-plugin'
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
 export default [
   {
@@ -13,18 +14,11 @@ export default [
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/cache/**'],
   },
 
-  js.configs.recommended,
   ...pluginVue.configs['flat/strongly-recommended'],
-  skipFormatting,
+  ...vueTsEslintConfig(),
   {
-    rules: {
-      // override/add rules settings here, such as:
-      'vue/multi-word-component-names': [
-        'error',
-        {
-          ignores: ['Details', 'Button', 'Link', 'Layout'],
-        },
-      ],
-    },
+    ...pluginVitest.configs.recommended,
+    files: ['src/**/__tests__/*'],
   },
+  skipFormatting,
 ];
