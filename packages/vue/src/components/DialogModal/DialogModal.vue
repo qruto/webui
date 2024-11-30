@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch, watchEffect, watchPostEffect } from 'vue'
 
-const {
-  open = false,
-  blocking = true,
-  outsideClose = false,
-} = defineProps<{
+export type DialogModalProps = {
   open: boolean
-  blocking: boolean
-  outsideClose: boolean
-}>()
+  blocking?: boolean
+  outsideClose?: boolean
+}
+
+const { open = false, blocking = true, outsideClose = false } = defineProps<DialogModalProps>()
 
 const dialog = ref()
 
@@ -30,7 +28,7 @@ function checkOutside(e: MouseEvent) {
   }
 }
 
-const emit = defineEmits(['close', 'cancel'])
+const emit = defineEmits<{ (type: 'close' | 'cancel', e: Event): void }>()
 
 watchPostEffect(() => {
   if (open) {

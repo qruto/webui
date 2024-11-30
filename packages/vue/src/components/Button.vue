@@ -125,7 +125,7 @@ const attributes = {
   >
     <slot />
   </a>
-  <button v-else class="cursor-default" :class="[classes, elementClass]" v-bind="attributes">
+  <button v-else class="cursor-default" :class="classes" v-bind="attributes">
     <span
       :class="[
         containerClass,

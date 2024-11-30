@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/vue'
+import { render, /* fireEvent, */ screen } from '@testing-library/vue'
 
 import Button from '@/components/Button.vue'
 
