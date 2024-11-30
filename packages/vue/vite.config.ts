@@ -1,8 +1,9 @@
 import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   build: {
@@ -23,13 +24,13 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue(),
     dts({
       tsconfigPath: './tsconfig.lib.json',
       staticImport: true,
       entryRoot: 'src',
       insertTypesEntry: true,
     }),
+    vue(),
   ],
   resolve: {
     alias: {
