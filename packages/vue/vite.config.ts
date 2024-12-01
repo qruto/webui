@@ -1,19 +1,20 @@
+import type { UserConfig } from 'vite'
+
 import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 import vue from '@vitejs/plugin-vue'
 
-export default defineConfig({
+export default {
   build: {
     lib: {
       fileName: 'webui',
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, 'src/entry.ts'),
       formats: ['es', 'cjs', 'umd', 'iife'],
       name: 'WebUI',
     },
-    sourcemap: true,
+
     rollupOptions: {
       external: ['vue'],
       output: {
@@ -22,7 +23,10 @@ export default defineConfig({
         },
       },
     },
+
+    sourcemap: true,
   },
+
   plugins: [
     dts({
       tsconfigPath: './tsconfig.lib.json',
@@ -30,14 +34,17 @@ export default defineConfig({
       entryRoot: 'src',
       insertTypesEntry: true,
     }),
+
     vue(),
   ],
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+
   test: {
     globals: true,
   },
-})
+} satisfies UserConfig
