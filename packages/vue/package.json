@@ -31,6 +31,9 @@
       "require": "./dist/webui.cjs"
     }
   },
+  "bin": {
+    "webui": "dist/bin/webui-cli.js"
+  },
   "main": "dist/webui.cjs",
   "module": "dist/webui.js",
   "types": "dist/webui.d.ts",
@@ -43,8 +46,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "run-s type-check \"build-only {@}\" --",
+    "build": "run-s type-check \"build-only {@}\" build-cli --",
     "build-only": "vite build",
+    "build-cli": "vite build --config vite.cli.config.ts",
     "type-check": "vue-tsc --build --force",
     "test:unit": "vitest --run",
     "test:coverage": "vitest --coverage --run",
@@ -77,5 +81,9 @@
   },
   "peerDependencies": {
     "vue": "^3.5.12"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "prompts": "^2.4.2"
   }
 }
