@@ -49,6 +49,7 @@
     "build": "run-s type-check \"build-only {@}\" build-cli --",
     "build-only": "vite build",
     "build-cli": "vite build --config vite.cli.config.ts",
+    "build-cli-tsup": "tsup",
     "type-check": "vue-tsc --build --force",
     "test:unit": "vitest --run",
     "test:coverage": "vitest --coverage --run",
@@ -84,6 +85,8 @@
   },
   "dependencies": {
     "commander": "^12.1.0",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "tsup": "^8.3.5",
+    "zod": "^3.23.8"
   }
 }

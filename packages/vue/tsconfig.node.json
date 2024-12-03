@@ -5,30 +5,15 @@
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*",
-    "src/bin/**/*.ts"
+    "playwright.config.*"
   ],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
     "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.node.tsbuildinfo",
 
-    "baseUrl": ".",
-    "paths": {
-      "@bin/*": ["./src/bin/*"]
-    },
-
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
-
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "types": ["node"]
   }
 }
