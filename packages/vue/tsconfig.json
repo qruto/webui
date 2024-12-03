@@ -4,7 +4,6 @@
     {
       "path": "./tsconfig.lib.json"
     },
-
     {
       "path": "./tsconfig.node.json"
     },
@@ -12,7 +11,7 @@
       "path": "./tsconfig.vitest.json"
     },
     {
-      "path": "./tsconfig.cli.json"
+      "path": "./tsconfig.cli.composite.json"
     }
   ],
   "compilerOptions": {
