@@ -4,17 +4,15 @@
   "include": ["src/bin/**/*", "src/bin/**/*.ts"],
 
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.cli.tsbuildinfo",
     "target": "ESNext",
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Alias */
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "$/*": ["bin/*"]
+      "$/*": ["src/bin/*"]
     },
 
     /* Bundler mode */
