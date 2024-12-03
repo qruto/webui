@@ -1,15 +1,10 @@
 #!/usr/bin/env node
-console.log('hi')
-// import { Command } from 'commander'
-// const program = new Command()
+import program from '$/program'
+import use from '$/commands/use'
 
-// program
-//   .version('0.1.0')
-//   .description('A simple CLI tool')
-//   .option('-n, --name <type>', 'Specify your name')
-//   .action((options) => {
-//     const name = options.name || 'World'
-//     console.log(`Hello, ${name}!`)
-//   })
+process.on('SIGINT', () => process.exit(0))
+process.on('SIGTERM', () => process.exit(0))
 
-// program.parse(process.argv)
+program.addCommand(use)
+
+program.parse()

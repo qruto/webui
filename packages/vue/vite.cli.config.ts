@@ -2,6 +2,7 @@ import type { UserConfig } from 'vite'
 
 import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
+import { writeFileSync, chmod } from 'node:fs'
 import dts from 'vite-plugin-dts'
 
 export default {
@@ -11,6 +12,7 @@ export default {
       entry: resolve(__dirname, 'src/bin/cli.ts'),
       formats: ['cjs'],
     },
+
     outDir: 'dist/bin',
 
     sourcemap: true,
@@ -22,6 +24,15 @@ export default {
       staticImport: true,
       entryRoot: 'src/bin',
     }),
+    // {
+    //   name: 'add-shebang',
+    //   closeBundle: () => {
+    //     const outFile = resolve(__dirname, 'dist/bin/webui-cli.js')
+    //     const content = `#!/usr/bin/env node\n` + require('fs').readFileSync(outFile, 'utf8')
+    //     writeFileSync(outFile, content)
+    //     chmod(outFile, 0o755)
+    //   },
+    // },
   ],
 
   resolve: {
