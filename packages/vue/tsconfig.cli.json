@@ -1,24 +1,26 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
-  "include": ["package.json", "src/bin/**/*.ts"],
-  "exclude": ["tests/*"],
+
+  "include": ["src/bin/**/*", "src/bin/**/*.ts"],
 
   "compilerOptions": {
+    "composite": true,
     "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.cli.tsbuildinfo",
-    "target": "ES2022",
+    "target": "ESNext",
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Alias */
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "$/*": ["src/bin/*"]
+      "$/*": ["bin/*"]
     },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,

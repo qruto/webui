@@ -46,10 +46,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "run-s type-check \"build-only {@}\" build-cli --",
+    "build": "run-s type-check build-cli \"build-only {@}\" --",
     "build-only": "vite build",
-    "build-cli": "vite build --config vite.cli.config.ts",
-    "build-cli-tsup": "tsup",
+    "build-cli": "tsup",
     "type-check": "vue-tsc --build --force",
     "test:unit": "vitest --run",
     "test:coverage": "vitest --coverage --run",
