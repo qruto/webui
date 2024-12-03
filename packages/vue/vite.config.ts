@@ -1,6 +1,5 @@
 import type { UserConfig } from 'vite'
 
-import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import dts from 'vite-plugin-dts'
 
@@ -10,7 +9,7 @@ export default {
   build: {
     lib: {
       fileName: 'webui',
-      entry: resolve(__dirname, 'src/entry.ts'),
+      entry: fileURLToPath(new URL('src/entry.ts', import.meta.url)),
       formats: ['es', 'cjs', 'umd', 'iife'],
       name: 'WebUI',
     },

@@ -48,7 +48,9 @@
     "dev": "vite",
     "build": "run-s type-check build-cli \"build-only {@}\" --",
     "build-only": "vite build",
-    "build-cli": "tsup --tsconfig tsconfig.cli.json",
+    "build:cli": "tsup --tsconfig tsconfig.cli.json",
+    "watch:cli": "tsup --tsconfig tsconfig.cli.json --watch",
+  "cli:type-check": "tsc --build --force --config tsconfig.cli.json",
     "type-check": "vue-tsc --build --force",
     "test:unit": "vitest --run",
     "test:coverage": "vitest --coverage --run",
@@ -83,7 +85,9 @@
     "vue": "^3.5.12"
   },
   "dependencies": {
+    "@types/prompts": "^2.4.9",
     "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
     "prompts": "^2.4.2",
     "tsup": "^8.3.5",
     "zod": "^3.23.8"
