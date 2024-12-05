@@ -11,4 +11,5 @@ export default defineConfig({
   sourcemap: true,
   dts: true,
   minify: true,
+  tsconfig: './tsconfig.cli.json',
 })

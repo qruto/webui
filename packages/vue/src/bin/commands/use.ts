@@ -2,6 +2,7 @@ import { Command } from 'commander'
 import { z } from 'zod'
 import prompts from 'prompts'
 
+export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'
 
 export const optionsSchema = z.object({
@@ -11,8 +12,8 @@ export const optionsSchema = z.object({
   path: z.string(),
 })
 
-const use = new Command()
-  .name('use')
+export const command = new Command()
+  .name(name)
   .argument('[components...]', 'leave it empty to use all components or list the components to use')
   .option('-y, --yes', 'skip prompts', false)
   .option('-f, --force', 'override existing component files', false)
@@ -38,5 +39,3 @@ const use = new Command()
 
     console.log(path) // => { value: 24 }
   })
-
-export default use
