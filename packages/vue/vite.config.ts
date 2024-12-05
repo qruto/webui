@@ -9,7 +9,7 @@ export default {
   build: {
     lib: {
       fileName: 'webui',
-      entry: fileURLToPath(new URL('src/entry.ts', import.meta.url)),
+      entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
       formats: ['es', 'cjs', 'umd', 'iife'],
       name: 'WebUI',
     },
@@ -40,6 +40,7 @@ export default {
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      $: fileURLToPath(new URL('./src/bin', import.meta.url)),
     },
   },
 
