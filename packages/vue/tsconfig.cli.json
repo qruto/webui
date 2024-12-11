@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
 
-  "include": ["src/bin/**/*", "src/bin/**/*.ts"],
+  "include": ["package.json", "src/bin/**/*.ts"],
 
   "compilerOptions": {
     "target": "ESNext",
@@ -10,9 +10,9 @@
     "skipLibCheck": true,
 
     /* Alias */
-    "baseUrl": ".",
+    "baseUrl": "./src/bin",
     "paths": {
-      "$/*": ["src/bin/*"]
+      "$/*": ["./*"]
     },
 
     /* Bundler mode */

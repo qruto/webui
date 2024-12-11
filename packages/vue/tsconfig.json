@@ -11,6 +11,9 @@
       "path": "./tsconfig.vitest.json"
     },
     {
+      "path": "./tsconfig.vitest.cli.json"
+    },
+    {
       "path": "./tsconfig.cli.composite.json"
     }
   ],
