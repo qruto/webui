@@ -43,8 +43,8 @@
     <div
       :class="[
         'col-span-4',
-        'dark:shadow-concave-dark rounded-2xl bg-zinc-200 p-1 shadow-concave dark:bg-zinc-900',
-        'relative overflow-hidden [--device-width:100%] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] peer-checked/mobile:[--device-width:var(--width-sm)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
+        'dark:shadow-concave-dark shadow-concave rounded-2xl bg-zinc-200 p-1 dark:bg-zinc-900',
+        'relative overflow-hidden [--device-width:100%] peer-checked/mobile:[--device-width:var(--width-sm)] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
         // ✓ checked wide
         'peer-checked/wide:h-[35dvh] peer-checked/wide:w-80 md:peer-checked/wide:h-auto md:peer-checked/wide:w-auto peer-checked/wide:[&>iframe]:origin-top-left peer-checked/wide:[&>iframe]:scale-50 md:peer-checked/wide:[&>iframe]:scale-100',
         'md:[&>iframe]:-ml-3',
@@ -60,8 +60,8 @@
 </template>
 
 <script setup lang="ts">
-import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 import { DevicePhoneMobileIcon } from '@heroicons/vue/24/outline';
+import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
 import { ref } from 'vue';
 defineProps({
   title: {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
-import HomePage from './HomePage.vue';
 import DialogModalExample from '../../examples/DialogModalExample.vue';
+import HomePage from './HomePage.vue';
 
 // https://vitepress.dev/reference/runtime-api#usedata
 const { frontmatter } = useData();
