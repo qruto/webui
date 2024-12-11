@@ -51,7 +51,7 @@
     "build-cli": "vite build --config vite.cli.config.ts",
     "build:cli": "tsup",
     "watch:cli": "tsup --watch",
-    "cli:type-check": "tsc --build --force --config tsconfig.cli.json",
+    "type-check:cli": "tsc --build --force --config tsconfig.cli.json",
     "type-check": "vue-tsc --build --force",
     "test:unit": "vitest --run",
     "test:coverage": "vitest --coverage --run",

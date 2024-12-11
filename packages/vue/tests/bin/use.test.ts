@@ -1,18 +1,19 @@
-import { describe, it } from 'vitest'
+import { describe, it, expect } from 'vitest'
 
-import program from '@/bin/program'
+import program from '$/program'
 // import prompts from 'prompts'
-import type { AvailableCommands } from '@/bin/cli'
+import type { AvailableCommands } from '$/cli'
 
 function run(name: AvailableCommands, prompts?: string[]) {
   program.parse(['node', 'webui', name])
+  console.log(prompts)
 }
 
 describe('CLI testing', () => {
   it('copies all components with `use` command', () => {
     // prompts.inject([''])
     program.action(() => console.log('It works!'))
-    program.parse(['node', 'webui', 'use'])
+    run('use')
     expect(2).toBe(2)
   })
 })
