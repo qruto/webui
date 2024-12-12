@@ -6,7 +6,7 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 export default [
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
+    files: ['**/*.{ts,mts,tsx,vue}'],
   },
 
   {
@@ -16,9 +16,21 @@ export default [
 
   ...pluginVue.configs['flat/strongly-recommended'],
   ...vueTsEslintConfig(),
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['Details', 'Button', 'Link', 'Layout'],
+        },
+      ],
+    },
+  },
   skipFormatting,
-];
+]
