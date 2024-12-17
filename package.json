@@ -10,19 +10,19 @@
     "packages/vue"
   ],
   "scripts": {
+    "prepare": "husky",
     "commit": "cz",
+    "validate": "run-p type-check lint format",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "docs:preview": "vitepress preview docs",
-    "format": "prettier docs/.vitepress",
-    "lint": "eslint .",
-    "prepare": "husky",
     "story:build": "histoire build",
     "story:dev": "histoire dev",
     "story:preview": "histoire preview",
-    "style": "eslint . --fix && prettier --write .",
     "type-check": "vue-tsc --build --force",
-    "validate": "run-p type-check lint format",
+    "format": "prettier . --check",
+    "lint": "eslint .",
+    "style": "eslint . --fix && prettier --write .",
     "vue": "npm run --workspace=@webui/vue"
   },
   "dependencies": {
