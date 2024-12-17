@@ -1,4 +1,4 @@
-import DialogModal from './DialogModal.vue'
 import CloseButton from './DialogCloseButton.vue'
+import DialogModal from './DialogModal.vue'
 
-export { DialogModal, CloseButton }
+export { CloseButton, DialogModal }

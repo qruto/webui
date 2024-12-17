@@ -1,7 +1,5 @@
 <template>
-  <fieldset
-    class="grid grid-cols-[auto_var(--spacing-6)_var(--spacing-6)_0.8rem] gap-x-1 gap-y-2"
-  >
+  <fieldset class="grid grid-cols-[auto_var(--spacing-6)_var(--spacing-6)_0.8rem] gap-x-1 gap-y-2">
     <header class="w-full pl-4 text-lg text-zinc-800 dark:text-zinc-200">
       {{ title }}
       <a
@@ -12,13 +10,7 @@
       >
     </header>
 
-    <input
-      id="mobile"
-      value="mobile"
-      v-model="screen"
-      class="peer/mobile hidden"
-      type="radio"
-    />
+    <input id="mobile" value="mobile" v-model="screen" class="peer/mobile hidden" type="radio" />
     <label
       for="mobile"
       :class="screen === 'wide' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
@@ -26,13 +18,7 @@
       ><DevicePhoneMobileIcon class="size-6"
     /></label>
 
-    <input
-      id="wide"
-      value="wide"
-      v-model="screen"
-      class="peer/wide hidden"
-      type="radio"
-    />
+    <input id="wide" value="wide" v-model="screen" class="peer/wide hidden" type="radio" />
     <label
       for="wide"
       :class="screen === 'mobile' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
@@ -60,9 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import { DevicePhoneMobileIcon } from '@heroicons/vue/24/outline';
-import { ComputerDesktopIcon } from '@heroicons/vue/24/solid';
-import { ref } from 'vue';
+import { DevicePhoneMobileIcon } from '@heroicons/vue/24/outline'
+import { ComputerDesktopIcon } from '@heroicons/vue/24/solid'
+import { ref } from 'vue'
 defineProps({
   title: {
     type: String,
@@ -72,8 +58,8 @@ defineProps({
     type: String,
     required: true,
   },
-});
+})
 
-const screen = ref('auto');
+const screen = ref('auto')
 // const size = query("md").value ? "laptop" : "mobile";
 </script>
