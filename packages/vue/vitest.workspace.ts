@@ -1,11 +1,12 @@
-import { defineWorkspace } from 'vitest/config'
+import type { WorkspaceProjectConfiguration } from 'vitest/config'
 
-export default defineWorkspace([
+export default [
   {
     extends: './vitest.config.ts',
     test: {
+      environment: 'jsdom',
       name: 'spec',
-      include: ['**/*.spec.ts'],
+      include: ['tests/**/*.spec.ts'],
     },
   },
   {
@@ -16,4 +17,4 @@ export default defineWorkspace([
       include: ['tests/bin/**/*.test.ts'],
     },
   },
-])
+] satisfies WorkspaceProjectConfiguration[]

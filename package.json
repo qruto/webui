@@ -23,6 +23,9 @@
     "format": "prettier . --check",
     "lint": "eslint .",
     "style": "eslint . --fix && prettier --write .",
+    "test:unit": "vitest --run",
+    "test:coverage": "vitest --coverage --run",
+    "test:unit:watch": "vitest --watch",
     "vue": "npm run --workspace=@webui/vue"
   },
   "dependencies": {
