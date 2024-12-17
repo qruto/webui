@@ -43,7 +43,7 @@ watchPostEffect(() => {
 const firstFocusable = ref()
 const navigating = ref(false)
 
-watch(navigating, (value) => {
+watch(navigating, value => {
   if (!value) {
     return
   }

@@ -14,9 +14,5 @@
       "@theme/*": ["docs/.vitepress/theme/*"]
     }
   },
-  "include": [
-    "env.d.ts",
-    "./packages/vue/src/**/*.story.vue",
-    "./docs/**/*"
-  ]
+  "include": ["env.d.ts", "./packages/vue/src/**/*.story.vue", "./docs/**/*"]
 }

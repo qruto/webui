@@ -1,4 +1,4 @@
-title: "Ideas"
+title: 'Ideas'
 body:
   - type: markdown
     attributes:
@@ -8,7 +8,7 @@ body:
     id: showcase
     attributes:
       label: Showcase
-      description: "Practical example or scenario demonstrating the impact of the idea"
+      description: 'Practical example or scenario demonstrating the impact of the idea'
       render: auto
     validations:
       required: true

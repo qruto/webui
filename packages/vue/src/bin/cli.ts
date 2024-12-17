@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import program from '$/program'
 import * as use from '$/commands/use'
+import program from '$/program'
 
 export type AvailableCommands = typeof use.name
 

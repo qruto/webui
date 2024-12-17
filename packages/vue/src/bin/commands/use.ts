@@ -1,6 +1,6 @@
 import { Command } from 'commander'
-import { z } from 'zod'
 import prompts from 'prompts'
+import { z } from 'zod'
 
 export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'

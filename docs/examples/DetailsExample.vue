@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid';
-import { Details } from '@webui/vue';
+import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
+import { Details } from '@webui/vue'
+import { ref } from 'vue'
 
-const open = ref(false);
+const open = ref(false)
 
 function onToggle(e: Event) {
-  open.value = e.newState === 'open';
+  open.value = e.newState === 'open'
 }
 </script>
 
 <template>
   <Details
     ref="details"
-    class="dark:shadow-concave-dark rounded-3xl bg-zinc-200 px-8 py-4 shadow-concave dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500"
+    class="dark:shadow-concave-dark shadow-concave rounded-3xl bg-zinc-200 px-8 py-4 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500"
     summary-class="flex gap-4 dark:text-zinc-200 rounded-t-3xl items-center justify-between"
     :class="[
       // 'mx-2 mb-0 translate-y-full',
@@ -25,9 +25,9 @@ function onToggle(e: Event) {
     :open="open"
     @toggle="onToggle"
   >
-    <template #summary="{ open }">
+    <template #summary="{ open: openSummary }">
       <strong class="font-bold">advanced setup</strong>
-      <PlusIcon v-if="!open" class="size-5" />
+      <PlusIcon v-if="!openSummary" class="size-5" />
       <MinusIcon v-else class="size-5" />
     </template>
     <div class="mt-4">some details</div>

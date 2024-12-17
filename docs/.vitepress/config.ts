@@ -1,6 +1,6 @@
-import tailwindcss from '@tailwindcss/vite';
-import vueDevTools from 'vite-plugin-vue-devtools';
-import { defineConfig } from 'vitepress';
+import tailwindcss from '@tailwindcss/vite'
+import vueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -10,4 +10,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), vueDevTools()],
   },
-});
+})
