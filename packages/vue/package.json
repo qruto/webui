@@ -52,9 +52,9 @@
     "cli:dev": "tsup --watch",
     "cli:build": "tsup",
     "cli:type-check": "tsc --build --force --config tsconfig.cli.json",
-    "test:unit": "vitest --run",
+    "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
-    "test:unit:watch": "vitest --watch"
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@types/prompts": "^2.4.9",
