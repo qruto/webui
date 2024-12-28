@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/dependencies.yml
+      - uses: ./.github/workflows/dependencies
       - name: checking library types
         run: npm run vue type-check
       - name: checking cli types
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/dependencies.yml
+      - uses: ./.github/workflows/dependencies
       - name: build library
         run: npm run vue build-only
       - name: build cli
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/dependencies.yml
+      - uses: ./.github/workflows/dependencies
       - name: lint
         run: npm run lint
 
@@ -52,6 +52,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/dependencies.yml
+      - uses: ./.github/workflows/dependencies
       - name: code formatting
         run: npm run format
