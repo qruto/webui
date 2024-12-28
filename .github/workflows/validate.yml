@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,9 +22,39 @@ jobs:
           cache: 'npm'
       - name: install dependencies
         run: npm ci
-      - name: type check
-        run: npm run type-check
+
+  type-check:
+    runs-on: ubuntu-latest
+    needs: install
+
+    steps:
+      - name: checking library types
+        run: npm run vue type-check
+      - name: checking cli types
+        run: npm run vue type-check:cli
+
+  build:
+    runs-on: ubuntu-latest
+    needs: type-check
+
+    steps:
+      - name: build library
+        run: npm run vue build-only
+      - name: build cli
+        run: npm run vue build:cli
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
       - name: lint
         run: npm run lint
-      - name: format
+
+  format:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: code formatting
         run: npm run format
