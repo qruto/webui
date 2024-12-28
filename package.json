@@ -12,7 +12,7 @@
   "scripts": {
     "prepare": "husky",
     "commit": "cz",
-    "validate": "run-p type-check lint format",
+    "validate": "run-p type-check lint format test",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "docs:preview": "vitepress preview docs",
