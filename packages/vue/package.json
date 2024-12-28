@@ -46,12 +46,12 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "run-s type-check cli:build \"build-only {@}\" --",
+    "dev:cli": "tsup --watch",
+    "build": "run-p type-check type-check:cli build:cli \"build-only {@}\" --",
     "build-only": "vite build",
+    "build:cli": "tsup",
     "type-check": "vue-tsc --build --force",
-    "cli:dev": "tsup --watch",
-    "cli:build": "tsup",
-    "cli:type-check": "tsc --build --force --config tsconfig.cli.json",
+    "type-check:cli": "tsc --build --force --config tsconfig.cli.json",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
     "test:watch": "vitest --watch"
