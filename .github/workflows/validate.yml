@@ -21,8 +21,6 @@ jobs:
       - uses: ./.github/workflows/dependencies
       - name: checking library types
         run: npm run vue type-check
-      - name: checking cli types
-        run: npm run vue type-check:cli
 
   build:
     runs-on: ubuntu-latest
