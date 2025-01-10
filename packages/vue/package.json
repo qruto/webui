@@ -1,6 +1,6 @@
 {
   "name": "@webui/vue",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Well-abstracted components that leverage the latest capabilities of the web platform.",
   "keywords": [
     "web",
