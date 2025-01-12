@@ -47,7 +47,7 @@
   "scripts": {
     "dev": "vite",
     "dev:cli": "tsup --watch",
-    "build": "run-p type-check type-check:cli build:cli \"build-only {@}\" --",
+    "build": "run-p type-check build:cli \"build-only {@}\" --",
     "build-only": "vite build",
     "build:cli": "tsup",
     "type-check": "vue-tsc --build --force",
