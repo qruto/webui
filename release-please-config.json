@@ -3,7 +3,6 @@
 
   "packages": {
     "packages/vue": {
-      "package-name": "@webui/vue",
       "release-type": "node",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true
