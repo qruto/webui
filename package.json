@@ -23,9 +23,9 @@
     "format": "prettier . --check",
     "lint": "eslint .",
     "style": "eslint . --fix && prettier --write .",
-    "test": "vitest --run",
-    "test:coverage": "vitest --coverage --run",
-    "test:watch": "vitest --watch",
+    "test": "npm run test --workspace packages/vue",
+    "test:coverage": "npm run test:coverage --workspace packages/vue",
+    "test:watch": "npm run test:watch --workspace packages/vue",
     "vue": "npm run --workspace=@webui/vue"
   },
   "dependencies": {

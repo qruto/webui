@@ -64,20 +64,22 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@testing-library/vue": "^8.1.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.10.2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vitest/browser": "^2.1.8",
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^12.2.0",
     "jsdom": "^25",
     "npm-run-all2": "^7.0.2",
+    "playwright": "^1.49.1",
     "start-server-and-test": "^2.0.9",
     "vite": "^5.4",
     "vite-plugin-dts": "^4.4.0",
     "vite-plugin-vue-devtools": "^7.6.8",
     "vitest": "^2.1.8",
+    "vitest-browser-vue": "^0.0.1",
     "vue-tsc": "^2.2.0"
   },
   "peerDependencies": {

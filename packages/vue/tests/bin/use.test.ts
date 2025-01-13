@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
+import { command as use } from '$/commands/use'
 import program from '$/program'
+
 // import prompts from 'prompts'
 import type { AvailableCommands } from '$/cli'
+
+program.addCommand(use)
 
 function run(name: AvailableCommands, prompts?: string[]) {
   program.parse(['node', 'webui', name])
