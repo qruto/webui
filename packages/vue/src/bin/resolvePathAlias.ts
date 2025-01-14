@@ -14,14 +14,15 @@ export function resolveAliasPath(aliasPath: string, tsConfigPath: string): strin
     basePath,
   )
 
+  //TODO: change to import.meta.url usage
+  const resolvedBaseUrl = options.baseUrl ? resolve(basePath, options.baseUrl) : basePath
+
   function resolveAliasFromPaths(paths: typeof options.paths) {
-    // Check paths from main config
     for (const [key, values] of Object.entries(paths || {})) {
-      // e.g. "@components/*"
       const pattern = key.replace('*', '')
-      if (aliasPath.startsWith(pattern)) {
+      if (aliasPath.startsWith(pattern.endsWith('/') ? pattern.slice(0, -1) : pattern)) {
         const subPath = aliasPath.slice(pattern.length)
-        const resolvedPath = resolve(basePath, values[0].replace('*', subPath))
+        const resolvedPath = resolve(resolvedBaseUrl, values[0].replace('*', subPath) || '.')
         return resolvedPath
       }
     }
