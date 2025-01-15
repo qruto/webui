@@ -20,9 +20,14 @@ export function resolveAliasPath(aliasPath: string, tsConfigPath: string): strin
   function resolveAliasFromPaths(paths: typeof options.paths) {
     for (const [key, values] of Object.entries(paths || {})) {
       const pattern = key.replace('*', '')
-      if (aliasPath.startsWith(pattern.endsWith('/') ? pattern.slice(0, -1) : pattern)) {
+
+      if (
+        aliasPath.startsWith(pattern) ||
+        (pattern.endsWith('/') && aliasPath === pattern.slice(0, -1))
+      ) {
         const subPath = aliasPath.slice(pattern.length)
         const resolvedPath = resolve(resolvedBaseUrl, values[0].replace('*', subPath) || '.')
+
         return resolvedPath
       }
     }
