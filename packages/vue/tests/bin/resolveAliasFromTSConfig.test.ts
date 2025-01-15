@@ -11,50 +11,23 @@ describe('resolving alias path from tsconfig.json', () => {
     )
   }
 
-  it('resolves the path from the root tsconfig.json', () => {
-    expectAlias('tsconfig.json', '@/components/ui', 'src/components/ui')
-  })
+  it('resolves the path from the root tsconfig.json', () =>
+    expectAlias('tsconfig.json', '@/components/ui', 'src/components/ui'))
 
-  it('resolves the path from the root tsconfig.json with `basePath` configured', () => {
-    const componentPath = '@/components/ui'
-    const basePath = fileURLToPath(new URL('./fixtures', import.meta.url))
+  it('resolves the path from the root tsconfig.json with `basePath` configured', () =>
+    expectAlias('tsconfig-base-path.json', '@/components/ui', 'src/components/ui'))
 
-    expect(resolveAliasPath(componentPath, basePath + '/tsconfig-base-path.json')).toBe(
-      basePath + '/src/components/ui',
-    )
-  })
+  it('resolves the path with direct @components alias', () =>
+    expectAlias('tsconfig-components-alias.json', '@components', 'src/components'))
 
-  it('resolves the path with direct @components alias', () => {
-    const componentPath = '@components'
-    const basePath = fileURLToPath(new URL('./fixtures', import.meta.url))
+  it('resolves the path with nested alias', () =>
+    expectAlias('tsconfig-nested-alias.json', '@/nested/module', 'src/nested/module'))
 
-    expect(resolveAliasPath(componentPath, basePath + '/tsconfig-components-alias.json')).toBe(
-      basePath + '/src/components',
-    )
-  })
-
-  it('resolves the path with nested alias', () => {
-    const nestedPath = '@/nested/module'
-    const basePath = fileURLToPath(new URL('./fixtures', import.meta.url))
-
-    expect(resolveAliasPath(nestedPath, basePath + '/tsconfig-nested-alias.json')).toBe(
-      basePath + '/src/nested/module',
-    )
-  })
-
-  it('resolves the path with multiple aliases', () => {
-    const multipleAliasPath = '@shared/utils'
-    const basePath = fileURLToPath(new URL('./fixtures', import.meta.url))
-
-    expect(resolveAliasPath(multipleAliasPath, basePath + '/tsconfig-multiple-aliases.json')).toBe(
-      basePath + '/src/shared/utils',
-    )
-  })
+  it('resolves the path with multiple aliases', () =>
+    expectAlias('tsconfig-multiple-aliases.json', '@shared/utils', 'src/shared/utils'))
 
   it('returns the original path if no alias matches', () => {
     const nonAliasPath = '~/nonexistent/path/alias'
-    const basePath = fileURLToPath(new URL('./fixtures', import.meta.url))
-
     expect(resolveAliasPath(nonAliasPath, basePath + '/tsconfig.json')).toBe(nonAliasPath)
   })
 
