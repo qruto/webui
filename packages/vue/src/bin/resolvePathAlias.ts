@@ -50,7 +50,7 @@ export function resolveAliasPath(aliasPath: string, tsConfigPath: string): strin
         try {
           const resolvedRef = resolve(basePath, ref.path)
           const newPath = resolveAliasPath(aliasPath, resolvedRef)
-          if (typeof newPath !== 'undefined') return newPath
+          if (typeof newPath !== 'undefined' && newPath !== aliasPath) return newPath
         } catch {
           // ignore and continue
         }

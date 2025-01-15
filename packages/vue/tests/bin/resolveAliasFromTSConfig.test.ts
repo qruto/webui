@@ -17,8 +17,8 @@ describe('resolving alias path from tsconfig.json', () => {
   it('resolves the path from the root tsconfig.json with `basePath` configured', () =>
     expectAlias('tsconfig-base-path.json', '@/components/ui', 'src/components/ui'))
 
-  it('resolves the path with direct @components alias', () =>
-    expectAlias('tsconfig-components-alias.json', '@components', 'src/components'))
+  it('resolves the path with direct `@ui` alias to the components folder', () =>
+    expectAlias('tsconfig-components-alias.json', '@ui', 'src/components/ui'))
 
   it('resolves the path with nested alias', () =>
     expectAlias('tsconfig-nested-alias.json', '@/nested/module', 'src/nested/module'))
@@ -31,5 +31,24 @@ describe('resolving alias path from tsconfig.json', () => {
     expect(resolveAliasPath(nonAliasPath, basePath + '/tsconfig.json')).toBe(nonAliasPath)
   })
 
-  it('resolves non symbol alias', () => {})
+  it('works with simple relative path', () => {
+    const relativePath = './src/components/ui'
+    expect(resolveAliasPath(relativePath, basePath + '/tsconfig.json')).toBe(relativePath)
+  })
+
+  it('resolves non symbol alias', () => {
+    const relativePath = 'components/ui'
+    expect(resolveAliasPath(relativePath, basePath + '/tsconfig-nonsymbol-alias.json')).toBe(
+      basePath + '/src/components/ui',
+    )
+  })
+
+  it('resolves the path from the project references configuration', () =>
+    expectAlias('tsconfig-references.json', '@browser/utils', 'referenced/src/browser/utils'))
+
+  it('resolves the second referenced path from the project references configuration', () =>
+    expectAlias('tsconfig-references.json', '@cli/commands', 'referenced/src/cli/commands'))
+
+  it('resolves the alias path from the root config with project references', () =>
+    expectAlias('tsconfig-references-with-alias.json', '@ui', 'src/components/ui'))
 })

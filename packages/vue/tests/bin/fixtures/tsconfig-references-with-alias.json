@@ -1,0 +1,17 @@
+{
+  "references": [
+    {
+      "path": "./referenced/tsconfig.browser.json"
+    },
+    {
+      "path": "./referenced/tsconfig.node.json"
+    }
+  ],
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["src/components/ui/*"]
+    }
+  }
+}
