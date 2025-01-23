@@ -1,36 +1,40 @@
 <template>
-  <fieldset class="grid grid-cols-[auto_var(--spacing-6)_var(--spacing-6)_0.8rem] gap-x-1 gap-y-2">
-    <header class="w-full pl-4 text-lg text-zinc-800 dark:text-zinc-200">
-      {{ title }}
-      <a
-        target="_blank"
-        class="text-sm underline hover:text-zinc-600"
-        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
-        >based on the &lt;dialog&gt; element</a
-      >
+  <fieldset class="group">
+    <header class="flex w-full justify-between pl-4 text-lg text-zinc-800 dark:text-zinc-200">
+      <h2>
+        {{ title }}
+        <a
+          target="_blank"
+          class="text-sm underline hover:text-zinc-600"
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
+          >based on the &lt;dialog&gt; element</a
+        >
+      </h2>
+      <div class="flex gap-2 pr-4">
+        <label
+          for="mobile"
+          :class="screen === 'wide' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
+          class="has-checked:text-yellow-500"
+          ><DevicePhoneMobileIcon class="size-6" />
+          <input id="mobile" value="mobile" v-model="screen" class="hidden" type="radio" />
+        </label>
+
+        <label
+          for="wide"
+          :class="screen === 'mobile' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
+          class="has-checked:text-yellow-500"
+          ><ComputerDesktopIcon class="size-6" />
+
+          <input id="wide" value="wide" v-model="screen" class="peer/wide hidden" type="radio" />
+        </label>
+      </div>
     </header>
-
-    <input id="mobile" value="mobile" v-model="screen" class="peer/mobile hidden" type="radio" />
-    <label
-      for="mobile"
-      :class="screen === 'wide' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
-      class="text-yellow-500 peer-checked/mobile:text-yellow-500 peer-checked/wide:text-red-500 md:text-zinc-500 dark:text-yellow-400 dark:md:text-zinc-600"
-      ><DevicePhoneMobileIcon class="size-6"
-    /></label>
-
-    <input id="wide" value="wide" v-model="screen" class="peer/wide hidden" type="radio" />
-    <label
-      for="wide"
-      :class="screen === 'mobile' ? '!text-zinc-500 dark:!text-zinc-600' : ''"
-      class="text-zinc-500 peer-checked/wide:text-yellow-500 md:text-yellow-500 dark:text-zinc-600 dark:md:text-yellow-400"
-      ><ComputerDesktopIcon class="size-6"
-    /></label>
 
     <div
       :class="[
-        'col-span-4',
+        'mt-2',
         'dark:shadow-concave-dark shadow-concave rounded-2xl bg-zinc-200 p-1 dark:bg-zinc-900',
-        'relative overflow-hidden [--device-width:100%] peer-checked/mobile:[--device-width:var(--width-sm)] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
+        'relative overflow-hidden [--device-width:100%] group-has-[#mobile:checked]:[--device-width:var(--width-sm)] peer-checked/wide:[--device-width:calc(var(--breakpoint-md)+2px)] md:[--device-width:calc(var(--breakpoint-md)+2px)]',
         // ✓ checked wide
         'peer-checked/wide:h-[35dvh] peer-checked/wide:w-80 md:peer-checked/wide:h-auto md:peer-checked/wide:w-auto peer-checked/wide:[&>iframe]:origin-top-left peer-checked/wide:[&>iframe]:scale-50 md:peer-checked/wide:[&>iframe]:scale-100',
         'md:[&>iframe]:-ml-3',

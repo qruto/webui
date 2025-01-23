@@ -7,7 +7,7 @@ import { Button } from '@webui/vue'
 <template>
   <header class="py-8 text-center">
     <h1 class="font-display text-5xl font-bold dark:text-zinc-100">Web UI</h1>
-    <p class="mt-4 px-4 text-zinc-500">
+    <p class="mt-4 px-4 text-zinc-400">
       Well-abstracted components that leverage the latest capabilities of the web platform.
     </p>
   </header>
