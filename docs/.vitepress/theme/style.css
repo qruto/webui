@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+/* @plugin "@tailwindcss/typography"; */
+/* @plugin "@tailwindcss/forms"; */
+
 @import '@fontsource-variable/nunito' layer(base);
 @import '@fontsource-variable/jura' layer(base);
 
@@ -7,17 +10,10 @@
   --font-display: 'Jura Variable', var(--font-sans);
 }
 
+@custom-variant pointer-coarse (@media (pointer: coarse));
+@custom-variant pointer-fine (@media (pointer: fine));
+
 :root {
   @apply scheme-light dark:scheme-dark;
   background-color: light-dark(var(--color-zinc-100), var(--color-zinc-800));
 }
-
-/* @plugin "@tailwindcss/typography"; */
-/* @plugin "@tailwindcss/forms"; */
-
-/* :root {
-  @apply bg-zinc-100 dark:bg-zinc-800;
-  --width-sm: 375px;
-  --spacing-6: theme(spacing.6);
-  --breakpoint-md: theme(screens.md);
-} */

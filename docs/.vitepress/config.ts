@@ -10,4 +10,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), vueDevTools()],
   },
+
+  head: [['script', { src: 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js' }]],
 })
