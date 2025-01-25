@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import DetailsExample from '../../examples/DetailsExample.vue'
-import ComponentDemo from './ComponentDemo.vue'
+import ScrollDemo from './ScrollDemo.vue'
 
 import { Button } from '@webui/vue'
 </script>
@@ -11,36 +10,29 @@ import { Button } from '@webui/vue'
       Well-abstracted components that leverage the latest capabilities of the web platform.
     </p>
   </header>
-  <main class="mx-auto flex max-w-screen-md flex-col items-center px-4">
-    <!-- <div class="max-w-96">
-      <div class="relative inline-block">
-        <div class="absolute inset-x-0 h-24 bg-red-500"></div>
-        <div
-          class="h-12 isolate scale-[4] w-64 resize-x overflow-hidden border border-zinc-900 [transform-origin:100%_100%]"
-        ></div>
-      </div>
-    </div> -->
-    <section class="w-full">
-      <header class="pl-4 text-lg text-zinc-800 dark:text-zinc-200">
-        Button / Link
-        <span class="text-sm"
+  <main class="isolate mx-auto flex h-[200dvh] max-w-screen-md flex-col items-center px-4">
+    <ScrollDemo />
+    <!-- <section class="w-full">
+      <header class="pl-4 text-xl text-zinc-800 dark:text-zinc-400">
+        <code class="dark:text-orange-400">&lt;Action&gt;</code>
+        <span class="pl-1 text-sm"
           >based on the
           <a
             target="_blank"
-            class="text-sm underline hover:text-zinc-600"
+            class="text-sm underline hover:text-zinc-600 dark:text-zinc-200"
             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"
           >
-            &lt;button&gt;</a
+            <code>&lt;button&gt;</code></a
           >
           or
           <a
             target="_blank"
-            class="text-sm underline hover:text-zinc-600"
+            class="text-sm underline hover:text-zinc-600 dark:text-zinc-300"
             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"
           >
-            &lt;a&gt;</a
+            <code>&lt;a&gt;</code></a
           >
-          element, depending on <code>href</code> attribute.
+          element, depending on <CodeComponent class="text-zinc-300">href</CodeComponent> attribute.
         </span>
       </header>
       <div class="mt-4 text-center">
@@ -48,20 +40,24 @@ import { Button } from '@webui/vue'
       </div>
     </section>
     <section class="mt-10 w-full">
-      <header class="pl-4 text-lg text-zinc-800 dark:text-zinc-200">
-        Details
-        <a
-          target="_blank"
-          class="text-sm underline hover:text-zinc-600"
-          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"
-          >based on the &lt;details&gt; element</a
+      <header class="pl-4 text-lg text-zinc-800 dark:text-zinc-400">
+        <code class="dark:text-indigo-400">&lt;Details&gt;</code>
+        <span class="text-sm">
+          based on the native
+          <a
+            target="_blank"
+            class="text-sm underline hover:text-zinc-600 dark:text-zinc-200"
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"
+            >&lt;details&gt;</a
+          >
+          element</span
         >
       </header>
       <DetailsExample class="mt-2" />
     </section>
-    <section class="mt-10">
-      <ComponentDemo component="dialog" title="Dialog Modal" />
-    </section>
+    <section class="mt-10 w-full max-w-full">
+      <ResponsiveDemo component="dialog" name="&lt;DialogModal&gt;" />
+    </section> -->
   </main>
   <footer class="py-6 text-center text-zinc-500">
     by

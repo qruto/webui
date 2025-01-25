@@ -26,7 +26,7 @@ function onToggle(e: Event) {
     @toggle="onToggle"
   >
     <template #summary="{ open: openSummary }">
-      <strong class="font-bold">advanced setup</strong>
+      <strong class="font-bold">expand content</strong>
       <PlusIcon v-if="!openSummary" class="size-5" />
       <MinusIcon v-else class="size-5" />
     </template>
