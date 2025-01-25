@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ScrollDemo from './ScrollDemo.vue'
-
 import { Button } from '@webui/vue'
 </script>
 <template>
@@ -10,8 +9,11 @@ import { Button } from '@webui/vue'
       Well-abstracted components that leverage the latest capabilities of the web platform.
     </p>
   </header>
-  <main class="isolate mx-auto flex h-[200dvh] max-w-screen-md flex-col items-center px-4">
-    <ScrollDemo />
+  <main class="isolate mx-auto h-[200dvh] max-w-screen-md px-4">
+    <p class="mt-10 text-center font-bold">this is page</p>
+    <div class="mt-14">
+      <ScrollDemo />
+    </div>
     <!-- <section class="w-full">
       <header class="pl-4 text-xl text-zinc-800 dark:text-zinc-400">
         <code class="dark:text-orange-400">&lt;Action&gt;</code>
