@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.3 (2025-01-26)
+
+**Full Changelog**: https://github.com/qruto/webui/compare/vue-v0.0.2...vue-v0.0.3
+
 ## [0.0.2](https://github.com/qruto/webui/compare/vue-v0.0.1...vue-v0.0.2) (2025-01-12)
 
 
