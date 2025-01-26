@@ -10,7 +10,7 @@ import { Button } from '@webui/vue'
     </p>
   </header>
   <main class="isolate mx-auto h-[200dvh] max-w-screen-md px-4">
-    <p class="mt-10 text-center font-bold">this is page</p>
+    <p class="mt-10 text-center font-bold text-zinc-700 dark:text-zinc-300">this is page</p>
     <div class="mt-14">
       <ScrollDemo />
     </div>
