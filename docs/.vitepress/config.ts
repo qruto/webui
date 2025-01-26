@@ -11,5 +11,10 @@ export default defineConfig({
     plugins: [tailwindcss(), vueDevTools()],
   },
 
-  head: [['script', { src: 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js' }]],
+  // head: [
+  //   [
+  //     'script',
+  //     { src: 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js', defer: '' },
+  //   ],
+  // ],
 })
