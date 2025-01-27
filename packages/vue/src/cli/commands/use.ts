@@ -10,6 +10,7 @@ export const optionsSchema = z.object({
   yes: z.boolean(),
   force: z.boolean(),
   path: z.string(),
+  cwd: z.string(),
 })
 
 export const command = new Command()
@@ -18,6 +19,11 @@ export const command = new Command()
   .option('-y, --yes', 'skip prompts', false)
   .option('-f, --force', 'override existing component files', false)
   .option('-p, --path <path>', 'specify the path to copy the files to', DEFAULT_COMPONENTS_PATH)
+  .option(
+    '-c, --cwd <cwd>',
+    'the working directory. defaults to the current directory.',
+    process.cwd(),
+  )
   .action(async (components, optionsRaw) => {
     const options = optionsSchema.parse({
       components,
@@ -36,6 +42,4 @@ export const command = new Command()
 
       path = response.value
     }
-
-    console.log(path) // => { value: 24 }
   })

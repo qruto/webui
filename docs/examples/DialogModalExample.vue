@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue'
-
 import { Button, CloseButton, DialogModal } from '@webui/vue'
+import { ref, useTemplateRef } from 'vue'
 
 const open = ref(false)
 const dialog = useTemplateRef('dialog')

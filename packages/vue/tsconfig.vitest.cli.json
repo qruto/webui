@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.cli.json",
-  "include": ["package.json", "env.d.ts", "tests/bin/**/*", "src/bin/**/*"],
+  "include": ["package.json", "env.d.ts", "tests/cli/**/*", "src/cli/**/*"],
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
