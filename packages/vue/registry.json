@@ -1,0 +1,14 @@
+[
+  {
+    "name": "action",
+    "dependencies": []
+  },
+  {
+    "name": "dialog",
+    "dependencies": ["@vueuse/core"]
+  },
+  {
+    "name": "details",
+    "dependencies": ["@vueuse/core"]
+  }
+]
