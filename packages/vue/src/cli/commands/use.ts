@@ -1,4 +1,6 @@
 import { Command } from 'commander'
+import { existsSync, promises as fs } from 'node:fs'
+import $path from 'node:path'
 import prompts from 'prompts'
 import { z } from 'zod'
 
@@ -27,6 +29,7 @@ export const command = new Command()
   .action(async (components, optionsRaw) => {
     const options = optionsSchema.parse({
       components,
+      cwd: $path.resolve(optionsRaw.cwd),
       ...optionsRaw,
     })
 
@@ -41,5 +44,28 @@ export const command = new Command()
       })
 
       path = response.value
+    }
+
+    if (options.components?.length) {
+      options.components.forEach(async component => {
+        const componentName = component.charAt(0).toUpperCase() + component.slice(1)
+        const componentUrl = `https://raw.githubusercontent.com/qruto/webui/refs/heads/main/docs/examples/${componentName}Example.vue`
+        const response = await fetch(componentUrl)
+        if (!response.ok) {
+          console.error(`Failed to fetch ${component} from ${componentUrl}`)
+          return
+        }
+        const componentContent = await response.text()
+        const componentPath = $path.join(options.cwd, path, `${component}.vue`)
+        const componentsDir = $path.dirname(componentPath)
+
+        if (!existsSync(componentsDir)) {
+          await fs.mkdir(componentsDir, { recursive: true })
+        }
+
+        await fs.writeFile(componentPath, componentContent)
+
+        console.log(`Component ${component} has been saved to ${componentPath}`)
+      })
     }
   })

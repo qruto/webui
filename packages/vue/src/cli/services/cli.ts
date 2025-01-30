@@ -1,1 +1,5 @@
-export default class CLI {}
+import prompts from 'prompts'
+
+export default {
+  prompt: prompts,
+}
