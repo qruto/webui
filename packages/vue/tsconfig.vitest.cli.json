@@ -1,9 +1,14 @@
 {
   "extends": "./tsconfig.cli.json",
-  "include": ["package.json", "env.d.ts", "tests/cli/**/*", "src/cli/**/*"],
+  "include": ["package.json", "env.d.ts", "tests/cli/**/*", "tests/utils/**/*", "src/cli/**/*"],
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+
+    "paths": {
+      "$/*": ["./src/cli/*"],
+      "@tests/*": ["tests/*"]
+    },
 
     "lib": [],
     "types": ["node", "jsdom"]
