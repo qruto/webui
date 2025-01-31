@@ -6,6 +6,7 @@
     :rel="rel || (href && isExternal(href) ? 'noreferrer' : undefined)"
   >
     <slot />
+
     <span v-if="href && isExternal(href)">→</span>
   </component>
 </template>

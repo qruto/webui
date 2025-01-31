@@ -1,3 +1,4 @@
+import registry from '$/registry'
 import { Command } from 'commander'
 import { existsSync, promises as fs } from 'node:fs'
 import $path from 'node:path'
@@ -49,12 +50,14 @@ export const command = new Command()
     if (options.components?.length) {
       options.components.forEach(async component => {
         const componentName = component.charAt(0).toUpperCase() + component.slice(1)
-        const componentUrl = `https://raw.githubusercontent.com/qruto/webui/refs/heads/main/docs/examples/${componentName}Example.vue`
+        const componentUrl = `${registry.origin}/${componentName}Example.vue`
         const response = await fetch(componentUrl)
+
         if (!response.ok) {
           console.error(`Failed to fetch ${component} from ${componentUrl}`)
           return
         }
+
         const componentContent = await response.text()
         const componentPath = $path.join(options.cwd, path, `${component}.vue`)
         const componentsDir = $path.dirname(componentPath)
