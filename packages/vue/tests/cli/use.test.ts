@@ -50,9 +50,10 @@ describe('CLI testing', () => {
   //   expect(fetch).toHaveBeenCalled()
   // })
 
-  it('copies specific components with `use` command', async () => {
+  it('copies particular component with `use` command', async () => {
     await run('use', ['button'])
-    expect(fetch).toHaveBeenCalledWith(`${registry.origin}/ButtonExample.vue`)
+
+    expect(fetch).toHaveBeenCalledWith(`${registry.origin}/Button.vue`)
   })
 
   it('prompts for component location if default path is used', async () => {

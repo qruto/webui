@@ -29,7 +29,6 @@
     "vue": "npm run --workspace=@webui/vue"
   },
   "dependencies": {
-    "@changesets/cli": "^2.27.11",
     "@fontsource-variable/jura": "^5.1.1",
     "@fontsource-variable/nunito": "^5.1.1",
     "@heroicons/vue": "^2.2.0",

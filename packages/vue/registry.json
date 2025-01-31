@@ -5,6 +5,7 @@
   },
   {
     "name": "dialog",
+    "used": ["action"],
     "dependencies": ["@vueuse/core"]
   },
   {
