@@ -48,27 +48,31 @@ export const command = new Command()
     }
 
     if (options.components?.length) {
-      options.components.forEach(async component => {
-        const componentName = component.charAt(0).toUpperCase() + component.slice(1)
-        const componentUrl = `${registry.origin}/${componentName}Example.vue`
-        const response = await fetch(componentUrl)
+      await Promise.all(
+        options.components.map(async component => {
+          const componentName = component.charAt(0).toUpperCase() + component.slice(1)
+          const componentUrl = `${registry.origin}/${componentName}.vue`
+          const response = await fetch(componentUrl)
 
-        if (!response.ok) {
-          console.error(`Failed to fetch ${component} from ${componentUrl}`)
-          return
-        }
+          if (!response.ok) {
+            console.error(`Failed to fetch ${componentName} from ${componentUrl}`)
+            return
+          }
 
-        const componentContent = await response.text()
-        const componentPath = $path.join(options.cwd, path, `${component}.vue`)
-        const componentsDir = $path.dirname(componentPath)
+          const componentContent = await response.text()
+          const componentPath = $path.join(options.cwd, path, `${componentName}.vue`)
+          const componentsDir = $path.dirname(componentPath)
 
-        if (!existsSync(componentsDir)) {
-          await fs.mkdir(componentsDir, { recursive: true })
-        }
+          if (!existsSync(componentsDir)) {
+            await fs.mkdir(componentsDir, { recursive: true })
+          }
 
-        await fs.writeFile(componentPath, componentContent)
+          await fs.writeFile(componentPath, componentContent)
 
-        console.log(`Component ${component} has been saved to ${componentPath}`)
-      })
+          console.log(`Component ${componentName} has been saved to ${componentPath}`)
+        }),
+      )
+
+      console.log('All components have been processed.')
     }
   })

@@ -73,6 +73,8 @@
     "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^12.2.0",
     "jsdom": "^25",
+    "memfs": "^4.17.0",
+    "msw": "^2.7.0",
     "npm-run-all2": "^7.0.2",
     "playwright": "^1.49.1",
     "start-server-and-test": "^2.0.9",

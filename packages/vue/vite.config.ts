@@ -41,6 +41,8 @@ export default {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       $: fileURLToPath(new URL('./src/cli', import.meta.url)),
+      '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
+      '@__mocks__': fileURLToPath(new URL('./__mocks__', import.meta.url)),
     },
   },
 
