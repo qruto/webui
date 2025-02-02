@@ -4,7 +4,7 @@ import { setupServer } from 'msw/node'
 import { afterAll, afterEach, beforeAll } from 'vitest'
 
 export const handlers = [
-  http.get(registry.origin + '/Button.vue', () => {
+  http.get(registry.origin + '/Action.vue', () => {
     return HttpResponse.text('<component-content />')
   }),
 ]

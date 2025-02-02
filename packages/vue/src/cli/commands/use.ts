@@ -1,4 +1,6 @@
-import registry from '$/registry'
+import packageJson from '$/package'
+import registry, { ComponentName } from '$/registry'
+import { PackageManager } from '$/utils/package-manager'
 import { Command } from 'commander'
 import { existsSync, promises as fs } from 'node:fs'
 import $path from 'node:path'
@@ -9,7 +11,9 @@ export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'
 
 export const optionsSchema = z.object({
-  components: z.array(z.string()).optional(),
+  components: z
+    .array(z.enum([...registry.components.map(c => c.name)] as [ComponentName, ...ComponentName[]]))
+    .optional(),
   yes: z.boolean(),
   force: z.boolean(),
   path: z.string(),
@@ -27,52 +31,77 @@ export const command = new Command()
     'the working directory. defaults to the current directory.',
     process.cwd(),
   )
-  .action(async (components, optionsRaw) => {
+  .action(async (components: ComponentName[], optionsRaw) => {
     const options = optionsSchema.parse({
       components,
       cwd: $path.resolve(optionsRaw.cwd),
       ...optionsRaw,
     })
 
+    const packageManager = new PackageManager(options.cwd)
+
+    if (!packageManager.install(packageJson.name)) {
+      console.error(`Failed to install the core ${packageJson.name} package.`)
+    }
+
     let path = options.path
 
     if (path === DEFAULT_COMPONENTS_PATH) {
-      const response = await prompts({
-        type: 'text',
-        name: 'value',
-        message: 'Choose component location',
-        initial: DEFAULT_COMPONENTS_PATH,
-      })
-
-      path = response.value
+      path = (await prompt.location()).value
     }
 
     if (options.components?.length) {
-      await Promise.all(
-        options.components.map(async component => {
-          const componentName = component.charAt(0).toUpperCase() + component.slice(1)
-          const componentUrl = `${registry.origin}/${componentName}.vue`
-          const response = await fetch(componentUrl)
-
-          if (!response.ok) {
-            console.error(`Failed to fetch ${componentName} from ${componentUrl}`)
-            return
-          }
-
-          const componentContent = await response.text()
-          const componentPath = $path.join(options.cwd, path, `${componentName}.vue`)
-          const componentsDir = $path.dirname(componentPath)
-
-          if (!existsSync(componentsDir)) {
-            await fs.mkdir(componentsDir, { recursive: true })
-          }
-
-          await fs.writeFile(componentPath, componentContent)
-
-          console.log(`Component ${componentName} has been saved to ${componentPath}`)
-        }),
-      )
+      await deliverComponents(options.components, path, options.cwd)
 
       console.log('All components have been processed.')
     }
   })
+
+const prompt = {
+  location: async () =>
+    await prompts({
+      type: 'text',
+      name: 'value',
+      message: 'Choose component location',
+      initial: DEFAULT_COMPONENTS_PATH,
+    }),
+}
+
+async function deliverComponents(
+  components: ('action' | 'dialog' | 'details')[],
+  path: string,
+  cwd: string,
+) {
+  await Promise.all(
+    components.map(async componentName => {
+      componentName = componentName.charAt(0).toUpperCase() + componentName.slice(1)
+
+      const component = {
+        name: componentName,
+        url: `${registry.origin}/${componentName}.vue`,
+        content: '',
+        path: '',
+      }
+
+      const response = await fetch(component.url)
+
+      if (!response.ok) {
+        console.error(`Failed to fetch ${component.name} from ${component.url}`)
+        return
+      }
+
+      component.content = await response.text()
+      component.path = $path.join(cwd, path, `${component.name}.vue`)
+
+      const componentsDir = $path.dirname(component.path)
+
+      if (!existsSync(componentsDir)) {
+        await fs.mkdir(componentsDir, { recursive: true })
+      }
+
+      await fs.writeFile(component.path, component.content)
+
+      console.log(`Component ${component.name} has been saved to ${component.path}`)
+    }),
+  )
+}

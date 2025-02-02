@@ -3,25 +3,21 @@ import { describe, expect, it } from 'vitest'
 import { vol } from 'memfs'
 
 import { command as use } from '$/commands/use'
+import mockFs from '@__mocks__/fs'
 import mockHttp from '@__mocks__/http'
 import { program, run } from './helpers'
 
 program.addCommand(use)
 
-vi.mock('node:fs')
-vi.mock('node:fs/promises')
-
-beforeEach(() => {
-  vol.reset()
-  vol.mkdirSync(process.cwd(), { recursive: true })
-})
-
 mockHttp()
+
+vi.mock('node:fs')
+mockFs()
 
 describe('CLI testing', () => {
   it('copies particular component with `use` command', async () => {
-    await run('use', ['button'])
+    await run('use', ['action'])
 
-    expect(vol.existsSync('./src/components/ui/Button.vue')).toBeTruthy()
+    expect(vol.existsSync('./src/components/ui/Action.vue')).toBeTruthy()
   })
 })
