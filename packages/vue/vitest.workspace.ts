@@ -9,7 +9,7 @@ export default [
       exclude: ['tests/cli/**/*.test.ts'],
       browser: {
         enabled: true,
-        name: 'webkit',
+        name: 'chromium',
         provider: 'playwright',
         // https://playwright.dev
         providerOptions: {},
