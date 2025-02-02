@@ -1,11 +1,13 @@
 import packageJson from '$/package'
-import registry, { ComponentName } from '$/registry'
+import registry from '$/registry'
 import { PackageManager } from '$/utils/package-manager'
 import { Command } from 'commander'
 import { existsSync, promises as fs } from 'node:fs'
 import $path from 'node:path'
 import prompts from 'prompts'
 import { z } from 'zod'
+
+import type { ComponentMeta, ComponentName } from '$/registry'
 
 export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'
@@ -51,7 +53,7 @@ export const command = new Command()
     }
 
     if (options.components?.length) {
-      await deliverComponents(options.components, path, options.cwd)
+      await deliverComponents(packageManager)(options.components, path, options.cwd)
 
       console.log('All components have been processed.')
     }
@@ -67,41 +69,56 @@ const prompt = {
     }),
 }
 
-async function deliverComponents(
-  components: ('action' | 'dialog' | 'details')[],
-  path: string,
-  cwd: string,
-) {
-  await Promise.all(
-    components.map(async componentName => {
-      componentName = componentName.charAt(0).toUpperCase() + componentName.slice(1)
+function deliverComponents(packageManager: PackageManager) {
+  return async (components: ('action' | 'dialog' | 'details')[], path: string, cwd: string) =>
+    await Promise.all(
+      components.map(async componentName => {
+        const meta = registry.components.find(c => c.name === componentName) as ComponentMeta
 
-      const component = {
-        name: componentName,
-        url: `${registry.origin}/${componentName}.vue`,
-        content: '',
-        path: '',
-      }
+        componentName = componentName.charAt(0).toUpperCase() + componentName.slice(1)
 
-      const response = await fetch(component.url)
+        const component = {
+          name: componentName,
+          url: `${registry.origin}/${componentName}.vue`,
+          content: '',
+          path: '',
+          dependencies: 'dependencies' in meta ? meta.dependencies : undefined,
+          used: 'used' in meta ? meta.used : undefined,
+        }
 
-      if (!response.ok) {
-        console.error(`Failed to fetch ${component.name} from ${component.url}`)
-        return
-      }
+        const response = await fetch(component.url)
 
-      component.content = await response.text()
-      component.path = $path.join(cwd, path, `${component.name}.vue`)
+        if (!response.ok) {
+          console.error(`Failed to fetch ${component.name} from ${component.url}`)
+          return
+        }
 
-      const componentsDir = $path.dirname(component.path)
+        component.content = await response.text()
+        component.path = $path.join(cwd, path, `${component.name}.vue`)
 
-      if (!existsSync(componentsDir)) {
-        await fs.mkdir(componentsDir, { recursive: true })
-      }
+        const componentsDir = $path.dirname(component.path)
 
-      await fs.writeFile(component.path, component.content)
+        if (!existsSync(componentsDir)) {
+          await fs.mkdir(componentsDir, { recursive: true })
+        }
 
-      console.log(`Component ${component.name} has been saved to ${component.path}`)
-    }),
-  )
+        await fs.writeFile(component.path, component.content)
+
+        console.log(`Component ${component.name} has been saved to ${component.path}`)
+
+        if (component.dependencies) {
+          for (const dependency of component.dependencies) {
+            if (!packageManager.install(dependency)) {
+              console.error(
+                `Failed to install dependency ${dependency} for component ${componentName}.`,
+              )
+            }
+          }
+        }
+
+        if (component.used) {
+          await deliverComponents(packageManager)([...component.used], path, cwd)
+        }
+      }),
+    )
 }

@@ -25,7 +25,7 @@ export class PackageManager {
 
   installed(name: string) {
     const commands: { [key in Manager]: string[] } = {
-      npm: ['ls'],
+      npm: ['list'],
       yarn: ['list'],
       pnpm: ['list'],
       bun: ['pm', 'ls'],

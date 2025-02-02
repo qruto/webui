@@ -1,7 +1,6 @@
 const components = [
   {
     name: 'action',
-    dependencies: [],
   },
   {
     name: 'dialog',
@@ -13,6 +12,8 @@ const components = [
     dependencies: ['@vueuse/core'],
   },
 ] as const
+
+export type ComponentMeta = (typeof components)[number]
 
 export type ComponentName = (typeof components)[number]['name']
 
