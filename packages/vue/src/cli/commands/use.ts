@@ -70,7 +70,7 @@ const prompt = {
     }),
   components: async () =>
     await prompts({
-      type: 'multiselect',
+      type: 'autocompleteMultiselect',
       name: 'value',
       message: 'Pick components',
       choices: registry.components.map(c => ({

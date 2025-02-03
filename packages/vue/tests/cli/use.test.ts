@@ -48,12 +48,11 @@ describe('`use` command`', () => {
   })
 
   it('delivers `<Dialog>` component with dependencies', async () => {
-    // `npm list webui` to check if it's installed
-    mockProcessRun(true)
-    // `npm list @vueuse/core`
-    mockProcessRun(false)
-    // `npm install @vueuse/core`
-    mockProcessRun(true)
+    mockProcessRun(true) // `npm list webui` to check if it's installed
+
+    mockProcessRun(false) // `npm list @vueuse/core`
+
+    mockProcessRun(true) // `npm install @vueuse/core`
 
     await run('use', ['dialog'])
 

@@ -18,6 +18,6 @@ export type ComponentMeta = (typeof components)[number]
 export type ComponentName = (typeof components)[number]['name']
 
 export default {
-  origin: 'https://raw.githubusercontent.com/qruto/webui/refs/heads/main/components',
+  origin: 'https://raw.githubusercontent.com/qruto/webui/refs/heads/command/components',
   components,
 }
