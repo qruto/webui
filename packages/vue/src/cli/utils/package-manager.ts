@@ -31,12 +31,11 @@ export class PackageManager {
       bun: ['pm', 'ls'],
     }
 
-    return (
-      spawnSync(this.manager, [...commands[this.manager], name, '--depth=0'], {
-        cwd: this.cwd,
-        stdio: 'pipe',
-      }).status === 0
-    )
+    const newLocal = spawnSync(this.manager, [...commands[this.manager], name, '--depth=0'], {
+      cwd: this.cwd,
+      stdio: 'pipe',
+    })
+    return newLocal.status === 0
   }
 
   install(name: string) {
@@ -51,11 +50,10 @@ export class PackageManager {
       bun: ['pm', 'add', name],
     }
 
-    return (
-      spawnSync(this.manager, commands[this.manager], {
-        cwd: this.cwd,
-        stdio: 'pipe',
-      }).status === 0
-    )
+    const newLocal = spawnSync(this.manager, commands[this.manager], {
+      cwd: this.cwd,
+      stdio: 'pipe',
+    })
+    return newLocal.status === 0
   }
 }

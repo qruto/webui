@@ -3,11 +3,14 @@ import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 import { afterAll, afterEach, beforeAll } from 'vitest'
 
-export const handlers = [
-  http.get(registry.origin + '/Action.vue', () => {
-    return HttpResponse.text('<component-content />')
-  }),
-]
+export const handlers = registry.components.map(component => {
+  return http.get(
+    registry.origin + `/${component.name.charAt(0).toUpperCase() + component.name.slice(1)}.vue`,
+    () => {
+      return HttpResponse.text('<component-content />')
+    },
+  )
+})
 
 export default function mockHttp() {
   const server = setupServer(...handlers)

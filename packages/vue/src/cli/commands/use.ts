@@ -46,17 +46,18 @@ export const command = new Command()
       console.error(`Failed to install the core ${packageJson.name} package.`)
     }
 
+    let componentNames = options.components
     let path = options.path
+
+    if (!componentNames?.length) {
+      componentNames = (await prompt.components()).value as ComponentName[]
+    }
 
     if (path === DEFAULT_COMPONENTS_PATH) {
       path = (await prompt.location()).value
     }
 
-    if (options.components?.length) {
-      await deliverComponents(packageManager)(options.components, path, options.cwd)
-
-      console.log('All components have been processed.')
-    }
+    await deliverComponents(packageManager)(componentNames, path, options.cwd)
   })
 
 const prompt = {
@@ -66,6 +67,17 @@ const prompt = {
       name: 'value',
       message: 'Choose component location',
       initial: DEFAULT_COMPONENTS_PATH,
+    }),
+  components: async () =>
+    await prompts({
+      type: 'multiselect',
+      name: 'value',
+      message: 'Pick components',
+      choices: registry.components.map(c => ({
+        title: `<${c.name.charAt(0).toUpperCase() + c.name.slice(1)}>`,
+        value: c.name,
+      })),
+      hint: '- Space to select. Return to submit',
     }),
 }
 
@@ -116,6 +128,7 @@ function deliverComponents(packageManager: PackageManager) {
           }
         }
 
+        // not copy already existed
         if (component.used) {
           await deliverComponents(packageManager)([...component.used], path, cwd)
         }
