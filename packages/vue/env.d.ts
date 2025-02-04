@@ -7,6 +7,7 @@ import 'vitest'
 declare module 'vitest' {
   interface Assertion {
     hasBeenCalled(...arguments: Parameters<typeof spawnSync>)
+    hasBeenCalledTimes(text: string, times: number = 1)
   }
 
   interface AsymmetricMatchersContaining {

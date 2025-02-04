@@ -13,7 +13,7 @@ const lockFiles: { file: string; manager: Manager }[] = [
 
 export class PackageManager {
   constructor(
-    private cwd: string,
+    public readonly cwd: string,
     public readonly manager: Manager = 'npm',
   ) {
     for (const { file, manager } of lockFiles) {

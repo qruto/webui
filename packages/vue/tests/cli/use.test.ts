@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, MockInstance } from 'vitest'
 
 import { vol } from 'memfs'
 
@@ -63,19 +63,20 @@ describe('`use` command`', () => {
     expect(spawnSync).hasBeenCalled('npm', ['install', '@vueuse/core'])
   })
 
-  it('delivers all components when no specific components are provided', async () => {
-    vol.fromJSON({
-      [process.cwd() + '/package-lock.json']: '{}',
-    })
-
+  it('delivers component only once even if it is required as "used" in any of user requested component', async () => {
     // when call npm list package-name
-    mockProcessRun({ status: 0 })
+    mockProcessRun(true)
+    mockProcessRun(true)
+    const consoleSpy = vi.spyOn(console, 'log')
 
-    await run('use', [])
+    /* run command with tested arguments */
+    await run('use', ['dialog', 'action'])
 
-    expect(vol.existsSync('./src/components/ui/Action.vue')).toBeTruthy()
-    expect(vol.existsSync('./src/components/ui/Dialog.vue')).toBeTruthy()
-    expect(vol.existsSync('./src/components/ui/Details.vue')).toBeTruthy()
+    expect(consoleSpy).hasBeenCalledTimes(
+      'Component `<Action>` has been saved to .../vue/src/components/ui/Action.vue',
+    )
+
+    consoleSpy.mockRestore()
   })
 
   it('overrides existing component files when --force option is used', async () => {
@@ -138,6 +139,18 @@ expect.extend({
         pass
           ? 'spawnSync was called with the expected arguments'
           : 'spawnSync was not called with the expected arguments',
+    }
+  },
+
+  hasBeenCalledTimes(received: MockInstance<typeof Function>, text: string, times: number = 1) {
+    const pass = received.mock.calls.filter(call => call[0].includes(text)).length === times
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? received.getMockName() + ' was called ' + times + ' times'
+          : received.getMockName() + ' was not called ' + times + ' times',
     }
   },
 })

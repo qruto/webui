@@ -7,7 +7,9 @@ import $path from 'node:path'
 import prompts from 'prompts'
 import { z } from 'zod'
 
+import { intro } from '$/program'
 import type { ComponentMeta, ComponentName } from '$/registry'
+import cli from '$/services/cli'
 
 export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'
@@ -40,6 +42,8 @@ export const command = new Command()
       ...optionsRaw,
     })
 
+    console.log(cli.highlight.magenta(intro))
+
     const packageManager = new PackageManager(options.cwd)
 
     if (!packageManager.install(packageJson.name)) {
@@ -56,6 +60,8 @@ export const command = new Command()
     if (path === DEFAULT_COMPONENTS_PATH) {
       path = (await prompt.location()).value
     }
+
+    cli.newLine()
 
     await deliverComponents(packageManager)(componentNames, path, options.cwd)
   })
@@ -82,15 +88,17 @@ const prompt = {
 }
 
 function deliverComponents(packageManager: PackageManager) {
-  return async (components: ('action' | 'dialog' | 'details')[], path: string, cwd: string) =>
-    await Promise.all(
-      components.map(async componentName => {
-        const meta = registry.components.find(c => c.name === componentName) as ComponentMeta
+  const delivered: ComponentName[] = []
 
-        componentName = componentName.charAt(0).toUpperCase() + componentName.slice(1)
+  return async (components: ('action' | 'dialog' | 'details')[], path: string, cwd: string) => {
+    await Promise.all(
+      components.map(async name => {
+        const meta = registry.components.find(c => c.name === name) as ComponentMeta
+
+        const componentName = name.charAt(0).toUpperCase() + name.slice(1)
 
         const component = {
-          name: componentName,
+          name: componentName as ComponentName,
           url: `${registry.origin}/${componentName}.vue`,
           content: '',
           path: '',
@@ -98,25 +106,35 @@ function deliverComponents(packageManager: PackageManager) {
           used: 'used' in meta ? meta.used : undefined,
         }
 
-        const response = await fetch(component.url)
+        async function fetchAndSave() {
+          const response = await fetch(component.url)
 
-        if (!response.ok) {
-          console.error(`Failed to fetch ${component.name} from ${component.url}`)
-          return
+          if (!response.ok) {
+            console.error(`Failed to fetch ${component.name} from ${component.url}`)
+            return
+          }
+
+          component.content = await response.text()
+          component.path = $path.join(cwd, path, `${component.name}.vue`)
+
+          const componentsDir = $path.dirname(component.path)
+
+          if (!existsSync(componentsDir)) {
+            await fs.mkdir(componentsDir, { recursive: true })
+          }
+
+          await fs.writeFile(component.path, component.content)
+          await new Promise(resolve => setTimeout(resolve, 3000))
         }
 
-        component.content = await response.text()
-        component.path = $path.join(cwd, path, `${component.name}.vue`)
+        await showLoadingUntilDone(fetchAndSave(), 'delivery')
 
-        const componentsDir = $path.dirname(component.path)
+        const trimmedPath = `.../${$path.join($path.basename(cwd), path)}/${$path.basename(component.path)}`
+        console.log(
+          `Component \`${cli.highlight.magenta(`<${component.name}>`)}\` has been saved to ${cli.highlight.italic(trimmedPath)}`,
+        )
 
-        if (!existsSync(componentsDir)) {
-          await fs.mkdir(componentsDir, { recursive: true })
-        }
-
-        await fs.writeFile(component.path, component.content)
-
-        console.log(`Component ${component.name} has been saved to ${component.path}`)
+        delivered.push(name)
 
         if (component.dependencies) {
           for (const dependency of component.dependencies) {
@@ -128,10 +146,45 @@ function deliverComponents(packageManager: PackageManager) {
           }
         }
 
-        // not copy already existed
-        if (component.used) {
-          await deliverComponents(packageManager)([...component.used], path, cwd)
+        // const used = component.used?.filter(c => !delivered.includes(c) && !components.includes(c))
+        const used = component.used?.filter(c => !delivered.includes(c))
+        // console.log(cli.highlight.red('used:'), used, name, delivered)
+        if (used?.length) {
+          console.log(`\`<${component.name}>\` requires additional components...`)
+          // Simple loading animation with three rotating dots
+
+          delivered.push(...(await deliverComponents(packageManager)([...used], path, cwd)))
         }
+
+        return component
       }),
     )
+
+    return delivered
+  }
+}
+
+async function showLoadingUntilDone<T>(promise: Promise<T>, text: string = 'loading') {
+  let stage = 0
+
+  const frames = ['...🚚', '..🚚', '.🚚', '🚚']
+
+  // hide cursor
+  process.stdout.write('\x1B[?25l')
+  const loading = setInterval(() => {
+    process.stdout.write('\r\x1b[K')
+    process.stdout.write(`\r${text} ${frames[stage]}`)
+    stage = (stage + 1) % frames.length
+  }, 300)
+
+  const result = await promise
+
+  // show cursor
+  process.stdout.write('\x1B[?25h')
+  clearInterval(loading)
+
+  // Clear the line after loading is done
+  process.stdout.write('\r\x1b[K')
+
+  return result
 }
