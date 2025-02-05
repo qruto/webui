@@ -87,7 +87,7 @@ const prompt = {
     }),
 }
 
-function deliverComponents(packageManager: PackageManager) {
+function deliverComponents(packageManager: PackageManager, asUsed = false) {
   const delivered: ComponentName[] = []
 
   return async (components: ('action' | 'dialog' | 'details')[], path: string, cwd: string) => {
@@ -124,15 +124,22 @@ function deliverComponents(packageManager: PackageManager) {
           }
 
           await fs.writeFile(component.path, component.content)
-          await new Promise(resolve => setTimeout(resolve, 3000))
         }
 
-        await showLoadingUntilDone(fetchAndSave(), 'delivery')
+        await showLoadingUntilDone(fetchAndSave(), asUsed ? 'delivery' : 'delivery')
 
-        const trimmedPath = `.../${$path.join($path.basename(cwd), path)}/${$path.basename(component.path)}`
+        const trimmedPath = `${$path.join(cli.highlight.bold($path.basename(cwd)), path)}/${$path.basename(component.path)}`
+
+        if (!asUsed && delivered.length > 0) {
+          console.log('')
+        }
+
         console.log(
-          `Component \`${cli.highlight.magenta(`<${component.name}>`)}\` has been saved to ${cli.highlight.italic(trimmedPath)}`,
+          (asUsed ? cli.highlight.yellow('↳ uses component') : 'Component') +
+            ` \`${cli.highlight.magenta(`<${component.name}>`)}\``,
         )
+        console.log(meta.illustration)
+        console.log('delivered to: ' + cli.highlight.underline(cli.highlight.italic(trimmedPath)))
 
         delivered.push(name)
 
@@ -146,14 +153,15 @@ function deliverComponents(packageManager: PackageManager) {
           }
         }
 
-        // const used = component.used?.filter(c => !delivered.includes(c) && !components.includes(c))
-        const used = component.used?.filter(c => !delivered.includes(c))
+        const used = component.used?.filter(c => !delivered.includes(c) && !components.includes(c))
+        // const used = component.used?.filter(c => !delivered.includes(c))
         // console.log(cli.highlight.red('used:'), used, name, delivered)
         if (used?.length) {
-          console.log(`\`<${component.name}>\` requires additional components...`)
+          cli.newLine()
+          // console.log(`↘ `)
           // Simple loading animation with three rotating dots
 
-          delivered.push(...(await deliverComponents(packageManager)([...used], path, cwd)))
+          delivered.push(...(await deliverComponents(packageManager, true)([...used], path, cwd)))
         }
 
         return component
@@ -165,6 +173,7 @@ function deliverComponents(packageManager: PackageManager) {
 }
 
 async function showLoadingUntilDone<T>(promise: Promise<T>, text: string = 'loading') {
+  // TODO: block the interaction
   let stage = 0
 
   const frames = ['...🚚', '..🚚', '.🚚', '🚚']
