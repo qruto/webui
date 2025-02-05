@@ -9,10 +9,12 @@ import { z } from 'zod'
 
 import { intro } from '$/program'
 import type { ComponentMeta, ComponentName } from '$/registry'
-import cli from '$/services/cli'
+import { default as cli, Terminal } from '$/services/cli'
 
 export const name = 'use' as const
 const DEFAULT_COMPONENTS_PATH = './src/components/ui'
+
+const terminal = new Terminal()
 
 export const optionsSchema = z.object({
   components: z
@@ -161,7 +163,11 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
           // console.log(`↘ `)
           // Simple loading animation with three rotating dots
 
-          delivered.push(...(await deliverComponents(packageManager, true)([...used], path, cwd)))
+          delivered.push(
+            ...(await showLoadingUntilDone(
+              deliverComponents(packageManager, true)([...used], path, cwd),
+            )),
+          )
         }
 
         return component
@@ -173,27 +179,24 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
 }
 
 async function showLoadingUntilDone<T>(promise: Promise<T>, text: string = 'loading') {
-  // TODO: block the interaction
   let stage = 0
 
   const frames = ['...🚚', '..🚚', '.🚚', '🚚']
 
   // hide cursor
-  process.stdout.write('\x1B[?25l')
+  terminal.hideCursor().disableInteraction()
   const loading = setInterval(() => {
-    process.stdout.write('\r\x1b[K')
-    process.stdout.write(`\r${text} ${frames[stage]}`)
+    terminal.clearLine()
+    terminal.write(`\r${text} ${frames[stage]}`)
     stage = (stage + 1) % frames.length
   }, 300)
 
   const result = await promise
 
   // show cursor
-  process.stdout.write('\x1B[?25h')
   clearInterval(loading)
 
-  // Clear the line after loading is done
-  process.stdout.write('\r\x1b[K')
+  terminal.clearLine().showCursor().enableInteraction()
 
   return result
 }

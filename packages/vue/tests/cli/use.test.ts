@@ -25,9 +25,9 @@ describe('`use` command`', () => {
       [process.cwd() + '/package-lock.json']: '{}',
     })
     // `npm list webui`
-    mockProcessRun(false)
+    mockProcessResult(false)
     // `npm list @vueuse/core`
-    mockProcessRun(true)
+    mockProcessResult(true)
 
     await run('use', ['action'])
 
@@ -48,11 +48,11 @@ describe('`use` command`', () => {
   })
 
   it('delivers `<Dialog>` component with dependencies', async () => {
-    mockProcessRun(true) // `npm list webui` to check if it's installed
+    mockProcessResult(true) // `npm list webui` to check if it's installed
 
-    mockProcessRun(false) // `npm list @vueuse/core`
+    mockProcessResult(false) // `npm list @vueuse/core`
 
-    mockProcessRun(true) // `npm install @vueuse/core`
+    mockProcessResult(true) // `npm install @vueuse/core`
 
     await run('use', ['dialog'])
 
@@ -64,19 +64,37 @@ describe('`use` command`', () => {
   })
 
   it('delivers component only once even if it is required as "used" in any of user requested component', async () => {
-    // when call npm list package-name
-    mockProcessRun(true)
-    mockProcessRun(true)
     const consoleSpy = vi.spyOn(console, 'log')
 
     /* run command with tested arguments */
     await run('use', ['dialog', 'action'])
 
-    expect(consoleSpy).hasBeenCalledTimes(
-      'Component `<Action>` has been saved to .../vue/src/components/ui/Action.vue',
-    )
+    expect(consoleSpy).hasBeenCalledTimes('Component `<Action>`')
+    expect(consoleSpy).hasBeenCalledTimes('delivered to: vue/src/components/ui/Action.vue')
 
     consoleSpy.mockRestore()
+  })
+
+  it('installs general dependencies and required component package dependencies', async () => {
+    const logSpy = vi.spyOn(console, 'log')
+
+    mockProcessResult(false) // `npm list webui`
+    mockProcessResult(true) // `npm install webui`
+
+    mockProcessResult(false) // `npm list @vueuse/core`
+    mockProcessResult(true) // `npm install @vueuse/core`
+
+    await run('use', ['dialog'])
+
+    expect(spawnSync).hasBeenCalled('npm', ['list', packageJson.name, '--depth=0'])
+    expect(spawnSync).hasBeenCalled('npm', ['install', packageJson.name])
+    expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
+
+    expect(spawnSync).hasBeenCalled('npm', ['list', '@vueuse/core', '--depth=0'])
+    expect(spawnSync).hasBeenCalled('npm', ['install', '@vueuse/core'])
+    expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
+
+    logSpy.mockRestore()
   })
 
   it('overrides existing component files when --force option is used', async () => {
@@ -84,8 +102,8 @@ describe('`use` command`', () => {
       [process.cwd() + '/package-lock.json']: '{}',
       './src/components/ui/Action.vue': '<template>Old Content</template>',
     })
-    mockProcessRun({ status: 1 })
-    mockProcessRun({ status: 0 })
+    mockProcessResult({ status: 1 })
+    mockProcessResult({ status: 0 })
 
     await run('use', ['action', '--force'])
 
@@ -97,8 +115,8 @@ describe('`use` command`', () => {
     vol.fromJSON({
       [process.cwd() + '/package-lock.json']: '{}',
     })
-    mockProcessRun({ status: 1 })
-    mockProcessRun({ status: 0 })
+    mockProcessResult({ status: 1 })
+    mockProcessResult({ status: 0 })
 
     // const promptSpy = vi.spyOn(prompts, 'prompt').mockResolvedValueOnce({ value: './custom/path' })
 
@@ -123,7 +141,7 @@ function mockDefaultProcessRun() {
   vi.mocked(spawnSync).mockReturnValue(defaultProcessReturn)
 }
 
-function mockProcessRun(success = true) {
+function mockProcessResult(success = true) {
   vi.mocked(spawnSync).mockReturnValueOnce({ ...defaultProcessReturn, status: success ? 0 : 1 })
 }
 
