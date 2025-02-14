@@ -2,6 +2,7 @@ import type { UserConfig } from 'vite'
 
 import { fileURLToPath, URL } from 'node:url'
 import dts from 'vite-plugin-dts'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 import vue from '@vitejs/plugin-vue'
 
@@ -35,14 +36,16 @@ export default {
     }),
 
     vue(),
+
+    tsconfigPaths(),
   ],
 
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      $: fileURLToPath(new URL('./src/cli', import.meta.url)),
-      '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
-      '@__mocks__': fileURLToPath(new URL('./__mocks__', import.meta.url)),
+      // '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // $: fileURLToPath(new URL('./src/cli', import.meta.url)),
+      // '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
+      // '@__mocks__': fileURLToPath(new URL('./__mocks__', import.meta.url)),
     },
   },
 

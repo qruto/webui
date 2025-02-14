@@ -5,6 +5,7 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.lib.tsbuildinfo",
+    "allowJs": true,
 
     "baseUrl": ".",
     "paths": {
