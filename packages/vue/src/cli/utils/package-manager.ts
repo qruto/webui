@@ -1,6 +1,6 @@
-import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { execAsync } from './shell'
 
 type Manager = 'npm' | 'yarn' | 'pnpm' | 'bun'
 
@@ -23,7 +23,7 @@ export class PackageManager {
     }
   }
 
-  installed(name: string) {
+  async installed(name: string): Promise<boolean> {
     const commands: { [key in Manager]: string[] } = {
       npm: ['list'],
       yarn: ['list'],
@@ -31,29 +31,35 @@ export class PackageManager {
       bun: ['pm', 'ls'],
     }
 
-    const newLocal = spawnSync(this.manager, [...commands[this.manager], name, '--depth=0'], {
-      cwd: this.cwd,
-      stdio: 'pipe',
-    })
-    return newLocal.status === 0
+    try {
+      await execAsync([this.manager, ...commands[this.manager], name, '--depth=0'].join(' '), {
+        cwd: this.cwd,
+      })
+
+      return true
+    } catch {
+      return false
+    }
   }
 
-  install(name: string) {
-    if (this.installed(name)) {
+  async install(name: string): Promise<boolean> {
+    try {
+      if (await this.installed(name)) {
+        return true
+      }
+
+      const commands: { [key in Manager]: string[] } = {
+        npm: ['install'],
+        yarn: ['add'],
+        pnpm: ['add'],
+        bun: ['pm', 'add'],
+      }
+
+      await execAsync([this.manager, ...commands[this.manager], name].join(' '), { cwd: this.cwd })
+
       return true
+    } catch {
+      return false
     }
-
-    const commands: { [key in Manager]: string[] } = {
-      npm: ['install', name],
-      yarn: ['add', name],
-      pnpm: ['add', name],
-      bun: ['pm', 'add', name],
-    }
-
-    const newLocal = spawnSync(this.manager, commands[this.manager], {
-      cwd: this.cwd,
-      stdio: 'pipe',
-    })
-    return newLocal.status === 0
   }
 }
