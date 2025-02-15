@@ -1,13 +1,18 @@
-import { describe, expect, it, MockInstance } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+import type { MockInstance } from 'vitest'
 
 import { vol } from 'memfs'
 
 import { command as use } from '$/commands/use'
 import packageJson from '$/package'
+import { program, run } from './helpers'
+
+import { execAsync } from '$/utils/shell'
 import mockFs from '@__mocks__/fs'
 import mockHttp from '@__mocks__/http'
-import { spawnSync } from 'node:child_process'
-import { program, run } from './helpers'
+
+import type { exec, PromiseWithChild } from 'node:child_process'
 
 program.addCommand(use)
 
@@ -17,34 +22,28 @@ mockHttp()
 vi.mock('node:fs')
 mockFs()
 
-vi.mock('node:child_process')
+vi.mock('$/utils/shell')
 
-describe('`use` command`', () => {
+describe('`use` command', () => {
   it('delivers particular `<Action>` component without dependencies', async () => {
     vol.fromJSON({
       [process.cwd() + '/package-lock.json']: '{}',
     })
-    // `npm list webui`
-    mockProcessResult(false)
-    // `npm list @vueuse/core`
-    mockProcessResult(true)
+
+    mockProcessResult(`npm list ${packageJson.name} --depth=0`, false)
+    mockProcessResult('npm list @vueuse/core', true)
 
     await run('use', ['action'])
 
     expect(vol.existsSync('./src/components/ui/Action.vue')).toBeTruthy()
 
-    const processOptions = {
+    const options = {
       cwd: process.cwd(),
-      stdio: 'pipe',
     }
 
-    expect(spawnSync).toHaveBeenCalledWith(
-      'npm',
-      ['list', packageJson.name, '--depth=0'],
-      processOptions,
-    )
+    expect(execAsync).toHaveBeenCalledWith(`npm list ${packageJson.name} --depth=0`, options)
 
-    expect(spawnSync).toHaveBeenCalledWith('npm', ['install', packageJson.name], processOptions)
+    expect(execAsync).toHaveBeenCalledWith(`npm install ${packageJson.name}`, options)
   })
 
   it('delivers `<Dialog>` component with dependencies', async () => {
@@ -59,8 +58,8 @@ describe('`use` command`', () => {
     expect(vol.existsSync('./src/components/ui/Dialog.vue')).toBeTruthy()
     expect(vol.existsSync('./src/components/ui/Action.vue')).toBeTruthy()
 
-    // expect(spawnSync).toHaveBeenCalledWith('npm', ['install', packageJson.name], processOptions)
-    expect(spawnSync).hasBeenCalled('npm', ['install', '@vueuse/core'])
+    // expect(execasync).toHaveBeenCalledWith('npm', ['install', packageJson.name], processOptions)
+    expect(execAsync).hasBeenCalled('npm', ['install', '@vueuse/core'])
   })
 
   it('delivers component only once even if it is required as "used" in any of user requested component', async () => {
@@ -86,12 +85,12 @@ describe('`use` command`', () => {
 
     await run('use', ['dialog'])
 
-    expect(spawnSync).hasBeenCalled('npm', ['list', packageJson.name, '--depth=0'])
-    expect(spawnSync).hasBeenCalled('npm', ['install', packageJson.name])
+    expect(execAsync).hasBeenCalled('npm', ['list', packageJson.name, '--depth=0'])
+    expect(execAsync).hasBeenCalled('npm', ['install', packageJson.name])
     expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
 
-    expect(spawnSync).hasBeenCalled('npm', ['list', '@vueuse/core', '--depth=0'])
-    expect(spawnSync).hasBeenCalled('npm', ['install', '@vueuse/core'])
+    expect(execAsync).hasBeenCalled('npm', ['list', '@vueuse/core', '--depth=0'])
+    expect(execAsync).hasBeenCalled('npm', ['install', '@vueuse/core'])
     expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
 
     logSpy.mockRestore()
@@ -128,25 +127,30 @@ describe('`use` command`', () => {
   })
 })
 
-const defaultProcessReturn = {
-  pid: 1234,
-  output: [],
-  stdout: Buffer.from(''),
-  stderr: Buffer.from(''),
-  status: 0,
-  signal: null,
-}
-
 function mockDefaultProcessRun() {
-  vi.mocked(spawnSync).mockReturnValue(defaultProcessReturn)
+  vi.mocked(execAsync).mockResolvedValue({ stdout: 'success', stderr: '' })
 }
 
-function mockProcessResult(success = true) {
-  vi.mocked(spawnSync).mockReturnValueOnce({ ...defaultProcessReturn, status: success ? 0 : 1 })
+function mockProcessResult(command: string, success = true) {
+  const mocked = vi.mocked(execAsync)
+
+  mocked.mockImplementationOnce((cmd: string) => {
+    let result = Promise.resolve({ stdout: '', stderr: '' })
+
+    if (cmd === command) {
+      if (success) {
+        result = Promise.resolve({ stdout: 'success', stderr: '' })
+      } else {
+        result = Promise.reject(new Error('fail'))
+      }
+    }
+
+    return result as PromiseWithChild<{ stdout: string; stderr: string }>
+  })
 }
 
 expect.extend({
-  hasBeenCalled(received: typeof spawnSync, ...args: Parameters<typeof spawnSync>) {
+  hasBeenCalled(received: typeof exec, ...args: Parameters<typeof exec>) {
     const pass = vi
       .mocked(received)
       .mock.calls.some(call => JSON.stringify(call.slice(0, -1)) === JSON.stringify(args))
@@ -155,8 +159,8 @@ expect.extend({
       pass,
       message: () =>
         pass
-          ? 'spawnSync was called with the expected arguments'
-          : 'spawnSync was not called with the expected arguments',
+          ? 'exec was called with the expected arguments'
+          : 'exec was not called with the expected arguments',
     }
   },
 
