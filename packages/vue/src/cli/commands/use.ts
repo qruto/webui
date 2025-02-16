@@ -48,8 +48,21 @@ export const command = new Command()
 
     const packageManager = new PackageManager(options.cwd)
 
-    if (!packageManager.install(packageJson.name)) {
-      console.error(`Failed to install the core ${packageJson.name} package.`)
+    if (!await terminal.showLoadingUntilDone(
+      packageManager.installed(packageJson.name),
+      `checking ${cli.highlight.bold(packageJson.name)}...`,
+      ['🔧', '⚙️','🔨', '🔩', '🛠️'],
+    )) {
+      if (await terminal.showLoadingUntilDone(
+        packageManager.install(packageJson.name),
+        `installing ${cli.highlight.bold(packageJson.name)} library...`,
+        ['🔧', '⚙️','🔨', '🔩', '🛠️'],
+      )) {
+        console.log(`${cli.highlight.bold(packageJson.name)} library has been successfully installed.`)
+        cli.newLine()
+      } else {
+        console.error(`${cli.highlight.bold(packageJson.name)} library installation failed.`)
+      }
     }
 
     let componentNames = options.components
@@ -68,6 +81,8 @@ export const command = new Command()
     await deliverComponents(packageManager)(componentNames, path, options.cwd)
   })
 
+const onCancel = () => process.emit('SIGINT')
+
 const prompt = {
   location: async () =>
     await prompts({
@@ -75,7 +90,8 @@ const prompt = {
       name: 'value',
       message: 'Choose component location',
       initial: DEFAULT_COMPONENTS_PATH,
-    }),
+    }, { onCancel }
+  ),
   components: async () =>
     await prompts({
       type: 'autocompleteMultiselect',
@@ -86,7 +102,7 @@ const prompt = {
         value: c.name,
       })),
       hint: '- Space to select. Return to submit',
-    }),
+    }, { onCancel }),
 }
 
 function deliverComponents(packageManager: PackageManager, asUsed = false) {
@@ -109,7 +125,7 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
         }
 
         async function fetchAndSave() {
-          const response = await fetch(component.url)
+            const response = await fetch(component.url)
 
           if (!response.ok) {
             console.error(`Failed to fetch ${component.name} from ${component.url}`)
@@ -128,12 +144,12 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
           await fs.writeFile(component.path, component.content)
         }
 
-        await showLoadingUntilDone(fetchAndSave(), asUsed ? 'delivery' : 'delivery')
+        await terminal.showLoadingUntilDone(fetchAndSave())
 
         const trimmedPath = `${$path.join(cli.highlight.bold($path.basename(cwd)), path)}/${$path.basename(component.path)}`
 
         if (!asUsed && delivered.length > 0) {
-          console.log('')
+          cli.newLine()
         }
 
         console.log(
@@ -142,15 +158,28 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
         )
         console.log(meta.illustration)
         console.log('delivered to: ' + cli.highlight.underline(cli.highlight.italic(trimmedPath)))
+        cli.newLine()
 
         delivered.push(name)
 
         if (component.dependencies) {
           for (const dependency of component.dependencies) {
-            if (!packageManager.install(dependency)) {
-              console.error(
-                `Failed to install dependency ${dependency} for component ${componentName}.`,
-              )
+            if (!await terminal.showLoadingUntilDone(
+              packageManager.installed(dependency),
+              `checking ${cli.highlight.bold(dependency)}...`,
+              ['🔧', '⚙️','🔨', '🔩', '🛠️'],
+            )) {
+              if (await terminal.showLoadingUntilDone(
+                packageManager.install(dependency),
+                `installing ${cli.highlight.bold(dependency)}...`,
+                ['🔧', '⚙️','🔨', '🔩', '🛠️'],
+              )) {
+                console.log(`${cli.highlight.gray('↳ installed library')} ${cli.highlight.bold(dependency)}`)
+              } else {
+                console.error(
+                  `Failed to install dependency ${cli.highlight.bold(dependency)} for component \`${cli.highlight.magenta(componentName)}\`.`,
+                )
+              }
             }
           }
         }
@@ -159,14 +188,17 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
         // const used = component.used?.filter(c => !delivered.includes(c))
         // console.log(cli.highlight.red('used:'), used, name, delivered)
         if (used?.length) {
-          cli.newLine()
+          // cli.newLine()
           // console.log(`↘ `)
           // Simple loading animation with three rotating dots
 
+          // delivered.push(
+          //   ...(await terminal.showLoadingUntilDone(
+          //     deliverComponents(packageManager, true)([...used], path, cwd),
+          //     'sdfsdfsdf'
+          //   )),
           delivered.push(
-            ...(await showLoadingUntilDone(
-              deliverComponents(packageManager, true)([...used], path, cwd),
-            )),
+            ...await deliverComponents(packageManager, true)([...used], path, cwd),
           )
         }
 
@@ -176,27 +208,4 @@ function deliverComponents(packageManager: PackageManager, asUsed = false) {
 
     return delivered
   }
-}
-
-async function showLoadingUntilDone<T>(promise: Promise<T>, text: string = 'loading') {
-  let stage = 0
-
-  const frames = ['...🚚', '..🚚', '.🚚', '🚚']
-
-  // hide cursor
-  terminal.hideCursor().disableInteraction()
-  const loading = setInterval(() => {
-    terminal.clearLine()
-    terminal.write(`\r${text} ${frames[stage]}`)
-    stage = (stage + 1) % frames.length
-  }, 300)
-
-  const result = await promise
-
-  // show cursor
-  clearInterval(loading)
-
-  terminal.clearLine().showCursor().enableInteraction()
-
-  return result
 }

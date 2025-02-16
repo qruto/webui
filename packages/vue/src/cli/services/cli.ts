@@ -90,7 +90,7 @@ export class Terminal {
     // hide cursor
     this.hideCursor().disableInteraction()
     const loading = setInterval(() => {
-      // this.clearLine()
+      this.clearLine()
       if (framesLeft) {
         this.write(`\r${frames[stage]} ${text}`)
       } else {
@@ -104,7 +104,7 @@ export class Terminal {
     // show cursor
     clearInterval(loading)
 
-    this/* .clearLine() */.showCursor().enableInteraction()
+    this.clearLine().showCursor().enableInteraction()
 
     return result
   }

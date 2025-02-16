@@ -25,6 +25,10 @@ mockFs()
 vi.mock('$/utils/shell')
 
 describe('`use` command', () => {
+  const logSpy = vi.spyOn(console, 'log').mockImplementation(() => '')
+
+  afterEach(() => logSpy.mockReset())
+
   it('delivers particular `<Action>` component without dependencies', async () => {
     vol.fromJSON({
       [process.cwd() + '/package-lock.json']: '{}',
@@ -47,53 +51,60 @@ describe('`use` command', () => {
   })
 
   it('delivers `<Dialog>` component with dependencies', async () => {
-    mockProcessResult(true) // `npm list webui` to check if it's installed
-
-    mockProcessResult(false) // `npm list @vueuse/core`
-
-    mockProcessResult(true) // `npm install @vueuse/core`
+    mockProcessResult(`npm list ${packageJson.name} --depth=0`, true)
+    mockProcessResult('npm list @vueuse/core --depth=0', false)
+    mockProcessResult('npm install @vueuse/core', true)
 
     await run('use', ['dialog'])
 
     expect(vol.existsSync('./src/components/ui/Dialog.vue')).toBeTruthy()
     expect(vol.existsSync('./src/components/ui/Action.vue')).toBeTruthy()
 
-    // expect(execasync).toHaveBeenCalledWith('npm', ['install', packageJson.name], processOptions)
-    expect(execAsync).hasBeenCalled('npm', ['install', '@vueuse/core'])
+    expect(execAsync).hasBeenCalled('npm install @vueuse/core')
   })
 
   it('delivers component only once even if it is required as "used" in any of user requested component', async () => {
-    const consoleSpy = vi.spyOn(console, 'log')
-
-    /* run command with tested arguments */
     await run('use', ['dialog', 'action'])
 
-    expect(consoleSpy).hasBeenCalledTimes('Component `<Action>`')
-    expect(consoleSpy).hasBeenCalledTimes('delivered to: vue/src/components/ui/Action.vue')
+    expect(logSpy).hasBeenCalledTimes('Component `<Action>`')
+    expect(logSpy).hasBeenCalledTimes('delivered to: vue/src/components/ui/Action.vue')
+  })
 
-    consoleSpy.mockRestore()
+  it('handles SIGINT (Ctrl+C) gracefully', async () => {
+    const processExitSpy = vi.spyOn(process, 'exit').mockImplementation(() => {
+      throw new Error('process.exit should not be called in tests')
+    })
+
+    const processKillSpy = vi.spyOn(process, 'kill').mockImplementation(() => true)
+
+    const runPromise = run('use', ['action'])
+
+    process.emit('SIGINT')
+
+    await expect(runPromise).rejects.toThrow('process.exit should not be called in tests')
+
+    expect(processKillSpy).toHaveBeenCalledWith(process.pid, 'SIGINT')
+
+    processExitSpy.mockRestore()
+    processKillSpy.mockRestore()
   })
 
   it('installs general dependencies and required component package dependencies', async () => {
-    const logSpy = vi.spyOn(console, 'log')
+    mockProcessResult(`npm list ${packageJson.name} --depth=0`, false)
+    mockProcessResult(`npm install ${packageJson.name}`, true)
 
-    mockProcessResult(false) // `npm list webui`
-    mockProcessResult(true) // `npm install webui`
-
-    mockProcessResult(false) // `npm list @vueuse/core`
-    mockProcessResult(true) // `npm install @vueuse/core`
+    mockProcessResult('npm list @vueuse/core', false)
+    mockProcessResult('npm install @vueuse/core', true)
 
     await run('use', ['dialog'])
 
-    expect(execAsync).hasBeenCalled('npm', ['list', packageJson.name, '--depth=0'])
-    expect(execAsync).hasBeenCalled('npm', ['install', packageJson.name])
-    expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
+    expect(execAsync).hasBeenCalled(`npm list ${packageJson.name} --depth=0`)
+    expect(execAsync).hasBeenCalled(`npm install ${packageJson.name}`)
+    expect(logSpy).hasBeenCalledTimes(`Installed \`${packageJson.name}\` library`)
 
-    expect(execAsync).hasBeenCalled('npm', ['list', '@vueuse/core', '--depth=0'])
-    expect(execAsync).hasBeenCalled('npm', ['install', '@vueuse/core'])
-    expect(logSpy).hasBeenCalledTimes('Installed `' + packageJson.name + '` library')
-
-    logSpy.mockRestore()
+    expect(execAsync).hasBeenCalled('npm list @vueuse/core --depth=0')
+    expect(execAsync).hasBeenCalled('npm install @vueuse/core')
+    expect(logSpy).hasBeenCalledTimes('Installed `@vueuse/core` library')
   })
 
   it('overrides existing component files when --force option is used', async () => {
@@ -101,8 +112,9 @@ describe('`use` command', () => {
       [process.cwd() + '/package-lock.json']: '{}',
       './src/components/ui/Action.vue': '<template>Old Content</template>',
     })
-    mockProcessResult({ status: 1 })
-    mockProcessResult({ status: 0 })
+
+    mockProcessResult('npm list @vueuse/core', false)
+    mockProcessResult('npm install @vueuse/core', true)
 
     await run('use', ['action', '--force'])
 
