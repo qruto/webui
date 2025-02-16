@@ -72,10 +72,40 @@ export class Terminal {
   }
 
   handleTerminate(output: Buffer<ArrayBufferLike>) {
-    if (output[0] === CTRL_C.charCodeAt(0)) {
+    if (output.toString() === CTRL_C) {
       process.emit('SIGINT')
     }
 
     return this
+  }
+
+  async showLoadingUntilDone<T>(
+    promise: Promise<T>,
+    text: string = 'delivery',
+    frames: string[] = ['...🚚', '..🚚', '.🚚', '🚚'],
+    framesLeft: boolean = false
+  ) {
+    let stage = 0
+
+    // hide cursor
+    this.hideCursor().disableInteraction()
+    const loading = setInterval(() => {
+      // this.clearLine()
+      if (framesLeft) {
+        this.write(`\r${frames[stage]} ${text}`)
+      } else {
+        this.write(`\r${text} ${frames[stage]}`)
+      }
+      stage = (stage + 1) % frames.length
+    }, 300)
+
+    const result = await promise
+
+    // show cursor
+    clearInterval(loading)
+
+    this/* .clearLine() */.showCursor().enableInteraction()
+
+    return result
   }
 }

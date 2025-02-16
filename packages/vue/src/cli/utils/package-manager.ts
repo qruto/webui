@@ -23,7 +23,7 @@ export class PackageManager {
     }
   }
 
-  async installed(name: string): Promise<boolean> {
+  async installed(name: string) {
     const commands: { [key in Manager]: string[] } = {
       npm: ['list'],
       yarn: ['list'],
@@ -42,12 +42,8 @@ export class PackageManager {
     }
   }
 
-  async install(name: string): Promise<boolean> {
+  async install(name: string) {
     try {
-      if (await this.installed(name)) {
-        return true
-      }
-
       const commands: { [key in Manager]: string[] } = {
         npm: ['install'],
         yarn: ['add'],
