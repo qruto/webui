@@ -101,7 +101,12 @@ const prompt = {
         title: `<${c.name.charAt(0).toUpperCase() + c.name.slice(1)}>`,
         value: c.name,
       })),
-      hint: '- Space to select. Return to submit',
+      hint: '- ( space ) to select. ( return ) to submit',
+      instructions: '\n\n'
+        + `  ${cli.highlight.bold('↑')}|${cli.highlight.bold('↓')}: ${cli.highlight.dim('Highlight option')}\n`
+        + `  ${cli.highlight.bold('←')}|${cli.highlight.bold('→')}|${cli.highlight.bold('space')}: ${cli.highlight.dim('Toggle selection')}\n`
+        + `  ${cli.highlight.bold('enter')}/${cli.highlight.bold('return')}: ${cli.highlight.dim('Complete choice')}\n\n`
+        + cli.highlight.yellow('or type the component name...') + '\n'
     }, { onCancel }),
 }
 
