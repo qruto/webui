@@ -11,8 +11,8 @@ export default {
     lib: {
       fileName: 'webui',
       entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
-      formats: ['es', 'cjs', 'umd', 'iife'],
-      name: 'WebUI',
+      formats: ['es'],
+      // name: 'WebUI',
     },
 
     rollupOptions: {

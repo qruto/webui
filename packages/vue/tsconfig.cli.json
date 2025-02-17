@@ -10,9 +10,9 @@
     "skipLibCheck": true,
 
     /* Alias */
-    "baseUrl": ".",
+    "baseUrl": "src/cli",
     "paths": {
-      "$/*": ["src/cli/*"]
+      "$/*": ["./*"]
     },
 
     /* Bundler mode */
