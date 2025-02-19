@@ -1,9 +1,22 @@
 {
   "extends": "./tsconfig.cli.json",
-  "include": ["package.json", "env.d.ts", "tests/bin/**/*", "src/bin/**/*"],
+  "include": [
+    "package.json",
+    "env.d.ts",
+    "src/cli/**/*",
+    "tests/cli/**/*",
+    "tests/utils/**/*",
+    "__mocks__/**/*"
+  ],
   "compilerOptions": {
     "composite": true,
-    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+
+    "paths": {
+      "$/*": ["src/cli/*"],
+      "@tests/*": ["tests/*"],
+      "@__mocks__/*": ["__mocks__/*"]
+    },
 
     "lib": [],
     "types": ["node", "jsdom"]

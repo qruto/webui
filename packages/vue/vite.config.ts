@@ -2,6 +2,7 @@ import type { UserConfig } from 'vite'
 
 import { fileURLToPath, URL } from 'node:url'
 import dts from 'vite-plugin-dts'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 import vue from '@vitejs/plugin-vue'
 
@@ -10,8 +11,8 @@ export default {
     lib: {
       fileName: 'webui',
       entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
-      formats: ['es', 'cjs', 'umd', 'iife'],
-      name: 'WebUI',
+      formats: ['es'],
+      // name: 'WebUI',
     },
 
     rollupOptions: {
@@ -35,12 +36,16 @@ export default {
     }),
 
     vue(),
+
+    tsconfigPaths(),
   ],
 
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      $: fileURLToPath(new URL('./src/bin', import.meta.url)),
+      // '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // $: fileURLToPath(new URL('./src/cli', import.meta.url)),
+      // '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
+      // '@__mocks__': fileURLToPath(new URL('./__mocks__', import.meta.url)),
     },
   },
 

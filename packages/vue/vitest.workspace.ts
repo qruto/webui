@@ -6,10 +6,10 @@ export default [
     test: {
       name: 'browser',
       include: ['tests/**/*.test.ts'],
-      exclude: ['tests/bin/**/*.test.ts'],
+      exclude: ['tests/cli/**/*.test.ts'],
       browser: {
         enabled: true,
-        name: 'webkit',
+        name: 'chromium',
         provider: 'playwright',
         // https://playwright.dev
         providerOptions: {},
@@ -20,7 +20,7 @@ export default [
     extends: './vitest.config.ts',
     test: {
       name: 'node',
-      include: ['tests/bin/**/*.test.ts'],
+      include: ['tests/cli/**/*.test.ts'],
       environment: 'node',
     },
   },

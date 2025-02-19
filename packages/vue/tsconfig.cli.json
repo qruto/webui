@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
 
-  "include": ["package.json", "src/bin/**/*.ts"],
+  "include": ["package.json", "src/cli/**/*.ts"],
 
   "compilerOptions": {
     "target": "ESNext",
@@ -10,7 +10,7 @@
     "skipLibCheck": true,
 
     /* Alias */
-    "baseUrl": "./src/bin",
+    "baseUrl": "src/cli",
     "paths": {
       "$/*": ["./*"]
     },
