@@ -37,7 +37,7 @@ function showOnPassScreenPercent(section: TemplateRef, percent: number) {
 }
 
 showOnPassScreenPercent(section2, 50)
-showOnPassScreenPercent(section3, 30)
+showOnPassScreenPercent(section3, 20)
 </script>
 <template>
   <section class="flex h-[30dvh] flex-col text-center">
@@ -49,29 +49,31 @@ showOnPassScreenPercent(section3, 30)
       <div class="pointer-fine:inline hidden">🖱️</div>
       <div class="pointer-coarse:inline hidden">👆</div>
     </header>
-    <p class="appearing mt-20">the main way to navigate content</p>
+    <p class="appearing mt-24 md:mt-32">the main way to navigate content</p>
   </section>
   <section
     ref="section2"
-    class="mx-auto h-[30dvh] overflow-y-scroll rounded-xl border bg-zinc-900 md:w-md dark:border-zinc-700"
+    class="mx-auto h-[30dvh] overflow-y-scroll rounded-xl border bg-zinc-200 border-zinc-300 dark:bg-zinc-900 md:w-md dark:border-zinc-700"
   >
-    <div class="flex h-[50dvh] w-full flex-col items-center justify-center pt-26">
-      <div class="font-display w-full text-center text-3xl dark:text-zinc-500">
-        scroll inside <span class="inline-block animate-bounce text-xl dark:text-zinc-400">↓</span>
+    <div class="flex h-[50dvh] pt-[6dvh] w-full flex-col items-center justify-around">
+      <div class="font-display w-full sticky top-6 text-center text-3xl text-zinc-400 dark:text-zinc-500">
+        scroll inside <span class="inline-block animate-bounce text-xl text-zinc-500 dark:text-zinc-400">↓</span>
       </div>
-      <header class="halfway-scroll-appearing mt-20">it might appear for content parts</header>
+      <header class="halfway-scroll-appearing pt-[6dvh]">it might appear for content parts</header>
     </div>
   </section>
   <section
     ref="section3"
-    class="mx-auto mt-12 h-[30dvh] scroll-pl-10 overflow-x-scroll rounded-xl border bg-zinc-900 pl-10 md:w-md dark:border-zinc-700"
+    class="w-screen relative left-[calc(-50vw+50%)] mt-12 h-[20dvh] overflow-x-scroll rounded-x-xl border-y bg-zinc-200 border-zinc-300 dark:bg-zinc-900 dark:border-zinc-700"
   >
-    <div class="flex h-full w-[70dvh] items-center justify-center pt-26">
-      <div class="font-display flex w-full items-center text-center text-3xl dark:text-zinc-500">
-        scroll horizontal
-        <span class="inline-block animate-bounce text-xl dark:text-zinc-400">→</span>
+    <div class="flex h-full w-[190dvw] items-center justify-end">
+      <div class="font-display absolute left-1/2 text-zinc-400 text-nowrap -translate-x-1/2 flex items-center text-center text-3xl dark:text-zinc-500">
+        <div class="sticky left-0">
+          scroll horizontal
+          <span class="inline-block animate-bounce-right ml-1 relative -top-1 text-xl text-zinc-500 dark:text-zinc-400">→</span>
+        </div>
       </div>
-      <header class="halfway-scroll-appearing mt-20">it might appear for content parts</header>
+      <header class="mt-26 w-screen text-center timeline-scroll-inline">it might appear for content parts</header>
     </div>
   </section>
 </template>
@@ -83,6 +85,34 @@ showOnPassScreenPercent(section3, 30)
   animation-name: appear_half;
   animation-fill-mode: both;
   animation-timing-function: linear;
+}
+
+.timeline-scroll-inline {
+  animation-timeline: scroll(inline);
+
+  animation-name: appear;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+.animation-appear {
+  animation-name: appear;
+}
+
+@keyframes appear-right {
+  from {
+    opacity: 0;
+    transform: translate(100px, 0);
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes appear_half {
@@ -100,36 +130,12 @@ showOnPassScreenPercent(section3, 30)
   }
 }
 
-@keyframes show {
-  from {
-    display: none;
-  }
-
-  to {
-    display: block;
-  }
-}
-
 .appearing {
-  animation-timeline: view(block 50% 50%);
+  animation-timeline: view(block 40% 55%);
 
   animation-name: appear;
   animation-fill-mode: both;
   animation-timing-function: linear;
-}
-
-@keyframes fade {
-  from {
-    pointer-events: none;
-    opacity: 0;
-    /* transition-property: all; */
-    /* transition-duration: 1s; */
-  }
-
-  to {
-    pointer-events: auto;
-    opacity: 0;
-  }
 }
 
 @keyframes appear {

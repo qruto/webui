@@ -1,6 +1,7 @@
 @import 'tailwindcss';
-/* @plugin "@tailwindcss/typography"; */
-/* @plugin "@tailwindcss/forms"; */
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+@plugin "tailwindcss-motion";
 
 @import '@fontsource-variable/nunito' layer(base);
 @import '@fontsource-variable/jura' layer(base);
@@ -8,6 +9,23 @@
 @theme {
   --default-font-family: 'Nunito Variable', var(--font-sans);
   --font-display: 'Jura Variable', var(--font-sans);
+
+  --animate-bounce-right: bounce-right 1s ease-in-out infinite;
+
+  @keyframes slide-in-up {
+    from { transform: translateY(100%) }
+  }
+
+  @keyframes bounce-right {
+    0%, 100% {
+      transform: translateX(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 }
 
 @custom-variant pointer-coarse (@media (pointer: coarse));
