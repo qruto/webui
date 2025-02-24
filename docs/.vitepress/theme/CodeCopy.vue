@@ -7,6 +7,10 @@ defineExpose({ copy });
 const emit = defineEmits<{ fail: [DOMException] }>();
 
 async function copy() {
+  if (status.value !== 'waiting') {
+    return false;
+  }
+
   try {
     await navigator.clipboard.writeText(code.value?.innerText || '');
     status.value = 'copied';
@@ -17,7 +21,6 @@ async function copy() {
 
     return true;
   } catch (err) {
-    console.error(err)
     status.value = 'fail';
     emit('fail', err);
 
@@ -31,11 +34,11 @@ async function copy() {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" :class="status === 'copied' ? 'motion-preset-confetti motion-duration-[12s]' : undefined">
     <code ref="code">
       <slot />
     </code>
-    <button class="cursor-copy self-stretch" type="button" @mousedown="copy">
+    <button class="cursor-copy h-full self-stretch" type="button" @click="copy">
       <slot name="icon" :status="status" />
     </button>
   </div>

@@ -49,7 +49,7 @@ showOnPassScreenPercent(section3, 20)
       <div class="pointer-fine:inline hidden">🖱️</div>
       <div class="pointer-coarse:inline hidden">👆</div>
     </header>
-    <p class="appearing mt-24 md:mt-32">the main way to navigate content</p>
+    <p class="appearing mt-[12dvh]">the main way to navigate content</p>
   </section>
   <section
     ref="section2"
@@ -68,12 +68,12 @@ showOnPassScreenPercent(section3, 20)
   >
     <div class="flex relative w-[200vw] md:w-[150vw] h-full items-center">
       <div class="flex sticky -left-1/3 w-screen items-center justify-center">
-        <div class="font-display sticky left-5 md:left-12 text-zinc-400 md:animation-none shrink-width flex items-center text-center text-3xl dark:text-zinc-500">
+        <div class="font-display sticky left-5 md:left-12 text-zinc-400 md:animation-none shrink-width flex items-center justify-center text-center text-3xl dark:text-zinc-500">
             scroll horizontal
             <span class="inline-block animate-bounce-right ml-2 text-xl text-zinc-500 dark:text-zinc-400">→</span>
         </div>
       </div>
-      <header class="text-center shrink-0 absolute right-0 max-w-[30vw] md:max-w-full animation-range -translate-x-1/2 md:translate-0 md:w-screen motion-scale-in-0 motion-preset-fade timeline-scroll-inline">it might appear for content parts</header>
+      <header class="text-center shrink-0 absolute right-0 max-w-[30vw] md:max-w-full animation-range -translate-x-1/2 md:translate-0 md:w-screen motion-preset-fade timeline-scroll-inline">perceive it as an off-canvas tape</header>
     </div>
   </section>
 </template>
