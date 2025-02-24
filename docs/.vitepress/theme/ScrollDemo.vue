@@ -66,19 +66,39 @@ showOnPassScreenPercent(section3, 20)
     ref="section3"
     class="w-screen relative left-[calc(-50vw+50%)] mt-12 h-[20dvh] overflow-x-scroll rounded-x-xl border-y bg-zinc-200 border-zinc-300 dark:bg-zinc-900 dark:border-zinc-700"
   >
-    <div class="flex h-full w-[190dvw] items-center justify-end">
-      <div class="font-display absolute left-1/2 text-zinc-400 text-nowrap -translate-x-1/2 flex items-center text-center text-3xl dark:text-zinc-500">
-        <div class="sticky left-0">
-          scroll horizontal
-          <span class="inline-block animate-bounce-right ml-1 relative -top-1 text-xl text-zinc-500 dark:text-zinc-400">→</span>
+    <div class="flex relative w-[200vw] md:w-[150vw] h-full items-center">
+      <div class="flex sticky -left-1/3 w-screen items-center justify-center">
+        <div class="font-display sticky left-5 md:left-12 text-zinc-400 md:animation-none shrink-width flex items-center text-center text-3xl dark:text-zinc-500">
+            scroll horizontal
+            <span class="inline-block animate-bounce-right ml-2 text-xl text-zinc-500 dark:text-zinc-400">→</span>
         </div>
       </div>
-      <header class="mt-26 w-screen text-center timeline-scroll-inline">it might appear for content parts</header>
+      <header class="text-center shrink-0 absolute right-0 max-w-[30vw] md:max-w-full animation-range -translate-x-1/2 md:translate-0 md:w-screen motion-scale-in-0 motion-preset-fade timeline-scroll-inline">it might appear for content parts</header>
     </div>
   </section>
 </template>
 
 <style>
+.shrink-width {
+  animation-name: shrink-width;
+
+  animation-timeline: scroll(inline);
+
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+@keyframes shrink-width {
+  from {
+    width: 50dvw;
+    font-size: var(--text-3xl);
+  }
+  to {
+    width: 30dvw;
+    font-size: var(--text-xl);
+  }
+}
+
 .halfway-scroll-appearing {
   animation-timeline: scroll();
 
@@ -90,9 +110,13 @@ showOnPassScreenPercent(section3, 20)
 .timeline-scroll-inline {
   animation-timeline: scroll(inline);
 
-  animation-name: appear;
+  /* animation-name: appear; */
   animation-fill-mode: both;
   animation-timing-function: linear;
+}
+
+.animation-range {
+  animation-range: contain;
 }
 
 .animation-appear {

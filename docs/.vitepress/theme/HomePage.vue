@@ -1,12 +1,33 @@
 <script setup lang="ts">
+import { CheckBadgeIcon, ExclamationCircleIcon, Square2StackIcon } from '@heroicons/vue/24/outline'
+import CodeCopy from './CodeCopy.vue'
 import ScrollDemo from './ScrollDemo.vue'
 </script>
 <template>
   <header class="py-8 text-center">
     <h1 class="font-display text-5xl font-bold dark:text-zinc-100">Web UI</h1>
-    <p class="mt-4 px-4 text-zinc-400">
+    <p class="mt-6 px-4 text-zinc-400">
       Well-abstracted components that leverage the latest capabilities of the web platform.
     </p>
+    <CodeCopy
+      class="mt-8 inline-flex items-center text-zinc-900 rounded-2xl border border-zinc-200 bg-white font-mono"
+    >
+      <template #default><div class="py-3 pl-8 pr-2">npx webui.dev use</div></template>
+      <template #icon="{ status }">
+        <div
+          class="mr-5 h-full flex items-center ml-3 text-zinc-400"
+          :class="
+            status === 'copied'
+              ? '[transform:perspective(1500px)_rotateY(-360deg)] transition-transform duration-500'
+              : '[transform:perspective(1500px)_rotateY(0deg)]'
+          "
+        >
+          <Square2StackIcon class="size-5" v-if="status === 'waiting'" />
+          <CheckBadgeIcon class="size-5 text-green-500" v-if="status === 'copied'" />
+          <ExclamationCircleIcon class="size-5 text-red-500" v-if="status === 'fail'" />
+        </div>
+      </template>
+    </CodeCopy>
   </header>
   <main class="isolate mx-auto max-w-screen-md px-4">
     <p class="mt-10 text-center font-bold text-zinc-700 dark:text-zinc-300">this is page</p>

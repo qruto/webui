@@ -12,9 +12,7 @@
 
   --animate-bounce-right: bounce-right 1s ease-in-out infinite;
 
-  @keyframes slide-in-up {
-    from { transform: translateY(100%) }
-  }
+
 
   @keyframes bounce-right {
     0%, 100% {

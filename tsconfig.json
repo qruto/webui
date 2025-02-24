@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "noEmit": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
       "@theme/*": ["docs/.vitepress/theme/*"]
     }
