@@ -1,12 +1,12 @@
 import tailwindcss from '@tailwindcss/vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { defineConfig } from 'vitepress'
+import packageJson from '../../packages/vue/package.json'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Web UI',
-  description:
-    'Well-abstracted components that leverage the latest capabilities of the web platform.',
+  description: packageJson.description,
   vite: {
     plugins: [tailwindcss(), vueDevTools()],
   },

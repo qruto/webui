@@ -12,9 +12,10 @@ import {
 } from '@heroicons/vue/24/outline'
 import { CheckBadgeIcon,
 } from '@heroicons/vue/24/solid'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import CodeCopy from './CodeCopy.vue'
 import ScrollDemo from './ScrollDemo.vue'
+import packageJson from '../../../packages/vue/package.json'
 
 const globe = ref(1)
 
@@ -28,13 +29,22 @@ onMounted(() => {
   })
 })
 
-const packageManager = ref('npx')
+const packageManager = ref('npm')
 
 const foo = ref(1)
+
+const commandMap = {
+  npm: 'npx',
+  yarn: 'npx',
+  pnpm: 'pnpm dlx',
+  bun: 'bunx --bun',
+}
+
+const launchCommand = computed(() => commandMap[packageManager.value])
 </script>
 <template>
   <header class="py-8 text-center">
-    <div class="flex items-center h-14 justify-center pr-2.5">
+    <div class="flex items-center justify-center pr-2.5">
       <!-- <GlobeAmericasIcon
         v-show="globe === 1"
         class="h-12 w-12 text-yellow-500 dark:text-zinc-600"
@@ -47,41 +57,44 @@ const foo = ref(1)
         v-show="globe === 3"
         class="h-12 w-12 text-yellow-500 dark:text-zinc-600"
       /> -->
-      <ComputerDesktopIcon
-        v-show="globe === 1"
-        class="h-14 w-14 text-yellow-500 dark:text-zinc-600"
-      />
-      <DeviceTabletIcon
-        v-show="globe === 2"
-        class="h-12 w-12 text-yellow-500 dark:text-zinc-600"
-      />
-      <DevicePhoneMobileIcon
-        v-show="globe === 3"
-        class="h-10 w-10 text-yellow-500 dark:text-zinc-600"
-      />
-      <RectangleGroupIcon class="h-10 w-10 text-yellow-500 dark:text-zinc-600" :class="foo === 1 ? 'block' : 'hidden'" />
+      <div class="size-14 flex items-center justify-center">
+        <ComputerDesktopIcon
+          v-show="globe === 1"
+          class="h-14 w-14 text-zinc-400 dark:text-zinc-600"
+        />
+        <DeviceTabletIcon
+          v-show="globe === 2"
+          class="h-12 w-12 text-zinc-400 dark:text-zinc-600"
+        />
+        <DevicePhoneMobileIcon
+          v-show="globe === 3"
+          class="h-10 w-10 text-zinc-400 dark:text-zinc-600"
+        />
+      </div>
+      <RectangleGroupIcon class="h-10 w-10 text-zinc-400 dark:text-zinc-600" :class="foo === 1 ? 'block' : 'hidden'" />
     </div>
     <h1 class="font-display mt-4 text-5xl font-bold dark:text-zinc-100">Web UI</h1>
     <p class="mt-6 px-4 text-zinc-400">
-      Well-abstracted components that leverage the latest capabilities of the web platform.
+      Well-abstracted <strong>code patterns</strong> that leverage the latest capabilities of the <strong>web-platform</strong>.
     </p>
     <div class="mt-4">
       <label class="text-zinc-500" for="package-manager">I'm using</label>
       <select
         v-model="packageManager"
         id="package-manager"
-        class="border-none bg-transparent px-6 outline-none"
+        class="border-none bg-transparent pl-6 pr-8 outline-none focus:outline-2 focus:outline-yellow-500"
       >
-        <option value="npx" selected>npm</option>
-        <option value="pnpm dlx">pnpm</option>
-        <option value="bunx --bun">bun</option>
+        <option selected>npm</option>
+        <option>yarn</option>
+        <option>pnpm</option>
+        <option>bun</option>
       </select>
     </div>
     <CodeCopy
-      class="mt-2 inline-flex items-center rounded-2xl border border-zinc-200 bg-white font-mono text-yellow-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-yellow-400"
+      class="mt-2 inline-flex items-center rounded-2xl border border-zinc-200 bg-white font-mono text-fuchsia-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-yellow-400"
     >
       <template #default
-        ><div class="py-3 pr-2 pl-8">{{ packageManager }} webui.dev use</div></template
+        ><div class="py-3 pr-2 pl-8">{{ launchCommand }} webui.dev use</div></template
       >
       <template #icon="{ status }">
         <div

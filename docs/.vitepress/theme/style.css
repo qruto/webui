@@ -7,7 +7,7 @@
 @import '@fontsource-variable/jura' layer(base);
 
 @theme {
-  --default-font-family: 'Nunito Variable', var(--font-sans);
+  --default-font-family: system-ui, var(--font-sans);
   --font-display: 'Jura Variable', var(--font-sans);
 
   --animate-bounce-right: bounce-right 1s ease-in-out infinite;

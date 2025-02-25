@@ -1,7 +1,7 @@
 {
   "name": "webui.dev",
   "version": "0.0.1",
-  "description": "Well-abstracted components that leverage the latest capabilities of the web platform.",
+  "description": "Well-abstracted code patterns that leverage the latest capabilities of the web-platform.",
   "keywords": [
     "web",
     "ui",

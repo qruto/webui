@@ -34,11 +34,11 @@ async function copy() {
 </script>
 
 <template>
-  <div class="relative" :class="status === 'copied' ? 'motion-preset-confetti motion-duration-[12s]' : undefined">
+  <div class="relative transition-all" :class="status === 'copied' ? 'motion-preset-confetti motion-duration-[12s]' : undefined">
     <code ref="code">
       <slot />
     </code>
-    <button class="cursor-copy h-full self-stretch" type="button" @click="copy">
+    <button class="cursor-copy h-full" type="button" @click="copy">
       <slot name="icon" :status="status" />
     </button>
   </div>
