@@ -32,4 +32,7 @@
 :root {
   @apply scheme-light dark:scheme-dark;
   background-color: light-dark(var(--color-zinc-100), var(--color-zinc-800));
+
+  transition-behavior: allow-discrete;
+  interpolate-size: allow-keywords;
 }

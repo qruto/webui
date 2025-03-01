@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-export type ButtonProps = {
-  href?: string
-  variant?: 'inverse' | 'adaptive' | 'light' | 'plain'
-}
-
-const { variant = 'plain', href } = defineProps<ButtonProps>()
-
-const containerClass = 'inline-block text-base/6 sm:text-sm/6'
+import { Action } from 'webui.dev'
 
 const styles = {
   base: [
@@ -21,8 +12,17 @@ const styles = {
     // TODO: Hover
     'hover:after:absolute hover:after:inset-px hover:after:rounded-full hover:after:opacity-100 after:opacity-0 after:duration-200 hover:after:transition-opacity',
     // TODO: Visited
-    // Disabled
+    '',
+    // TODO: active (pressed)
+    '',
+    // TODO: Disabled
     'disabled:opacity-50 disabled:pointer-events-none',
+    // TODO: Focus
+    '',
+    // :link
+    '',
+    // Enabled
+    '',
     // Icon
     // '[&>span>[data-slot=icon]]:-mx-0.5 [&>span>[data-slot=icon]]:my-0.5 [&>span>[data-slot=icon]]:size-5 [&>span>[data-slot=icon]]:shrink-0 [&>span>[data-slot=icon]]:sm:my-1 [&>span>[data-slot=icon]]:sm:size-4',
   ],
@@ -108,35 +108,8 @@ const styles = {
     'hover:after:bg-white/30 dark:hover:after:bg-white/10',
   ],
 }
-
-const classes = computed(() => [...styles.base, ...styles[variant]])
-
-const attributes = {
-  'data-component': 'button',
-}
 </script>
 
 <template>
-  <a
-    v-if="typeof href !== 'undefined'"
-    :class="[containerClass, classes]"
-    :href
-    v-bind="attributes"
-  >
-    <slot />
-  </a>
-  <button v-else class="cursor-default" :class="classes" v-bind="attributes">
-    <span
-      :class="[
-        containerClass,
-        variant !== 'plain' ? 'group-active:relative group-active:top-px' : '',
-      ]"
-    >
-      <span
-        class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
-        aria-hidden="true"
-      />
-      <slot />
-    </span>
-  </button>
+<Action><slot /></Action>
 </template>
