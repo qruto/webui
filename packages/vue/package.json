@@ -27,11 +27,10 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/webui.js",
-      "require": "./dist/webui.cjs"
+      "default": "./dist/webui.js"
     }
   },
-  "main": "dist/webui.cjs",
+  "main": "dist/webui.js",
   "module": "dist/webui.js",
   "types": "dist/webui.d.ts",
   "bin": {

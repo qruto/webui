@@ -33,21 +33,13 @@ export default {
       staticImport: true,
       entryRoot: 'src',
       insertTypesEntry: true,
+      rollupTypes: true,
     }),
 
     vue(),
 
     tsconfigPaths(),
   ],
-
-  resolve: {
-    alias: {
-      // '@': fileURLToPath(new URL('./src', import.meta.url)),
-      // $: fileURLToPath(new URL('./src/cli', import.meta.url)),
-      // '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
-      // '@__mocks__': fileURLToPath(new URL('./__mocks__', import.meta.url)),
-    },
-  },
 
   test: {
     globals: true,
