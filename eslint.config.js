@@ -1,9 +1,15 @@
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import vueTsEslintConfig from '@vue/eslint-config-typescript'
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+} from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 
-export default [
+export default defineConfigWithVueTs(
+  pluginVue.configs['flat/strongly-recommended'],
+  vueTsConfigs.recommended,
+
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
@@ -13,9 +19,6 @@ export default [
     name: 'app/files-to-ignore',
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/cache/**', '.github'],
   },
-
-  ...pluginVue.configs['flat/strongly-recommended'],
-  ...vueTsEslintConfig(),
 
   {
     ...pluginVitest.configs.recommended,
@@ -27,10 +30,10 @@ export default [
       'vue/multi-word-component-names': [
         'error',
         {
-          ignores: ['Details', 'Button', 'Link', 'Layout'],
+          ignores: ['Details', 'Action', 'Link', 'Layout'],
         },
       ],
     },
   },
   skipFormatting,
-]
+)
