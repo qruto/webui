@@ -1,18 +1,6 @@
-<template>
-  <details ref="details" @toggle="toggle">
-    <summary
-      ref="summary"
-      class="cursor-pointer list-none [&::-webkit-details-marker]:hidden"
-      :class="summaryClass"
-    >
-      <slot :open="open" name="summary" />
-    </summary>
-    <slot />
-  </details>
-</template>
-
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+// import Action from './Action.vue';
 
 defineProps<{
   summaryClass?: string
@@ -38,3 +26,16 @@ function toggle(e: Event) {
 //   console.log(summary.value.offsetHeight);
 // });
 </script>
+
+<template>
+  <details ref="details" @toggle="toggle">
+    <summary
+      ref="summary"
+      class="cursor-pointer list-none [&::-webkit-details-marker]:hidden"
+      :class="summaryClass"
+    >
+      <slot :open="open" name="summary" />
+    </summary>
+    <slot />
+  </details>
+</template>

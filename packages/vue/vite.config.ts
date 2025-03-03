@@ -17,11 +17,6 @@ export default {
 
     rollupOptions: {
       external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
-        },
-      },
     },
 
     sourcemap: true,
@@ -40,8 +35,4 @@ export default {
 
     tsconfigPaths(),
   ],
-
-  test: {
-    globals: true,
-  },
 } satisfies UserConfig

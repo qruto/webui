@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'vue'
 
-export type ButtonProps = {
-  href?: string
-  level?: 'inverse' | 'adaptive' | 'light' | 'plain'
-}
+type ActionProps =
+  /* @vue-ignore */
+  | (ButtonHTMLAttributes & { href?: never })
+  | (Omit<AnchorHTMLAttributes, 'href'> & { href: string })
 
-const { variant = 'plain', href } = defineProps<ButtonProps>()
-
-const attributes = {
-  'data-component': 'action',
-}
+const props = defineProps<ActionProps>()
+const href = 'href' in props ? props.href : undefined
 </script>
 
 <template>
-  <a
-    v-if="typeof href !== 'undefined'"
-    :href
-    v-bind="attributes"
-  >
+  <component :is="href ? 'a' : 'button'" :href="href" data-component="action">
     <slot />
-  </a>
-  <button v-else v-bind="attributes">
-    <slot />
-    <!-- touch target -->
     <span
       class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
       aria-hidden="true"
     />
-  </button>
+  </component>
 </template>
