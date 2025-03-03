@@ -1,10 +1,19 @@
 <script setup lang="ts">
-import { Action } from 'webui.dev'
+import { TouchTarget } from 'webui.dev';
+
+import type { ButtonHTMLAttributes } from 'vue'
+
+export interface ButtonProps extends /* @vue-ignore */ ButtonHTMLAttributes {
+  mode: 'inverse' | 'adaptive' | 'light' | 'dark'
+  frame: 'solid' | 'outline' | 'plain'
+}
+
+defineProps<ButtonProps>()
 
 const styles = {
   base: [
     // Base
-    'relative group isolate rounded-full border font-semibold',
+    'relative inline-flex group isolate rounded-full border font-semibold',
     // Sizing
     'px-5 py-1.5 sm:px-7 sm:py-1.5',
     // Focus
@@ -108,8 +117,12 @@ const styles = {
     'hover:after:bg-white/30 dark:hover:after:bg-white/10',
   ],
 }
+console.log(styles);
 </script>
 
 <template>
-<Action><slot /></Action>
+  <button data-component="button" type="button">
+    <slot />
+    <TouchTarget />
+  </button>
 </template>

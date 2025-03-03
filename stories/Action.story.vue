@@ -5,7 +5,7 @@ import { Action } from '../components/Action.vue'
 
 <template>
   <Story>
-    <Action type>click me!</Action>
+    <Action >click me!</Action>
     <!-- Destructive -->
   </Story>
 </template>

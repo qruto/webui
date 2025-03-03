@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Action from '../Action.vue'
+import Action from '../../../../../components/Button.vue'
 
 const {
   // variant = 'inverse',
