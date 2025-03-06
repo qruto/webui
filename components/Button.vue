@@ -1,128 +1,97 @@
 <script setup lang="ts">
-import { TouchTarget } from 'webui.dev';
+import { TouchTarget } from 'webui.dev'
 
 import type { ButtonHTMLAttributes } from 'vue'
 
 export interface ButtonProps extends /* @vue-ignore */ ButtonHTMLAttributes {
-  mode: 'inverse' | 'adaptive' | 'light' | 'dark'
-  frame: 'solid' | 'outline' | 'plain'
+  appearance?: 'solid' | 'solid-inverse' | 'outline' | 'plain'
+  color?: 'red' | 'primary' | 'yellow' | 'zinc' | 'green'
 }
 
-defineProps<ButtonProps>()
-
+const { appearance = 'solid', color = 'green' } = defineProps<ButtonProps>()
 const styles = {
   base: [
-    // Base
-    'relative inline-flex group isolate rounded-full border font-semibold',
-    // Sizing
+    // base
+    'relative font-display inline-flex group isolate rounded-full border font-semibold',
+    // sizing
     'px-5 py-1.5 sm:px-7 sm:py-1.5',
-    // Focus
-    'focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 dark:focus-visible:outline-yellow-700',
-    // TODO: Hover
-    'hover:after:absolute hover:after:inset-px hover:after:rounded-full hover:after:opacity-100 after:opacity-0 after:duration-200 hover:after:transition-opacity',
-    // TODO: Visited
+    // focus
+    'focus:outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-yellow-500 dark:focus-visible:outline-yellow-700',
+    // hover
+    'after:absolute after:rounded-full after:shadow-none after:shadow-white after:inset-0 after:opacity-0 after:duration-500 after:transition-opacity hover:after:opacity-100',
+    // visited
     '',
-    // TODO: active (pressed)
-    '',
-    // TODO: Disabled
+
+    // Button background, implemented as foreground layer to stack on top of pseudo-border layer
+    'before:absolute before:inset-0 before:rounded-full before:bg-transparent before:shadow-sm',
+
+    // active (pressed)
+    'active:[&>span]:top-px active:[&>span]:relative active:before:shadow-none',
+    // disabled
     'disabled:opacity-50 disabled:pointer-events-none',
-    // TODO: Focus
+    // focus
     '',
     // :link
     '',
-    // Enabled
+    // enabled
     '',
-    // Icon
+    // icon
     // '[&>span>[data-slot=icon]]:-mx-0.5 [&>span>[data-slot=icon]]:my-0.5 [&>span>[data-slot=icon]]:size-5 [&>span>[data-slot=icon]]:shrink-0 [&>span>[data-slot=icon]]:sm:my-1 [&>span>[data-slot=icon]]:sm:size-4',
   ],
-  // solid: [
-  //   // Optical border, implemented as the button background to avoid corner artifacts
-  //   'border-transparent bg-[--btn-border]',
-  //   // Dark mode: border is rendered on `after` so background is set to button background
-  //   'dark:bg-[--btn-bg]',
-  //   // Button background, implemented as foreground layer to stack on top of pseudo-border layer
-  //   'before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-[--btn-bg]',
-  //   // Drop shadow, applied to the inset `before` layer so it blends with the border
-  //   'before:shadow',
-  //   // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
-  //   'dark:before:hidden',
-  //   // Dark mode: Subtle white outline is applied using a border
-  //   'dark:border-white/5',
-  //   // Shim/overlay, inset to match button foreground and used for hover state + highlight shadow
-  //   'after:absolute after:inset-0 after:-z-10 after:rounded-lg',
-  //   // Inner highlight shadow
-  //   'after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)]',
-  //   // White overlay on hover
-  //   'after:active:bg-[--btn-hover-overlay] after:data-[hover]:bg-[--btn-hover-overlay]',
-  //   // Dark mode: `after` layer expands to cover entire button
-  //   'dark:after:-inset-px dark:after:rounded-lg',
-  //   // Disabled
-  //   'disabled:shadow-none disabled:after:shadow-none',
-  // ],
-  plain: [
-    // Base
-    'border-transparent',
-
-    // Dark mode
-    'dark:text-zinc-100 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)] dark:active:top-px',
-
-    // Hover
-    'hover:after:bg-white/40 dark:hover:after:bg-white/5',
-
-    // Active
-    'active:top-px active:shadow-inner',
-  ],
-
-  outline: [
-    // Dark mode
-    'dark:text-zinc-100 dark:border-zinc-700 dark:active:shadow-[shadow:inset_0_2px_theme(colors.black/15%)]',
-
-    // Active
-    'active:shadow-inner',
-
-    // Hover
-    'hover:after:bg-white/30 dark:hover:after:bg-white/5',
-  ],
-
-  inverse: [
-    // Base
-    'border-zinc-600 text-zinc-100 bg-zinc-800 shadow-[shadow:inset_0_1px_theme(colors.white/20%),inset_0_-2px_theme(colors.black)]',
-    // Dark mode
-    'dark:text-zinc-950 dark:bg-zinc-100 dark:border-zinc-900 dark:shadow-[shadow:inset_0_2px_theme(colors.white),inset_0_-1px_theme(colors.black/30%)]',
-    // Hover
-    'hover:after:bg-white/10 dark:hover:after:bg-white/40',
-    // Active
-    'active:shadow-[shadow:inset_0_2px_theme(colors.black),inset_0_-1px_theme(colors.white/20%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/30%),inset_0_-2px_theme(colors.white)]',
-  ],
-
-  adaptive: [
-    // Base
-    'text-zinc-900 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white),inset_0_-1px_theme(colors.black/20%)]',
-    // Dark mode
-    'dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/90%)] dark:bg-zinc-900',
-    // Hover
-    'hover:after:bg-white/30 dark:hover:after:bg-white/5',
-    // Active
-    'active:top-px active:shadow-[shadow:inset_0_1px_theme(colors.black/10%),inset_0_-1px_theme(colors.white)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/5%)]',
-  ],
-
-  light: [
-    // Base
-    'text-zinc-800 border border-zinc-200 bg-zinc-50 shadow-[shadow:inset_0_1px_theme(colors.white/30%),inset_0_-1px_theme(colors.black/40%)]',
-    // Dark mode
-    'dark:text-zinc-200 dark:border-zinc-900 dark:shadow-[shadow:inset_0_1px_theme(colors.white/10%),inset_0_-1px_theme(colors.black/40%)] dark:bg-zinc-600',
-    // Active
-    'active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/30%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/40%),inset_0_-1px_theme(colors.white/7%)]',
-    // Hover
-    'hover:after:bg-white/30 dark:hover:after:bg-white/10',
-  ],
+  appearance: {
+    solid: [
+      // Base
+      // 'inset-shadow-convex-light',
+      // Dark mode
+      'dark:inset-shadow-convex',
+      // Hover
+      'hover:after:bg-white/30 dark:hover:after:bg-white/3',
+      // Active
+      'active:inset-shadow-concave-light',
+    ],
+    'solid-inverse': [
+      // Base
+      'border-zinc-600 text-zinc-100 bg-zinc-800 shadow-[shadow:inset_0_1px_theme(colors.white/20%),inset_0_-2px_theme(colors.black)]',
+      // Dark mode
+      'dark:text-zinc-950 dark:bg-zinc-100 dark:border-zinc-900 dark:shadow-[shadow:inset_0_2px_theme(colors.white),inset_0_-1px_theme(colors.black/30%)]',
+      // Hover
+      'hover:after:bg-white/10 dark:hover:after:bg-white/40',
+      // Active
+      'active:shadow-[shadow:inset_0_2px_theme(colors.black),inset_0_-1px_theme(colors.white/20%)] dark:active:shadow-[shadow:inset_0_1px_theme(colors.black/30%),inset_0_-2px_theme(colors.white)]',
+    ],
+    outline: [],
+    plain: [],
+  },
+  color: {
+    zinc: [
+      'text-zinc-900 border-zinc-200 bg-zinc-50',
+      'dark:text-zinc-200 dark:border-zinc-900 dark:bg-zinc-900'
+    ],
+    red: [
+      'text-red-900 border-red-200 bg-red-50',
+      'dark:text-red-100 dark:border-red-950 dark:bg-red-900'
+    ],
+    primary: [],
+    yellow: [
+      'dark:text-blue-100 dark:border-yellow-950/80 dark:bg-yellow-900'
+    ],
+    green: [
+      'text-green-800 border-green-300 bg-green-100 inset-shadow-green-100',
+      'dark:text-green-800 dark:border-green-950/80 dark:bg-green-100'
+    ],
+  }
 }
-console.log(styles);
 </script>
 
 <template>
-  <button data-component="button" type="button">
-    <slot />
+  <button
+    data-component="button"
+    type="button"
+    :class="[styles.base, styles.appearance[appearance], styles.color[color]]"
+  >
+    <span>
+      <slot />
+    </span>
     <TouchTarget />
   </button>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
+// import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
 import { ref } from 'vue'
 import { Details } from 'webui.dev'
 
