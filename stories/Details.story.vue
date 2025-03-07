@@ -1,18 +1,13 @@
 <script setup lang="ts">
 // import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
-import { ref } from 'vue'
-import { Details } from 'webui.dev'
+import Details2 from 'components/Details2.vue'
 
-const open = ref(false)
-
-function onToggle(e: Event) {
-  open.value = e.newState === 'open'
-}
+// function appearance()
 </script>
 
 <template>
   <Story>
-    <Details
+    <Details2
       ref="details"
       class="dark:shadow-concave-dark shadow-concave rounded-3xl bg-zinc-200 px-8 py-4 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500"
       summary-class="flex gap-4 dark:text-zinc-200 rounded-t-3xl items-center justify-between"
@@ -32,6 +27,6 @@ function onToggle(e: Event) {
         <MinusIcon v-else class="size-5" />
       </template>
       <div class="mt-4">some details</div>
-    </Details>
+    </Details2>
   </Story>
 </template>

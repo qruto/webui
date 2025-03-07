@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton, DialogModal } from 'webui.dev'
+// import { Button, CloseButton, DialogModal } from 'webui.dev'
 import { ref, useTemplateRef } from 'vue'
 
 const open = ref(false)

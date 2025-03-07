@@ -29,14 +29,25 @@
 @custom-variant pointer-fine (@media (pointer: fine));
 
 @utility inset-shadow-convex-light {
-  --tw-inset-shadow: inset 0 1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0 / 0.05)) calc(l + 0.9) c h), inset 0 -1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0 / 0.05)) calc(l - 0.05) c h);
-  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-}
-
-@utility inset-shadow-convex-light {
   --tw-inset-shadow:
     inset 0 1px 0 var(--color-white),
     inset 0 -1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0)) calc(l - 0.06) c h);
+
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+@utility inset-shadow-convex-dark {
+  --tw-inset-shadow:
+    inset 0 1px 0 oklch(from var(--tw-inset-shadow-color, rgb(255 255 255)) calc(l + 0.06) c h),
+    inset 0 -1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0)) calc(l - 0.06) c h);
+
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+@utility inset-shadow-concave-dark {
+  --tw-inset-shadow:
+    inset 0 1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0)) calc(l - 0.05) c h),
+    inset 0 -1px 0 oklch(from var(--tw-inset-shadow-color, rgb(255 255 255)) calc(l + 0.06) c h);
 
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
@@ -46,12 +57,6 @@
     inset 0 1px 0 oklch(from var(--tw-inset-shadow-color, rgb(0 0 0)) calc(l - 0.08) c h),
     inset 0 -1px 0 var(--color-white);
 
-  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-}
-
-@utility bg-convex-* {
-  --tw-inset-shadow: inset 0 1px 0 oklch(from --value(--color-*) calc(l + 0.9) c h), inset 0 -1px 0 oklch(from --value(--color-*) calc(l - 0.05) c h);
-  background-color: --value(--color-*);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 

@@ -1,37 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
-defineProps<{
-  summaryClass?: string
-}>()
-
-const emit = defineEmits(['toggle'])
-
-const details = ref()
-const summary = ref()
+import { ref } from 'vue'
 
 const open = ref(false)
-
-onMounted(() => (open.value = details.value.open))
-
-function toggle(e: Event) {
-  emit('toggle', e)
-
-  open.value = (e.target as HTMLDetailsElement).open
-}
-
-// onMounted(() => {
-//   console.log(details.value.offsetHeight);
-//   console.log(summary.value.offsetHeight);
-// });
 </script>
 
 <template>
-  <details ref="details" @toggle="toggle">
+  <details>
     <summary
       ref="summary"
       class="cursor-pointer list-none [&::-webkit-details-marker]:hidden"
-      :class="summaryClass"
     >
       <slot :open="open" name="summary" />
     </summary>

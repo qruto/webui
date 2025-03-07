@@ -4,9 +4,9 @@ import {
   ComputerDesktopIcon,
   DevicePhoneMobileIcon,
   DeviceTabletIcon,
-  GlobeAmericasIcon,
-  GlobeAsiaAustraliaIcon,
-  GlobeEuropeAfricaIcon,
+  // GlobeAmericasIcon,
+  // GlobeAsiaAustraliaIcon,
+  // GlobeEuropeAfricaIcon,
   RectangleGroupIcon,
   Square2StackIcon,
 } from '@heroicons/vue/24/outline'
@@ -15,7 +15,7 @@ import { CheckBadgeIcon,
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import CodeCopy from './CodeCopy.vue'
 import ScrollDemo from './ScrollDemo.vue'
-import packageJson from '../../../packages/vue/package.json'
+// import packageJson from '../../../packages/vue/package.json'
 
 const globe = ref(1)
 
@@ -91,7 +91,7 @@ const launchCommand = computed(() => commandMap[packageManager.value])
       </select>
     </div>
     <CodeCopy
-      class="mt-2 inline-flex items-center rounded-2xl border border-zinc-200 bg-white font-mono text-fuchsia-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-yellow-400"
+      class="mt-2 inline-flex items-center rounded-2xl border border-zinc-200 bg-white font-mono text-fuchsia-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-fuchsia-400"
     >
       <template #default
         ><div class="py-3 pr-2 pl-8">{{ launchCommand }} webui.dev use</div></template
