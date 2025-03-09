@@ -7,14 +7,16 @@ import packageJson from '../../packages/vue/package.json'
 export default defineConfig({
   title: 'Web UI',
   description: packageJson.description,
+  outDir: '../server/public',
   vite: {
     plugins: [tailwindcss(), vueDevTools()],
+    build: { emptyOutDir: false },
   },
 
-  // head: [
-  //   [
-  //     'script',
-  //     { src: 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js', defer: '' },
-  //   ],
-  // ],
+  head: [
+    [
+      'script',
+      { src: 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js', async: '' },
+    ],
+  ],
 })

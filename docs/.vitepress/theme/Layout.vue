@@ -3,7 +3,7 @@ import { useData } from 'vitepress'
 import DialogModalExample from '../../examples/DialogModalExample.vue'
 import HomePage from './HomePage.vue'
 
-import 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js';
+// import 'https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js';
 
 // https://vitepress.dev/reference/runtime-api#usedata
 const { frontmatter } = useData()

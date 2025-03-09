@@ -35,7 +35,7 @@ function close() {
         'md:-translate-y-full md:open:starting:translate-y-0',
         // backdrop transition
         'backdrop:transition-all backdrop:transition-discrete backdrop:duration-500',
-        'backdrop:bg-black/0 open:backdrop:bg-black/40 starting:open:backdrop:bg-black/0',
+        // 'backdrop:bg-black/0 open:backdrop:bg-black/40 starting:open:backdrop:bg-black/0',
       ]"
       :open="open"
       @close="close"
