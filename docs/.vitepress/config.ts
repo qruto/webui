@@ -11,6 +11,15 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), vueDevTools()],
     build: { emptyOutDir: false },
+    server: {
+      proxy: {
+        '/@': {
+          target: 'http://webui-laravel.test',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/@/, ''),
+        },
+      },
+    },
   },
 
   head: [

@@ -41,6 +41,31 @@ const commandMap = {
 }
 
 const launchCommand = computed(() => commandMap[packageManager.value])
+
+async function subscribe(event: Event) {
+  const form = event.target as HTMLFormElement;
+  const formData = new FormData(form);
+  const email = formData.get('email');
+
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {https://www.google.com/search?client=safari&rls=en&q=sdf&ie=UTF-8&oe=UTF-8
+      throw new Error('Network response was not ok');
+    }
+
+    alert('Subscription successful!');
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    alert('Subscription failed. Please try again.');
+  }
+};
 </script>
 <template>
   <header class="py-8 text-center">
@@ -77,6 +102,13 @@ const launchCommand = computed(() => commandMap[packageManager.value])
     <p class="mt-6 px-4 text-zinc-400">
       Well-abstracted <strong>code patterns</strong> that leverage the latest capabilities of the <strong>web-platform</strong>.
     </p>
+    <section>
+      <header>subscribe</header>
+      <form action="/subscribe" class="flex gap-4 items-center justify-center" @submit.prevent="subscribe">
+        <input class="w-1/2 px-5 bg-zinc-900 rounded-full border border-zinc-700" name="email" type="email" placeholder="send me updates via e-mail" />
+        <button class="px-6 hover:bg-zinc-700 py-1 border border-zinc-700 rounded-full" type="submit">subscribe ✉</button>
+      </form>
+    </section>
     <div class="mt-4">
       <label class="text-zinc-500" for="package-manager">I'm using</label>
       <select
