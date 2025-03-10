@@ -13,7 +13,7 @@ export default defineConfig({
     build: { emptyOutDir: false },
     server: {
       proxy: {
-        '/@': {
+        '^/@/.*': {
           target: 'http://webui-laravel.test',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/@/, ''),

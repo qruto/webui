@@ -47,16 +47,22 @@ async function subscribe(event: Event) {
   const formData = new FormData(form);
   const email = formData.get('email');
 
+  await fetch('/@/sanctum/csrf-cookie', { credentials: 'same-origin' });
+  const tokenCookie = document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN='));
+  const xsrfToken = tokenCookie?.split('=')[1];
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (xsrfToken) {
+    headers['X-XSRF-TOKEN'] = decodeURIComponent(xsrfToken);
+  }
+
   try {
-    const response = await fetch('/api/subscribe', {
+    const response = await fetch(`/@${new URL(form.action).pathname}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({ email }),
     });
 
-    if (!response.ok) {https://www.google.com/search?client=safari&rls=en&q=sdf&ie=UTF-8&oe=UTF-8
+    if (!response.ok) {
       throw new Error('Network response was not ok');
     }
 
