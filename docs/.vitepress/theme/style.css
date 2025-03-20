@@ -3,11 +3,11 @@
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-motion";
 
-@import '@fontsource-variable/nunito' layer(base);
+@import '@fontsource-variable/quicksand' layer(base);
 @import '@fontsource-variable/jura' layer(base);
 
 @theme {
-  --default-font-family: 'Nunito Variable', system-ui, var(--font-sans);
+  --default-font-family: 'Quicksand Variable', ui-rounded, system-ui, var(--font-sans);
   --font-display: 'Jura Variable', var(--font-sans);
   --font-ui: 'Nunito Variable', var(--font-sans);
 

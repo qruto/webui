@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import {
-  ExclamationCircleIcon,
   ComputerDesktopIcon,
   DevicePhoneMobileIcon,
   DeviceTabletIcon,
+  ExclamationCircleIcon,
   // GlobeAmericasIcon,
   // GlobeAsiaAustraliaIcon,
   // GlobeEuropeAfricaIcon,
   RectangleGroupIcon,
   Square2StackIcon,
 } from '@heroicons/vue/24/outline'
-import { CheckBadgeIcon,
-} from '@heroicons/vue/24/solid'
+import { CheckBadgeIcon } from '@heroicons/vue/24/solid'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import CodeCopy from './CodeCopy.vue'
+import CSSLogo from './CSSLogo.vue'
+import MotionLogo from './MotionLogo.vue'
 import ScrollDemo from './ScrollDemo.vue'
+import TailwindLogo from './TailwindLogo.vue'
+import VueLogo from './VueLogo.vue'
 // import packageJson from '../../../packages/vue/package.json'
 
 const globe = ref(1)
@@ -43,16 +46,16 @@ const commandMap = {
 const launchCommand = computed(() => commandMap[packageManager.value])
 
 async function subscribe(event: Event) {
-  const form = event.target as HTMLFormElement;
-  const formData = new FormData(form);
-  const email = formData.get('email');
+  const form = event.target as HTMLFormElement
+  const formData = new FormData(form)
+  const email = formData.get('email')
 
-  await fetch('/@/sanctum/csrf-cookie', { credentials: 'same-origin' });
-  const tokenCookie = document.cookie.split('; ').find((row) => row.startsWith('XSRF-TOKEN='));
-  const xsrfToken = tokenCookie?.split('=')[1];
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  await fetch('/@/sanctum/csrf-cookie', { credentials: 'same-origin' })
+  const tokenCookie = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))
+  const xsrfToken = tokenCookie?.split('=')[1]
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
   if (xsrfToken) {
-    headers['X-XSRF-TOKEN'] = decodeURIComponent(xsrfToken);
+    headers['X-XSRF-TOKEN'] = decodeURIComponent(xsrfToken)
   }
 
   try {
@@ -60,18 +63,18 @@ async function subscribe(event: Event) {
       method: 'POST',
       headers,
       body: JSON.stringify({ email }),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Network response was not ok')
     }
 
-    alert('Subscription successful!');
+    alert('Subscription successful!')
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
-    alert('Subscription failed. Please try again.');
+    console.error('There was a problem with the fetch operation:', error)
+    alert('Subscription failed. Please try again.')
   }
-};
+}
 </script>
 <template>
   <header class="py-8 text-center">
@@ -88,31 +91,104 @@ async function subscribe(event: Event) {
         v-show="globe === 3"
         class="h-12 w-12 text-yellow-500 dark:text-zinc-600"
       /> -->
-      <div class="size-14 flex items-center justify-center">
+      <div class="flex size-14 items-center justify-center">
         <ComputerDesktopIcon
           v-show="globe === 1"
           class="h-14 w-14 text-zinc-400 dark:text-zinc-600"
         />
-        <DeviceTabletIcon
-          v-show="globe === 2"
-          class="h-12 w-12 text-zinc-400 dark:text-zinc-600"
-        />
+        <DeviceTabletIcon v-show="globe === 2" class="h-12 w-12 text-zinc-400 dark:text-zinc-600" />
         <DevicePhoneMobileIcon
           v-show="globe === 3"
           class="h-10 w-10 text-zinc-400 dark:text-zinc-600"
         />
       </div>
-      <RectangleGroupIcon class="h-10 w-10 text-zinc-400 dark:text-zinc-600" :class="foo === 1 ? 'block' : 'hidden'" />
+      <RectangleGroupIcon
+        class="h-10 w-10 text-zinc-400 dark:text-zinc-600"
+        :class="foo === 1 ? 'block' : 'hidden'"
+      />
     </div>
     <h1 class="font-display mt-4 text-5xl font-bold dark:text-zinc-100">Web UI</h1>
-    <p class="mt-6 px-4 text-zinc-400">
-      Well-abstracted <strong>code patterns</strong> that leverage the latest capabilities of the <strong>web-platform</strong>.
+    <p class="mx-auto mt-6 max-w-xl px-4 text-xl text-zinc-500">
+      Well-abstracted <strong class="text-zinc-500 dark:text-zinc-200">code patterns</strong> that
+      leverage the latest capabilities of the
+      <strong class="text-zinc-500 dark:text-zinc-300">web-platform</strong>.
     </p>
-    <section>
-      <header>subscribe</header>
-      <form action="/subscribe" class="flex gap-4 items-center justify-center" @submit.prevent="subscribe">
-        <input class="w-1/2 px-5 bg-zinc-900 rounded-full border border-zinc-700" name="email" type="email" placeholder="send me updates via e-mail" />
-        <button class="px-6 hover:bg-zinc-700 py-1 border border-zinc-700 rounded-full" type="submit">subscribe ✉</button>
+    <section class="mt-8 text-center">
+      <header class="flex flex-col items-center justify-center gap-2">
+        <span class="group relative top-px inline-flex items-end text-xl font-bold text-zinc-500">
+          <VueLogo class="w-16 text-zinc-500" /><span class="-ml-2 text-green-800">ue</span>
+        </span>
+        exclusive component library
+      </header>
+      <div class="mx-auto max-w-md">
+        <div class="mt-8 flex gap-8">
+          <div class="flex">
+            <TailwindLogo class="w-12" />
+            <span>
+              styled via&nbsp;<a
+                class="underline"
+                href="https://tailwindcss.com"
+                target="_blank"
+                rel="noreferrer"
+                >tailwindcss.com</a
+              >
+            </span>
+          </div>
+          <div class="flex">
+            <MotionLogo class="w-11" />
+            <span>
+              animated with&nbsp;<a
+                class="underline"
+                href="https://motion.dev"
+                target="_blank"
+                rel="noreferrer"
+                >motion.dev</a
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <div class="flex items-end justify-center gap-2">
+            <CSSLogo class="w-10" />
+            <span>
+              uses&nbsp;<a
+                class="underline"
+                href="https://developer.chrome.com/blog/new-in-web-ui-io-2024"
+                target="_blank"
+                rel="noreferrer"
+                >most modern CSS features</a
+              >
+            </span>
+
+          </div>
+          <ul>
+              <li>✓ View Transitions API</li>
+              <li>✓ Scroll-driven Animations</li>
+              <li>✓ Anchor Positioning</li>
+            </ul>
+        </div>
+      </div>
+    </section>
+    <section class="mt-12">
+      <form
+        action="/subscribe"
+        class="flex items-center justify-center gap-2"
+        @submit.prevent="subscribe"
+      >
+        <input
+          class="peer w-1/3 rounded-full border border-zinc-300 bg-zinc-200 px-5 transition-[width] focus-visible:w-1/2 dark:border-zinc-700 dark:bg-zinc-900"
+          name="email"
+          type="email"
+          required
+          placeholder="notify by email..."
+        />
+        <button
+          class="invisible rounded-full px-2 py-1 text-yellow-500 peer-required:invisible peer-valid:visible dark:border-zinc-700 dark:hover:bg-zinc-700"
+          type="submit"
+        >
+          ☆
+        </button>
       </form>
     </section>
     <div class="mt-4">
@@ -120,7 +196,7 @@ async function subscribe(event: Event) {
       <select
         v-model="packageManager"
         id="package-manager"
-        class="border-none bg-transparent pl-6 pr-8 outline-none focus:outline-2 focus:outline-yellow-500"
+        class="border-none bg-transparent pr-8 pl-6 outline-none focus:outline-2 focus:outline-yellow-500"
       >
         <option selected>npm</option>
         <option>yarn</option>
